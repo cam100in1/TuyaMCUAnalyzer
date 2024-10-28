@@ -50,17 +50,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.richTextBoxSrc = new System.Windows.Forms.RichTextBox();
             this.dataGridViewDecoded = new System.Windows.Forms.DataGridView();
-            this.DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxHideDate = new System.Windows.Forms.CheckBox();
             this.buttonCopyRawToClipboard = new System.Windows.Forms.Button();
             this.buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
@@ -93,6 +82,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.richTextBoxComparer = new System.Windows.Forms.RichTextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -124,7 +124,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1384, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1404, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -214,7 +214,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1384, 660);
+            this.tabControl1.Size = new System.Drawing.Size(1404, 662);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -236,7 +236,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1376, 634);
+            this.tabPage1.Size = new System.Drawing.Size(1396, 636);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decode tool";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -278,7 +278,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridViewDecoded);
-            this.splitContainer1.Size = new System.Drawing.Size(1006, 553);
+            this.splitContainer1.Size = new System.Drawing.Size(1026, 555);
             this.splitContainer1.SplitterDistance = 274;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 19;
@@ -292,16 +292,20 @@
             this.richTextBoxSrc.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxSrc.Name = "richTextBoxSrc";
             this.richTextBoxSrc.ReadOnly = true;
-            this.richTextBoxSrc.Size = new System.Drawing.Size(1002, 274);
+            this.richTextBoxSrc.Size = new System.Drawing.Size(1022, 274);
             this.richTextBoxSrc.TabIndex = 10;
             this.richTextBoxSrc.Text = "";
             this.richTextBoxSrc.TextChanged += new System.EventHandler(this.richTextBoxSrcChanged);
             // 
             // dataGridViewDecoded
             // 
-            this.dataGridViewDecoded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewDecoded.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewDecoded.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.dataGridViewDecoded.BackgroundColor = System.Drawing.SystemColors.ControlDark;
+            this.dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DGCDirection,
@@ -323,77 +327,12 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDecoded.Location = new System.Drawing.Point(1, 3);
+            this.dataGridViewDecoded.Location = new System.Drawing.Point(-2, 4);
             this.dataGridViewDecoded.Name = "dataGridViewDecoded";
+            this.dataGridViewDecoded.RowHeadersVisible = false;
             this.dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDecoded.Size = new System.Drawing.Size(1001, 269);
+            this.dataGridViewDecoded.Size = new System.Drawing.Size(1021, 271);
             this.dataGridViewDecoded.TabIndex = 23;
-            // 
-            // DGCDirection
-            // 
-            this.DGCDirection.HeaderText = "Direction";
-            this.DGCDirection.Name = "DGCDirection";
-            this.DGCDirection.Width = 88;
-            // 
-            // DGCHeader
-            // 
-            this.DGCHeader.HeaderText = "Header";
-            this.DGCHeader.Name = "DGCHeader";
-            this.DGCHeader.Width = 87;
-            // 
-            // DGCVersion
-            // 
-            this.DGCVersion.HeaderText = "Version";
-            this.DGCVersion.Name = "DGCVersion";
-            this.DGCVersion.Width = 88;
-            // 
-            // DGCCommand
-            // 
-            this.DGCCommand.HeaderText = "Command";
-            this.DGCCommand.Name = "DGCCommand";
-            this.DGCCommand.Width = 88;
-            // 
-            // DGCLenght
-            // 
-            this.DGCLenght.HeaderText = "Length";
-            this.DGCLenght.Name = "DGCLenght";
-            this.DGCLenght.Width = 87;
-            // 
-            // DGCDPid
-            // 
-            this.DGCDPid.HeaderText = "DPid";
-            this.DGCDPid.Name = "DGCDPid";
-            this.DGCDPid.Width = 88;
-            // 
-            // DGCType
-            // 
-            this.DGCType.HeaderText = "Type";
-            this.DGCType.Name = "DGCType";
-            this.DGCType.Width = 87;
-            // 
-            // DGCDataLen
-            // 
-            this.DGCDataLen.HeaderText = "DataLen";
-            this.DGCDataLen.Name = "DGCDataLen";
-            this.DGCDataLen.Width = 88;
-            // 
-            // DGCData
-            // 
-            this.DGCData.HeaderText = "Data";
-            this.DGCData.Name = "DGCData";
-            this.DGCData.Width = 88;
-            // 
-            // DGCDecoded
-            // 
-            this.DGCDecoded.HeaderText = "Decoded";
-            this.DGCDecoded.Name = "DGCDecoded";
-            this.DGCDecoded.Width = 87;
-            // 
-            // DGCChecksum
-            // 
-            this.DGCChecksum.HeaderText = "Checksum";
-            this.DGCChecksum.Name = "DGCChecksum";
-            this.DGCChecksum.Width = 88;
             // 
             // checkBoxHideDate
             // 
@@ -489,7 +428,7 @@
             this.groupBox1.Controls.Add(this.checkBoxRealtimeDual);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.listViewAvailableIDs);
-            this.groupBox1.Location = new System.Drawing.Point(1015, 3);
+            this.groupBox1.Location = new System.Drawing.Point(1035, 3);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -714,17 +653,102 @@
             this.timer1.Interval = 25;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // DGCDirection
+            // 
+            this.DGCDirection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCDirection.FillWeight = 279.1878F;
+            this.DGCDirection.HeaderText = "Direction";
+            this.DGCDirection.Name = "DGCDirection";
+            this.DGCDirection.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGCDirection.Width = 60;
+            // 
+            // DGCHeader
+            // 
+            this.DGCHeader.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCHeader.FillWeight = 82.08122F;
+            this.DGCHeader.HeaderText = "Header";
+            this.DGCHeader.Name = "DGCHeader";
+            this.DGCHeader.Width = 60;
+            // 
+            // DGCVersion
+            // 
+            this.DGCVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCVersion.FillWeight = 82.08122F;
+            this.DGCVersion.HeaderText = "Version";
+            this.DGCVersion.Name = "DGCVersion";
+            this.DGCVersion.Width = 60;
+            // 
+            // DGCCommand
+            // 
+            this.DGCCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCCommand.FillWeight = 82.08122F;
+            this.DGCCommand.HeaderText = "Command";
+            this.DGCCommand.Name = "DGCCommand";
+            this.DGCCommand.Width = 60;
+            // 
+            // DGCLenght
+            // 
+            this.DGCLenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCLenght.FillWeight = 82.08122F;
+            this.DGCLenght.HeaderText = "Length";
+            this.DGCLenght.Name = "DGCLenght";
+            this.DGCLenght.Width = 60;
+            // 
+            // DGCDPid
+            // 
+            this.DGCDPid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCDPid.FillWeight = 82.08122F;
+            this.DGCDPid.HeaderText = "DPid";
+            this.DGCDPid.Name = "DGCDPid";
+            this.DGCDPid.Width = 60;
+            // 
+            // DGCType
+            // 
+            this.DGCType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCType.FillWeight = 82.08122F;
+            this.DGCType.HeaderText = "Type";
+            this.DGCType.Name = "DGCType";
+            this.DGCType.Width = 60;
+            // 
+            // DGCDataLen
+            // 
+            this.DGCDataLen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCDataLen.FillWeight = 82.08122F;
+            this.DGCDataLen.HeaderText = "DataLen";
+            this.DGCDataLen.Name = "DGCDataLen";
+            this.DGCDataLen.Width = 60;
+            // 
+            // DGCData
+            // 
+            this.DGCData.FillWeight = 82.08122F;
+            this.DGCData.HeaderText = "Data";
+            this.DGCData.Name = "DGCData";
+            // 
+            // DGCDecoded
+            // 
+            this.DGCDecoded.FillWeight = 82.08122F;
+            this.DGCDecoded.HeaderText = "Decoded";
+            this.DGCDecoded.Name = "DGCDecoded";
+            // 
+            // DGCChecksum
+            // 
+            this.DGCChecksum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DGCChecksum.FillWeight = 82.08122F;
+            this.DGCChecksum.HeaderText = "Checksum";
+            this.DGCChecksum.Name = "DGCChecksum";
+            this.DGCChecksum.Width = 60;
+            // 
             // FormTuyaMCUAnalyzer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 684);
+            this.ClientSize = new System.Drawing.Size(1404, 686);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1400, 720);
+            this.MinimumSize = new System.Drawing.Size(1420, 725);
             this.Name = "FormTuyaMCUAnalyzer";
             this.Text = "TuyaMCU Explorer/Analyzer for OpenBeken - Elektroda.com ";
             this.Load += new System.EventHandler(this.Form1_Load);
