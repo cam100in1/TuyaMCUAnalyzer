@@ -26,6 +26,8 @@ namespace TuyaMCUAnalyzer
         }
         private bool bUseVarsForVer0Cmd6InsteadOfDate = true;
         private ListViewItem PrintLineHex = new ListViewItem(new string[] { "", "", "", "", "", "", "", "", "", "", "" });
+        private DataGridViewRow DGPrintLineHex = new DataGridViewRow();
+        
 
         private string getSpecialMarker(ref List<byte> p)
         {
@@ -140,11 +142,15 @@ namespace TuyaMCUAnalyzer
                 bHadColor = false;
                 PrintLineHex.SubItems[9].Text = contentString + " Col: ■";
                 PrintLineHex.SubItems[9].ForeColor = col;
+                DGPrintLineHex.Cells[9].Value = contentString + " Col: ■";
+                DGPrintLineHex.Cells[9].Style.ForeColor  = col;
             }
             else 
             {
                 PrintLineHex.SubItems[9].Text = contentString;
                 PrintLineHex.SubItems[9].ForeColor = Color.Black;
+                DGPrintLineHex.Cells[9].Value = contentString;
+                DGPrintLineHex.Cells[9].Style.ForeColor = Color.Black;
             }
         }
         void displayPacket(List<byte> p, Dictionary<int, IDTracker> vars)
@@ -162,6 +168,15 @@ namespace TuyaMCUAnalyzer
             PrintLineHex.SubItems[3].ForeColor = Color.Red;
             PrintLineHex.SubItems[4].Text = p[4].ToString("X2") + " " + p[5].ToString("X2");
             PrintLineHex.SubItems[4].ForeColor = Color.Green;
+
+            DGPrintLineHex.Cells[1].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
+            DGPrintLineHex.Cells[1].Style.ForeColor = Color.Black;
+            DGPrintLineHex.Cells[2].Value = p[2].ToString("X2");
+            DGPrintLineHex.Cells[2].Style.ForeColor = Color.Magenta;
+            DGPrintLineHex.Cells[3].Value = p[3].ToString("X2");
+            DGPrintLineHex.Cells[3].Style.ForeColor = Color.Red;
+            DGPrintLineHex.Cells[4].Value = p[4].ToString("X2") + " " + p[5].ToString("X2");
+            DGPrintLineHex.Cells[4].Style.ForeColor = Color.Green;
             string cmdName = "Unk";
             // https://images.tuyacn.com/smart/aircondition/Guide-to-Interworking-with-the-Tuya-MCU.pdf
             switch (cmd)
@@ -213,6 +228,13 @@ namespace TuyaMCUAnalyzer
                         PrintLineHex.SubItems[6].ForeColor = Color.Green;
                         PrintLineHex.SubItems[7].Text = p[ofs + 2].ToString("X2") + " " + p[ofs + 3].ToString("X2");
                         PrintLineHex.SubItems[7].ForeColor = Color.Black;
+
+                        DGPrintLineHex.Cells[5].Value = p[ofs].ToString("X2");
+                        DGPrintLineHex.Cells[5].Style.ForeColor = Color.Black;
+                        DGPrintLineHex.Cells[6].Value = p[ofs + 1].ToString("X2");
+                        DGPrintLineHex.Cells[6].Style.ForeColor = Color.Green;
+                        DGPrintLineHex.Cells[7].Value = p[ofs + 2].ToString("X2") + " " + p[ofs + 3].ToString("X2");
+                        DGPrintLineHex.Cells[7].Style.ForeColor  = Color.Black;
                         int dataType = p[ofs + 1];
                         
                         if (sectorLen == 1)
@@ -220,12 +242,16 @@ namespace TuyaMCUAnalyzer
                             int iVal = (int)p[ofs + 4];
                             PrintLineHex.SubItems[8].Text = iVal.ToString("X2");
                             PrintLineHex.SubItems[8].ForeColor = Color.Orange;
+                            DGPrintLineHex.Cells[8].Value = iVal.ToString("X2");
+                            DGPrintLineHex.Cells[8].Style.ForeColor = Color.Orange;
                         }
                         else if (sectorLen == 4)
                         {
                             int iVal = p[ofs + 4] << 24 | p[ofs + 5] << 16 | p[ofs + 6] << 8 | p[ofs + 7];
                             PrintLineHex.SubItems[8].Text = iVal.ToString("X8");
                             PrintLineHex.SubItems[8].ForeColor = Color.Orange;
+                            DGPrintLineHex.Cells[8].Value = iVal.ToString("X8");
+                            DGPrintLineHex.Cells[8].Style.ForeColor = Color.Orange;
                         }
                         else
                         {
@@ -238,6 +264,8 @@ namespace TuyaMCUAnalyzer
                             }
                             PrintLineHex.SubItems[8].Text = varStr;
                             PrintLineHex.SubItems[8].ForeColor = Color.Orange;
+                            DGPrintLineHex.Cells[8].Value = varStr;
+                            DGPrintLineHex.Cells[8].Style.ForeColor = Color.Orange;
                         }
                         ofs += (4 + sectorLen);
                     }
@@ -250,14 +278,22 @@ namespace TuyaMCUAnalyzer
                     }
                     PrintLineHex.SubItems[8].Text = s;
                     PrintLineHex.SubItems[8].ForeColor = Color.Gray;
+                    DGPrintLineHex.Cells[8].Value = s;
+                    DGPrintLineHex.Cells[8].Style.ForeColor = Color.Gray;
                     break;
             }
             PrintLineHex.SubItems[10].Text = p[p.Count - 1].ToString("X2");
             PrintLineHex.SubItems[10].ForeColor = Color.Black;
+            DGPrintLineHex.Cells[10].Value = p[p.Count - 1].ToString("X2");
+            DGPrintLineHex.Cells[10].Style.ForeColor = Color.Black;
 
-            listViewDecoded.Items.AddRange(new ListViewItem[] { PrintLineHex});
+            listViewDecoded.Items.AddRange(new ListViewItem[] { PrintLineHex });
+            dataGridViewDecoded.Rows.AddRange(new DataGridViewRow[] { DGPrintLineHex });
+
             PrintLineHex.SubItems[9].Text = cmdName;
             PrintLineHex.SubItems[9].ForeColor = Color.Red;
+            DGPrintLineHex.Cells[9].Value = cmdName;
+            DGPrintLineHex.Cells[9].Style.ForeColor = Color.Red;
             s = "";
             if (cmd == 7 || cmd == 0x22)
             {
@@ -268,6 +304,8 @@ namespace TuyaMCUAnalyzer
                 string str = ASCIIEncoding.ASCII.GetString(p.ToArray(), 6, p.Count - 7);
                 PrintLineHex.SubItems[9].Text = str;
                 PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                DGPrintLineHex.Cells[9].Value = str;
+                DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
             }
             else if((cmd == 0x1C && ver == 0))
             {
@@ -285,11 +323,15 @@ namespace TuyaMCUAnalyzer
 
                     PrintLineHex.SubItems[9].Text = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
                     PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                    DGPrintLineHex.Cells[9].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+                    DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                 }
                 else
                 {
                     PrintLineHex.SubItems[9].Text = "INVALID date";
                     PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                    DGPrintLineHex.Cells[9].Value = "INVALID date";
+                    DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                 }
             }
             else if ((cmd == 5 && ver == 0) || (cmd == 0x10 && ver == 0) 
@@ -319,11 +361,15 @@ namespace TuyaMCUAnalyzer
 
                         PrintLineHex.SubItems[9].Text = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
                         PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[9].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+                        DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                     }
                     else
                     {
                         PrintLineHex.SubItems[9].Text = "INVALID date";
                         PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[9].Value = "INVALID date";
+                        DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                     }
                     ofs += 7;
                 }
@@ -347,11 +393,15 @@ namespace TuyaMCUAnalyzer
 
                         PrintLineHex.SubItems[9].Text = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
                         PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[9].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+                        DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                     }
                     else
                     {
                         PrintLineHex.SubItems[9].Text = "INVALID date";
                         PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[9].Value = "INVALID date";
+                        DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                     }
                     parseDPData(p, vars, ofs+7);
                 }
@@ -372,11 +422,15 @@ namespace TuyaMCUAnalyzer
 
                     PrintLineHex.SubItems[9].Text = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
                     PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                    DGPrintLineHex.Cells[9].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+                    DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                 }
                 else
                 {
                     PrintLineHex.SubItems[9].Text = "INVALID date";
                     PrintLineHex.SubItems[9].ForeColor = Color.Gray;
+                    DGPrintLineHex.Cells[9].Value = "INVALID date";
+                    DGPrintLineHex.Cells[9].Style.ForeColor = Color.Gray;
                 }
 
             }
@@ -389,6 +443,8 @@ namespace TuyaMCUAnalyzer
                 }
                 PrintLineHex.SubItems[8].Text = s;
                 PrintLineHex.SubItems[8].ForeColor = Color.Gray;
+                DGPrintLineHex.Cells[8].Value  = s;
+                DGPrintLineHex.Cells[8].Style.ForeColor = Color.Gray;
             }
             switch (cmd)
             {
@@ -496,23 +552,35 @@ namespace TuyaMCUAnalyzer
                 if (comment.Length > 0)
                 {
                     listViewDecoded.BeginUpdate();
+                    dataGridViewDecoded.SuspendLayout();
                     PrintLineHex = new ListViewItem(new string[] { "", "", "", "", "", "", "", "", "", "", "" });
                     PrintLineHex.SubItems[0].Text = comment;
+                    
+                    DGPrintLineHex = new DataGridViewRow();
+                    DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "" );
+                    DGPrintLineHex.Cells[0].Value = comment;
                     if (comment == "IN")
                     {
                         PrintLineHex.SubItems[0].BackColor = Color.Blue;
                         PrintLineHex.SubItems[0].ForeColor = Color.White;
+                        DGPrintLineHex.Cells[0].Style.BackColor = Color.Blue;
+                        DGPrintLineHex.Cells[0].Style.ForeColor = Color.White;
                     }
                     if (comment == "OUT")
                     {
                         PrintLineHex.SubItems[0].BackColor = Color.Red;
                         PrintLineHex.SubItems[0].ForeColor = Color.White;
+                        DGPrintLineHex.Cells[0].Style.BackColor = Color.Red;
+                        DGPrintLineHex.Cells[0].Style.ForeColor = Color.White;
                     }
                 }
                 displayPacket(packet, vars);
                 // Scroll to the newly added item (last item in the list)
                 listViewDecoded.EnsureVisible(listViewDecoded.Items.Count - 1);
+                dataGridViewDecoded.FirstDisplayedScrollingRowIndex = dataGridViewDecoded.Rows.Count - 1;
+
                 listViewDecoded.EndUpdate();
+                dataGridViewDecoded.ResumeLayout();
             }
             tracker.display(listViewAvailableIDs, vars);
         }
@@ -669,6 +737,10 @@ namespace TuyaMCUAnalyzer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
+            dataGridViewDecoded.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewDecoded.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
+            dataGridViewDecoded.Update();
             comboBoxBaud.SelectedIndex = 0;
             scanForExamplesCaptures();
             setDualCaptureEnabled(false);
@@ -943,6 +1015,7 @@ namespace TuyaMCUAnalyzer
             richTextBoxSrc.Text = "";
             textBox_decode.Text = "";
             listViewDecoded.Items.Clear();
+            dataGridViewDecoded.Rows.Clear();
             if (checkBoxRealtimeDual.Checked)
             {
                 portRX.totalBytesReceived = 0;
