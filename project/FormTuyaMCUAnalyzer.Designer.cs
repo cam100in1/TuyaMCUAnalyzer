@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,18 +49,18 @@
             this.cb_decode = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.richTextBoxSrc = new System.Windows.Forms.RichTextBox();
-            this.listViewDecoded = new System.Windows.Forms.ListView();
-            this.CHDirection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHCommand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHDPid = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHDataLen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHDecoded = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CHChecksum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridViewDecoded = new System.Windows.Forms.DataGridView();
+            this.DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxHideDate = new System.Windows.Forms.CheckBox();
             this.buttonCopyRawToClipboard = new System.Windows.Forms.Button();
             this.buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
@@ -93,28 +93,16 @@
             this.label5 = new System.Windows.Forms.Label();
             this.richTextBoxComparer = new System.Windows.Forms.RichTextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dataGridViewDecoded = new System.Windows.Forms.DataGridView();
-            this.DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -226,12 +214,11 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1384, 873);
+            this.tabControl1.Size = new System.Drawing.Size(1384, 660);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridViewDecoded);
             this.tabPage1.Controls.Add(this.textBox_decode);
             this.tabPage1.Controls.Add(this.cb_decode);
             this.tabPage1.Controls.Add(this.splitContainer1);
@@ -249,7 +236,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1376, 847);
+            this.tabPage1.Size = new System.Drawing.Size(1376, 634);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Decode tool";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -276,7 +263,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(2, 58);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
@@ -289,7 +277,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listViewDecoded);
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewDecoded);
             this.splitContainer1.Size = new System.Drawing.Size(1006, 553);
             this.splitContainer1.SplitterDistance = 274;
             this.splitContainer1.SplitterWidth = 3;
@@ -309,88 +297,103 @@
             this.richTextBoxSrc.Text = "";
             this.richTextBoxSrc.TextChanged += new System.EventHandler(this.richTextBoxSrcChanged);
             // 
-            // listViewDecoded
+            // dataGridViewDecoded
             // 
-            this.listViewDecoded.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewDecoded.AutoArrange = false;
-            this.listViewDecoded.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.CHDirection,
-            this.CHHeader,
-            this.CHVersion,
-            this.CHCommand,
-            this.CHLength,
-            this.CHDPid,
-            this.CHType,
-            this.CHDataLen,
-            this.CHData,
-            this.CHDecoded,
-            this.CHChecksum});
-            this.listViewDecoded.Font = new System.Drawing.Font("Courier New", 8F);
-            this.listViewDecoded.GridLines = true;
-            this.listViewDecoded.HideSelection = false;
-            this.listViewDecoded.LabelWrap = false;
-            this.listViewDecoded.Location = new System.Drawing.Point(2, 2);
-            this.listViewDecoded.Margin = new System.Windows.Forms.Padding(2);
-            this.listViewDecoded.Name = "listViewDecoded";
-            this.listViewDecoded.Size = new System.Drawing.Size(1000, 271);
-            this.listViewDecoded.TabIndex = 0;
-            this.listViewDecoded.UseCompatibleStateImageBehavior = false;
-            this.listViewDecoded.View = System.Windows.Forms.View.Details;
+            this.dataGridViewDecoded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGCDirection,
+            this.DGCHeader,
+            this.DGCVersion,
+            this.DGCCommand,
+            this.DGCLenght,
+            this.DGCDPid,
+            this.DGCType,
+            this.DGCDataLen,
+            this.DGCData,
+            this.DGCDecoded,
+            this.DGCChecksum});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewDecoded.Location = new System.Drawing.Point(1, 3);
+            this.dataGridViewDecoded.Name = "dataGridViewDecoded";
+            this.dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewDecoded.Size = new System.Drawing.Size(1001, 269);
+            this.dataGridViewDecoded.TabIndex = 23;
             // 
-            // CHDirection
+            // DGCDirection
             // 
-            this.CHDirection.Text = "Dir.";
-            this.CHDirection.Width = 40;
+            this.DGCDirection.HeaderText = "Direction";
+            this.DGCDirection.Name = "DGCDirection";
+            this.DGCDirection.Width = 88;
             // 
-            // CHHeader
+            // DGCHeader
             // 
-            this.CHHeader.Text = "Header";
+            this.DGCHeader.HeaderText = "Header";
+            this.DGCHeader.Name = "DGCHeader";
+            this.DGCHeader.Width = 87;
             // 
-            // CHVersion
+            // DGCVersion
             // 
-            this.CHVersion.Text = "Vers.";
-            this.CHVersion.Width = 50;
+            this.DGCVersion.HeaderText = "Version";
+            this.DGCVersion.Name = "DGCVersion";
+            this.DGCVersion.Width = 88;
             // 
-            // CHCommand
+            // DGCCommand
             // 
-            this.CHCommand.Text = "Cmd";
-            this.CHCommand.Width = 40;
+            this.DGCCommand.HeaderText = "Command";
+            this.DGCCommand.Name = "DGCCommand";
+            this.DGCCommand.Width = 88;
             // 
-            // CHLength
+            // DGCLenght
             // 
-            this.CHLength.Text = "Length";
+            this.DGCLenght.HeaderText = "Length";
+            this.DGCLenght.Name = "DGCLenght";
+            this.DGCLenght.Width = 87;
             // 
-            // CHDPid
+            // DGCDPid
             // 
-            this.CHDPid.Text = "DPid";
-            this.CHDPid.Width = 50;
+            this.DGCDPid.HeaderText = "DPid";
+            this.DGCDPid.Name = "DGCDPid";
+            this.DGCDPid.Width = 88;
             // 
-            // CHType
+            // DGCType
             // 
-            this.CHType.Text = "Type";
-            this.CHType.Width = 50;
+            this.DGCType.HeaderText = "Type";
+            this.DGCType.Name = "DGCType";
+            this.DGCType.Width = 87;
             // 
-            // CHDataLen
+            // DGCDataLen
             // 
-            this.CHDataLen.Text = "DataLen";
-            this.CHDataLen.Width = 70;
+            this.DGCDataLen.HeaderText = "DataLen";
+            this.DGCDataLen.Name = "DGCDataLen";
+            this.DGCDataLen.Width = 88;
             // 
-            // CHData
+            // DGCData
             // 
-            this.CHData.Text = "Data";
-            this.CHData.Width = 240;
+            this.DGCData.HeaderText = "Data";
+            this.DGCData.Name = "DGCData";
+            this.DGCData.Width = 88;
             // 
-            // CHDecoded
+            // DGCDecoded
             // 
-            this.CHDecoded.Text = "Decoded";
-            this.CHDecoded.Width = 240;
+            this.DGCDecoded.HeaderText = "Decoded";
+            this.DGCDecoded.Name = "DGCDecoded";
+            this.DGCDecoded.Width = 87;
             // 
-            // CHChecksum
+            // DGCChecksum
             // 
-            this.CHChecksum.Text = "Checksum";
-            this.CHChecksum.Width = 70;
+            this.DGCChecksum.HeaderText = "Checksum";
+            this.DGCChecksum.Name = "DGCChecksum";
+            this.DGCChecksum.Width = 88;
             // 
             // checkBoxHideDate
             // 
@@ -648,7 +651,7 @@
             this.listViewAvailableIDs.HideSelection = false;
             this.listViewAvailableIDs.Location = new System.Drawing.Point(5, 313);
             this.listViewAvailableIDs.Name = "listViewAvailableIDs";
-            this.listViewAvailableIDs.Size = new System.Drawing.Size(340, 288);
+            this.listViewAvailableIDs.Size = new System.Drawing.Size(340, 295);
             this.listViewAvailableIDs.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewAvailableIDs.TabIndex = 2;
             this.listViewAvailableIDs.UseCompatibleStateImageBehavior = false;
@@ -680,7 +683,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1376, 631);
+            this.tabPage2.Size = new System.Drawing.Size(1376, 634);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Compare tool";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -698,7 +701,7 @@
             // richTextBoxComparer
             // 
             this.richTextBoxComparer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBoxComparer.Location = new System.Drawing.Point(3, -81);
+            this.richTextBoxComparer.Location = new System.Drawing.Point(3, -78);
             this.richTextBoxComparer.Name = "richTextBoxComparer";
             this.richTextBoxComparer.Size = new System.Drawing.Size(1370, 709);
             this.richTextBoxComparer.TabIndex = 0;
@@ -711,107 +714,11 @@
             this.timer1.Interval = 25;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // dataGridViewDecoded
-            // 
-            this.dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DGCDirection,
-            this.DGCHeader,
-            this.DGCVersion,
-            this.DGCCommand,
-            this.DGCLenght,
-            this.DGCDPid,
-            this.DGCType,
-            this.DGCDataLen,
-            this.DGCData,
-            this.DGCDecoded,
-            this.DGCChecksum});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDecoded.Location = new System.Drawing.Point(1, 629);
-            this.dataGridViewDecoded.Name = "dataGridViewDecoded";
-            this.dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDecoded.Size = new System.Drawing.Size(1007, 169);
-            this.dataGridViewDecoded.TabIndex = 23;
-            // 
-            // DGCDirection
-            // 
-            this.DGCDirection.HeaderText = "Direction";
-            this.DGCDirection.Name = "DGCDirection";
-            this.DGCDirection.Width = 88;
-            // 
-            // DGCHeader
-            // 
-            this.DGCHeader.HeaderText = "Header";
-            this.DGCHeader.Name = "DGCHeader";
-            this.DGCHeader.Width = 87;
-            // 
-            // DGCVersion
-            // 
-            this.DGCVersion.HeaderText = "Version";
-            this.DGCVersion.Name = "DGCVersion";
-            this.DGCVersion.Width = 88;
-            // 
-            // DGCCommand
-            // 
-            this.DGCCommand.HeaderText = "Command";
-            this.DGCCommand.Name = "DGCCommand";
-            this.DGCCommand.Width = 88;
-            // 
-            // DGCLenght
-            // 
-            this.DGCLenght.HeaderText = "Length";
-            this.DGCLenght.Name = "DGCLenght";
-            this.DGCLenght.Width = 87;
-            // 
-            // DGCDPid
-            // 
-            this.DGCDPid.HeaderText = "DPid";
-            this.DGCDPid.Name = "DGCDPid";
-            this.DGCDPid.Width = 88;
-            // 
-            // DGCType
-            // 
-            this.DGCType.HeaderText = "Type";
-            this.DGCType.Name = "DGCType";
-            this.DGCType.Width = 87;
-            // 
-            // DGCDataLen
-            // 
-            this.DGCDataLen.HeaderText = "DataLen";
-            this.DGCDataLen.Name = "DGCDataLen";
-            this.DGCDataLen.Width = 88;
-            // 
-            // DGCData
-            // 
-            this.DGCData.HeaderText = "Data";
-            this.DGCData.Name = "DGCData";
-            this.DGCData.Width = 88;
-            // 
-            // DGCDecoded
-            // 
-            this.DGCDecoded.HeaderText = "Decoded";
-            this.DGCDecoded.Name = "DGCDecoded";
-            this.DGCDecoded.Width = 87;
-            // 
-            // DGCChecksum
-            // 
-            this.DGCChecksum.HeaderText = "Checksum";
-            this.DGCChecksum.Name = "DGCChecksum";
-            this.DGCChecksum.Width = 88;
-            // 
             // FormTuyaMCUAnalyzer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 897);
+            this.ClientSize = new System.Drawing.Size(1384, 684);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
@@ -829,13 +736,13 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -870,18 +777,6 @@
         private System.Windows.Forms.Button buttonCopyDecodedToClipboard;
         private System.Windows.Forms.CheckBox checkBoxHideDate;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListView listViewDecoded;
-        private System.Windows.Forms.ColumnHeader CHDirection;
-        private System.Windows.Forms.ColumnHeader CHHeader;
-        private System.Windows.Forms.ColumnHeader CHVersion;
-        private System.Windows.Forms.ColumnHeader CHCommand;
-        private System.Windows.Forms.ColumnHeader CHLength;
-        private System.Windows.Forms.ColumnHeader CHDPid;
-        private System.Windows.Forms.ColumnHeader CHType;
-        private System.Windows.Forms.ColumnHeader CHDataLen;
-        private System.Windows.Forms.ColumnHeader CHData;
-        private System.Windows.Forms.ColumnHeader CHDecoded;
-        private System.Windows.Forms.ColumnHeader CHChecksum;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxPauseUART;
