@@ -28,297 +28,287 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
-            this.label1 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.examplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ourForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ourTutorialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ourYoutubeChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox_decode = new System.Windows.Forms.TextBox();
-            this.cb_decode = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.richTextBoxSrc = new System.Windows.Forms.RichTextBox();
-            this.dataGridViewDecoded = new System.Windows.Forms.DataGridView();
-            this.checkBoxHideDate = new System.Windows.Forms.CheckBox();
-            this.buttonCopyRawToClipboard = new System.Windows.Forms.Button();
-            this.buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
-            this.checkBoxHideWiFiState = new System.Windows.Forms.CheckBox();
-            this.checkBoxDecodeColors = new System.Windows.Forms.CheckBox();
-            this.checkBoxHIdeHeartbeat = new System.Windows.Forms.CheckBox();
-            this.checkBoxStrTypeAsBytes = new System.Windows.Forms.CheckBox();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxPauseUART = new System.Windows.Forms.CheckBox();
-            this.labelTXStats = new System.Windows.Forms.Label();
-            this.labelRXStats = new System.Windows.Forms.Label();
-            this.buttonOpenCloseTX = new System.Windows.Forms.Button();
-            this.comboBoxBaud = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.buttonOpenCloseRX = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxPortTX = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxPortRX = new System.Windows.Forms.ComboBox();
-            this.checkBoxRealtimeDual = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.listViewAvailableIDs = new System.Windows.Forms.ListView();
-            this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.richTextBoxComparer = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            menuStrip1 = new System.Windows.Forms.MenuStrip();
+            fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            openTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            examplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ourForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ourTutorialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ourYoutubeChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            LoadXML = new System.Windows.Forms.Button();
+            textBox_decode = new System.Windows.Forms.TextBox();
+            cb_decode = new System.Windows.Forms.Button();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            richTextBoxSrc = new System.Windows.Forms.RichTextBox();
+            dataGridViewDecoded = new System.Windows.Forms.DataGridView();
+            checkBoxHideDate = new System.Windows.Forms.CheckBox();
+            buttonCopyRawToClipboard = new System.Windows.Forms.Button();
+            buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
+            checkBoxHideWiFiState = new System.Windows.Forms.CheckBox();
+            checkBoxDecodeColors = new System.Windows.Forms.CheckBox();
+            checkBoxHIdeHeartbeat = new System.Windows.Forms.CheckBox();
+            checkBoxStrTypeAsBytes = new System.Windows.Forms.CheckBox();
+            buttonClear = new System.Windows.Forms.Button();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            panel1 = new System.Windows.Forms.Panel();
+            checkBoxPauseUART = new System.Windows.Forms.CheckBox();
+            labelTXStats = new System.Windows.Forms.Label();
+            labelRXStats = new System.Windows.Forms.Label();
+            buttonOpenCloseTX = new System.Windows.Forms.Button();
+            comboBoxBaud = new System.Windows.Forms.ComboBox();
+            label8 = new System.Windows.Forms.Label();
+            buttonOpenCloseRX = new System.Windows.Forms.Button();
+            label7 = new System.Windows.Forms.Label();
+            comboBoxPortTX = new System.Windows.Forms.ComboBox();
+            label6 = new System.Windows.Forms.Label();
+            comboBoxPortRX = new System.Windows.Forms.ComboBox();
+            checkBoxRealtimeDual = new System.Windows.Forms.CheckBox();
+            label4 = new System.Windows.Forms.Label();
+            listViewAvailableIDs = new System.Windows.Forms.ListView();
+            id = new System.Windows.Forms.ColumnHeader();
+            type = new System.Windows.Forms.ColumnHeader();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            label5 = new System.Windows.Forms.Label();
+            richTextBoxComparer = new System.Windows.Forms.RichTextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDecoded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            menuStrip1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDecoded).BeginInit();
+            groupBox1.SuspendLayout();
+            panel1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(820, 657);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "VCnt is a number of unique vals received";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(957, 758);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(222, 15);
+            label1.TabIndex = 3;
+            label1.Text = "VCnt is a number of unique vals received";
             // 
             // menuStrip1
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.examplesToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1404, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, examplesToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new System.Windows.Forms.Padding(5, 1, 0, 1);
+            menuStrip1.Size = new System.Drawing.Size(1638, 24);
+            menuStrip1.TabIndex = 4;
+            menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.openTextToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
-            this.fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { openToolStripMenuItem, openTextToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.openToolStripMenuItem.Text = "Open binary..";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            openToolStripMenuItem.Text = "Open binary..";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // openTextToolStripMenuItem
             // 
-            this.openTextToolStripMenuItem.Name = "openTextToolStripMenuItem";
-            this.openTextToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.openTextToolStripMenuItem.Text = "Open text...";
-            this.openTextToolStripMenuItem.Click += new System.EventHandler(this.openTextToolStripMenuItem_Click);
+            openTextToolStripMenuItem.Name = "openTextToolStripMenuItem";
+            openTextToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            openTextToolStripMenuItem.Text = "Open text...";
+            openTextToolStripMenuItem.Click += openTextToolStripMenuItem_Click;
             // 
             // examplesToolStripMenuItem
             // 
-            this.examplesToolStripMenuItem.Name = "examplesToolStripMenuItem";
-            this.examplesToolStripMenuItem.Size = new System.Drawing.Size(69, 22);
-            this.examplesToolStripMenuItem.Text = "Examples";
+            examplesToolStripMenuItem.Name = "examplesToolStripMenuItem";
+            examplesToolStripMenuItem.Size = new System.Drawing.Size(69, 22);
+            examplesToolStripMenuItem.Text = "Examples";
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ourForumToolStripMenuItem,
-            this.ourTutorialsToolStripMenuItem,
-            this.ourYoutubeChannelToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
-            this.helpToolStripMenuItem.Text = "Help";
+            helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ourForumToolStripMenuItem, ourTutorialsToolStripMenuItem, ourYoutubeChannelToolStripMenuItem });
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
+            helpToolStripMenuItem.Text = "Help";
             // 
             // ourForumToolStripMenuItem
             // 
-            this.ourForumToolStripMenuItem.Name = "ourForumToolStripMenuItem";
-            this.ourForumToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ourForumToolStripMenuItem.Text = "Our forum";
-            this.ourForumToolStripMenuItem.Click += new System.EventHandler(this.ourForumToolStripMenuItem_Click);
+            ourForumToolStripMenuItem.Name = "ourForumToolStripMenuItem";
+            ourForumToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            ourForumToolStripMenuItem.Text = "Our forum";
+            ourForumToolStripMenuItem.Click += ourForumToolStripMenuItem_Click;
             // 
             // ourTutorialsToolStripMenuItem
             // 
-            this.ourTutorialsToolStripMenuItem.Name = "ourTutorialsToolStripMenuItem";
-            this.ourTutorialsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ourTutorialsToolStripMenuItem.Text = "Our tutorials";
-            this.ourTutorialsToolStripMenuItem.Click += new System.EventHandler(this.ourTutorialsToolStripMenuItem_Click);
+            ourTutorialsToolStripMenuItem.Name = "ourTutorialsToolStripMenuItem";
+            ourTutorialsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            ourTutorialsToolStripMenuItem.Text = "Our tutorials";
+            ourTutorialsToolStripMenuItem.Click += ourTutorialsToolStripMenuItem_Click;
             // 
             // ourYoutubeChannelToolStripMenuItem
             // 
-            this.ourYoutubeChannelToolStripMenuItem.Name = "ourYoutubeChannelToolStripMenuItem";
-            this.ourYoutubeChannelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ourYoutubeChannelToolStripMenuItem.Text = "Our Youtube Channel";
+            ourYoutubeChannelToolStripMenuItem.Name = "ourYoutubeChannelToolStripMenuItem";
+            ourYoutubeChannelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            ourYoutubeChannelToolStripMenuItem.Text = "Our Youtube Channel";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Raw packets";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(15, 41);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(72, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Raw packets";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 613);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(250, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Tuya packets display. Dump  / Decoded in one line";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(15, 725);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(273, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Tuya packets display. Dump  / Decoded in one line";
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1404, 662);
-            this.tabControl1.TabIndex = 8;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Location = new System.Drawing.Point(0, 24);
+            tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(1638, 767);
+            tabControl1.TabIndex = 8;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox_decode);
-            this.tabPage1.Controls.Add(this.cb_decode);
-            this.tabPage1.Controls.Add(this.splitContainer1);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.checkBoxHideDate);
-            this.tabPage1.Controls.Add(this.buttonCopyRawToClipboard);
-            this.tabPage1.Controls.Add(this.buttonCopyDecodedToClipboard);
-            this.tabPage1.Controls.Add(this.checkBoxHideWiFiState);
-            this.tabPage1.Controls.Add(this.checkBoxDecodeColors);
-            this.tabPage1.Controls.Add(this.checkBoxHIdeHeartbeat);
-            this.tabPage1.Controls.Add(this.checkBoxStrTypeAsBytes);
-            this.tabPage1.Controls.Add(this.buttonClear);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1396, 636);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Decode tool";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(LoadXML);
+            tabPage1.Controls.Add(textBox_decode);
+            tabPage1.Controls.Add(cb_decode);
+            tabPage1.Controls.Add(splitContainer1);
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(checkBoxHideDate);
+            tabPage1.Controls.Add(buttonCopyRawToClipboard);
+            tabPage1.Controls.Add(buttonCopyDecodedToClipboard);
+            tabPage1.Controls.Add(checkBoxHideWiFiState);
+            tabPage1.Controls.Add(checkBoxDecodeColors);
+            tabPage1.Controls.Add(checkBoxHIdeHeartbeat);
+            tabPage1.Controls.Add(checkBoxStrTypeAsBytes);
+            tabPage1.Controls.Add(buttonClear);
+            tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(groupBox1);
+            tabPage1.Location = new System.Drawing.Point(4, 24);
+            tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage1.Size = new System.Drawing.Size(1630, 739);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Decode tool";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // LoadXML
+            // 
+            LoadXML.Location = new System.Drawing.Point(760, 7);
+            LoadXML.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            LoadXML.Name = "LoadXML";
+            LoadXML.Size = new System.Drawing.Size(87, 26);
+            LoadXML.TabIndex = 23;
+            LoadXML.Text = "Load XML";
+            LoadXML.UseVisualStyleBackColor = true;
+            LoadXML.Click += LoadXML_Click;
             // 
             // textBox_decode
             // 
-            this.textBox_decode.Font = new System.Drawing.Font("Courier New", 8F);
-            this.textBox_decode.Location = new System.Drawing.Point(85, 31);
-            this.textBox_decode.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_decode.Name = "textBox_decode";
-            this.textBox_decode.Size = new System.Drawing.Size(642, 20);
-            this.textBox_decode.TabIndex = 22;
+            textBox_decode.Font = new System.Drawing.Font("Courier New", 8F);
+            textBox_decode.Location = new System.Drawing.Point(99, 36);
+            textBox_decode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            textBox_decode.Name = "textBox_decode";
+            textBox_decode.Size = new System.Drawing.Size(748, 20);
+            textBox_decode.TabIndex = 22;
             // 
             // cb_decode
             // 
-            this.cb_decode.Location = new System.Drawing.Point(731, 34);
-            this.cb_decode.Margin = new System.Windows.Forms.Padding(2);
-            this.cb_decode.Name = "cb_decode";
-            this.cb_decode.Size = new System.Drawing.Size(75, 21);
-            this.cb_decode.TabIndex = 21;
-            this.cb_decode.Text = "Decode";
-            this.cb_decode.UseVisualStyleBackColor = true;
-            this.cb_decode.Click += new System.EventHandler(this.cb_decode_Click);
+            cb_decode.Location = new System.Drawing.Point(853, 39);
+            cb_decode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            cb_decode.Name = "cb_decode";
+            cb_decode.Size = new System.Drawing.Size(87, 24);
+            cb_decode.TabIndex = 21;
+            cb_decode.Text = "Decode";
+            cb_decode.UseVisualStyleBackColor = true;
+            cb_decode.Click += cb_decode_Click;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(2, 58);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            splitContainer1.Location = new System.Drawing.Point(2, 67);
+            splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.richTextBoxSrc);
+            splitContainer1.Panel1.Controls.Add(richTextBoxSrc);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewDecoded);
-            this.splitContainer1.Size = new System.Drawing.Size(1026, 555);
-            this.splitContainer1.SplitterDistance = 274;
-            this.splitContainer1.SplitterWidth = 3;
-            this.splitContainer1.TabIndex = 19;
+            splitContainer1.Panel2.Controls.Add(dataGridViewDecoded);
+            splitContainer1.Size = new System.Drawing.Size(1197, 643);
+            splitContainer1.SplitterDistance = 316;
+            splitContainer1.TabIndex = 19;
             // 
             // richTextBoxSrc
             // 
-            this.richTextBoxSrc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxSrc.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxSrc.Location = new System.Drawing.Point(0, 0);
-            this.richTextBoxSrc.Name = "richTextBoxSrc";
-            this.richTextBoxSrc.ReadOnly = true;
-            this.richTextBoxSrc.Size = new System.Drawing.Size(1022, 274);
-            this.richTextBoxSrc.TabIndex = 10;
-            this.richTextBoxSrc.Text = "";
-            this.richTextBoxSrc.TextChanged += new System.EventHandler(this.richTextBoxSrcChanged);
+            richTextBoxSrc.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            richTextBoxSrc.Font = new System.Drawing.Font("Courier New", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            richTextBoxSrc.Location = new System.Drawing.Point(0, 0);
+            richTextBoxSrc.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            richTextBoxSrc.Name = "richTextBoxSrc";
+            richTextBoxSrc.ReadOnly = true;
+            richTextBoxSrc.Size = new System.Drawing.Size(1192, 314);
+            richTextBoxSrc.TabIndex = 10;
+            richTextBoxSrc.Text = "";
+            richTextBoxSrc.TextChanged += richTextBoxSrcChanged;
             // 
             // dataGridViewDecoded
             // 
-            this.dataGridViewDecoded.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewDecoded.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            this.dataGridViewDecoded.BackgroundColor = System.Drawing.SystemColors.ControlDark;
-            this.dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DGCDirection,
-            this.DGCHeader,
-            this.DGCVersion,
-            this.DGCCommand,
-            this.DGCLenght,
-            this.DGCDPid,
-            this.DGCType,
-            this.DGCDataLen,
-            this.DGCData,
-            this.DGCDecoded,
-            this.DGCChecksum});
+            dataGridViewDecoded.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dataGridViewDecoded.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewDecoded.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { DGCDirection, DGCHeader, DGCVersion, DGCCommand, DGCLenght, DGCDPid, DGCType, DGCDataLen, DGCData, DGCDecoded, DGCChecksum });
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
@@ -326,450 +316,481 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDecoded.Location = new System.Drawing.Point(-2, 4);
-            this.dataGridViewDecoded.Name = "dataGridViewDecoded";
-            this.dataGridViewDecoded.RowHeadersVisible = false;
-            this.dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewDecoded.Size = new System.Drawing.Size(1021, 271);
-            this.dataGridViewDecoded.TabIndex = 23;
+            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewDecoded.Location = new System.Drawing.Point(-2, 5);
+            dataGridViewDecoded.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            dataGridViewDecoded.Name = "dataGridViewDecoded";
+            dataGridViewDecoded.RowHeadersVisible = false;
+            dataGridViewDecoded.RowHeadersWidth = 62;
+            dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewDecoded.Size = new System.Drawing.Size(1191, 305);
+            dataGridViewDecoded.TabIndex = 23;
             // 
             // checkBoxHideDate
             // 
-            this.checkBoxHideDate.AutoSize = true;
-            this.checkBoxHideDate.Location = new System.Drawing.Point(347, 10);
-            this.checkBoxHideDate.Name = "checkBoxHideDate";
-            this.checkBoxHideDate.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxHideDate.TabIndex = 18;
-            this.checkBoxHideDate.Text = "Hide Date";
-            this.checkBoxHideDate.UseVisualStyleBackColor = true;
-            this.checkBoxHideDate.CheckedChanged += new System.EventHandler(this.checkBoxHideDate_CheckedChanged);
+            checkBoxHideDate.AutoSize = true;
+            checkBoxHideDate.Location = new System.Drawing.Point(405, 11);
+            checkBoxHideDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxHideDate.Name = "checkBoxHideDate";
+            checkBoxHideDate.Size = new System.Drawing.Size(78, 19);
+            checkBoxHideDate.TabIndex = 18;
+            checkBoxHideDate.Text = "Hide Date";
+            checkBoxHideDate.UseVisualStyleBackColor = true;
+            checkBoxHideDate.CheckedChanged += checkBoxHideDate_CheckedChanged;
             // 
             // buttonCopyRawToClipboard
             // 
-            this.buttonCopyRawToClipboard.Location = new System.Drawing.Point(811, 6);
-            this.buttonCopyRawToClipboard.Name = "buttonCopyRawToClipboard";
-            this.buttonCopyRawToClipboard.Size = new System.Drawing.Size(201, 23);
-            this.buttonCopyRawToClipboard.TabIndex = 17;
-            this.buttonCopyRawToClipboard.Text = "Copy raw to clipboard";
-            this.buttonCopyRawToClipboard.UseVisualStyleBackColor = true;
-            this.buttonCopyRawToClipboard.Click += new System.EventHandler(this.buttonCopyRawToClipboard_Click);
+            buttonCopyRawToClipboard.Location = new System.Drawing.Point(946, 7);
+            buttonCopyRawToClipboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            buttonCopyRawToClipboard.Name = "buttonCopyRawToClipboard";
+            buttonCopyRawToClipboard.Size = new System.Drawing.Size(235, 26);
+            buttonCopyRawToClipboard.TabIndex = 17;
+            buttonCopyRawToClipboard.Text = "Copy raw to clipboard";
+            buttonCopyRawToClipboard.UseVisualStyleBackColor = true;
+            buttonCopyRawToClipboard.Click += buttonCopyRawToClipboard_Click;
             // 
             // buttonCopyDecodedToClipboard
             // 
-            this.buttonCopyDecodedToClipboard.Location = new System.Drawing.Point(811, 33);
-            this.buttonCopyDecodedToClipboard.Name = "buttonCopyDecodedToClipboard";
-            this.buttonCopyDecodedToClipboard.Size = new System.Drawing.Size(201, 23);
-            this.buttonCopyDecodedToClipboard.TabIndex = 16;
-            this.buttonCopyDecodedToClipboard.Text = "Copy decoded to clipboard CSV";
-            this.buttonCopyDecodedToClipboard.UseVisualStyleBackColor = true;
-            this.buttonCopyDecodedToClipboard.Click += new System.EventHandler(this.buttonCopyDecodedToClipboard_Click);
+            buttonCopyDecodedToClipboard.Location = new System.Drawing.Point(946, 38);
+            buttonCopyDecodedToClipboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            buttonCopyDecodedToClipboard.Name = "buttonCopyDecodedToClipboard";
+            buttonCopyDecodedToClipboard.Size = new System.Drawing.Size(235, 26);
+            buttonCopyDecodedToClipboard.TabIndex = 16;
+            buttonCopyDecodedToClipboard.Text = "Copy decoded to clipboard CSV";
+            buttonCopyDecodedToClipboard.UseVisualStyleBackColor = true;
+            buttonCopyDecodedToClipboard.Click += buttonCopyDecodedToClipboard_Click;
             // 
             // checkBoxHideWiFiState
             // 
-            this.checkBoxHideWiFiState.AutoSize = true;
-            this.checkBoxHideWiFiState.Location = new System.Drawing.Point(247, 10);
-            this.checkBoxHideWiFiState.Name = "checkBoxHideWiFiState";
-            this.checkBoxHideWiFiState.Size = new System.Drawing.Size(98, 17);
-            this.checkBoxHideWiFiState.TabIndex = 15;
-            this.checkBoxHideWiFiState.Text = "Hide WiFi state";
-            this.checkBoxHideWiFiState.UseVisualStyleBackColor = true;
-            this.checkBoxHideWiFiState.CheckedChanged += new System.EventHandler(this.checkBoxHideWiFiState_CheckedChanged);
+            checkBoxHideWiFiState.AutoSize = true;
+            checkBoxHideWiFiState.Location = new System.Drawing.Point(288, 11);
+            checkBoxHideWiFiState.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxHideWiFiState.Name = "checkBoxHideWiFiState";
+            checkBoxHideWiFiState.Size = new System.Drawing.Size(101, 19);
+            checkBoxHideWiFiState.TabIndex = 15;
+            checkBoxHideWiFiState.Text = "Hide Net state";
+            checkBoxHideWiFiState.UseVisualStyleBackColor = true;
+            checkBoxHideWiFiState.CheckedChanged += checkBoxHideWiFiState_CheckedChanged;
             // 
             // checkBoxDecodeColors
             // 
-            this.checkBoxDecodeColors.AutoSize = true;
-            this.checkBoxDecodeColors.Checked = true;
-            this.checkBoxDecodeColors.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDecodeColors.Location = new System.Drawing.Point(424, 10);
-            this.checkBoxDecodeColors.Name = "checkBoxDecodeColors";
-            this.checkBoxDecodeColors.Size = new System.Drawing.Size(123, 17);
-            this.checkBoxDecodeColors.TabIndex = 14;
-            this.checkBoxDecodeColors.Text = "Decode Tuya Colors";
-            this.checkBoxDecodeColors.UseVisualStyleBackColor = true;
-            this.checkBoxDecodeColors.CheckedChanged += new System.EventHandler(this.checkBoxDecodeColors_CheckedChanged);
+            checkBoxDecodeColors.AutoSize = true;
+            checkBoxDecodeColors.Checked = true;
+            checkBoxDecodeColors.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxDecodeColors.Location = new System.Drawing.Point(495, 11);
+            checkBoxDecodeColors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxDecodeColors.Name = "checkBoxDecodeColors";
+            checkBoxDecodeColors.Size = new System.Drawing.Size(131, 19);
+            checkBoxDecodeColors.TabIndex = 14;
+            checkBoxDecodeColors.Text = "Decode Tuya Colors";
+            checkBoxDecodeColors.UseVisualStyleBackColor = true;
+            checkBoxDecodeColors.CheckedChanged += checkBoxDecodeColors_CheckedChanged;
             // 
             // checkBoxHIdeHeartbeat
             // 
-            this.checkBoxHIdeHeartbeat.AutoSize = true;
-            this.checkBoxHIdeHeartbeat.Location = new System.Drawing.Point(145, 10);
-            this.checkBoxHIdeHeartbeat.Name = "checkBoxHIdeHeartbeat";
-            this.checkBoxHIdeHeartbeat.Size = new System.Drawing.Size(96, 17);
-            this.checkBoxHIdeHeartbeat.TabIndex = 13;
-            this.checkBoxHIdeHeartbeat.Text = "Hide heartbeat";
-            this.checkBoxHIdeHeartbeat.UseVisualStyleBackColor = true;
-            this.checkBoxHIdeHeartbeat.CheckedChanged += new System.EventHandler(this.checkBoxHIdeHeartbeat_CheckedChanged);
+            checkBoxHIdeHeartbeat.AutoSize = true;
+            checkBoxHIdeHeartbeat.Location = new System.Drawing.Point(169, 11);
+            checkBoxHIdeHeartbeat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxHIdeHeartbeat.Name = "checkBoxHIdeHeartbeat";
+            checkBoxHIdeHeartbeat.Size = new System.Drawing.Size(104, 19);
+            checkBoxHIdeHeartbeat.TabIndex = 13;
+            checkBoxHIdeHeartbeat.Text = "Hide heartbeat";
+            checkBoxHIdeHeartbeat.UseVisualStyleBackColor = true;
+            checkBoxHIdeHeartbeat.CheckedChanged += checkBoxHIdeHeartbeat_CheckedChanged;
             // 
             // checkBoxStrTypeAsBytes
             // 
-            this.checkBoxStrTypeAsBytes.AutoSize = true;
-            this.checkBoxStrTypeAsBytes.Location = new System.Drawing.Point(8, 10);
-            this.checkBoxStrTypeAsBytes.Name = "checkBoxStrTypeAsBytes";
-            this.checkBoxStrTypeAsBytes.Size = new System.Drawing.Size(145, 17);
-            this.checkBoxStrTypeAsBytes.TabIndex = 12;
-            this.checkBoxStrTypeAsBytes.Text = "Display STR type as hex ";
-            this.checkBoxStrTypeAsBytes.UseVisualStyleBackColor = true;
-            this.checkBoxStrTypeAsBytes.CheckedChanged += new System.EventHandler(this.checkBoxStrTypeAsBytes_CheckedChanged);
+            checkBoxStrTypeAsBytes.AutoSize = true;
+            checkBoxStrTypeAsBytes.Location = new System.Drawing.Point(9, 11);
+            checkBoxStrTypeAsBytes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxStrTypeAsBytes.Name = "checkBoxStrTypeAsBytes";
+            checkBoxStrTypeAsBytes.Size = new System.Drawing.Size(151, 19);
+            checkBoxStrTypeAsBytes.TabIndex = 12;
+            checkBoxStrTypeAsBytes.Text = "Display STR type as hex ";
+            checkBoxStrTypeAsBytes.UseVisualStyleBackColor = true;
+            checkBoxStrTypeAsBytes.CheckedChanged += checkBoxStrTypeAsBytes_CheckedChanged;
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(731, 6);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonClear.TabIndex = 11;
-            this.buttonClear.Text = "Clear";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            buttonClear.Location = new System.Drawing.Point(853, 7);
+            buttonClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new System.Drawing.Size(87, 26);
+            buttonClear.TabIndex = 11;
+            buttonClear.Text = "Clear";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Controls.Add(this.checkBoxRealtimeDual);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.listViewAvailableIDs);
-            this.groupBox1.Location = new System.Drawing.Point(1035, 3);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(350, 604);
-            this.groupBox1.TabIndex = 20;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "COM and Statistic";
+            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            groupBox1.Controls.Add(panel1);
+            groupBox1.Controls.Add(checkBoxRealtimeDual);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(listViewAvailableIDs);
+            groupBox1.Location = new System.Drawing.Point(1207, 4);
+            groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            groupBox1.Size = new System.Drawing.Size(408, 711);
+            groupBox1.TabIndex = 20;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "COM and Statistic";
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.checkBoxPauseUART);
-            this.panel1.Controls.Add(this.labelTXStats);
-            this.panel1.Controls.Add(this.labelRXStats);
-            this.panel1.Controls.Add(this.buttonOpenCloseTX);
-            this.panel1.Controls.Add(this.comboBoxBaud);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.buttonOpenCloseRX);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.comboBoxPortTX);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.comboBoxPortRX);
-            this.panel1.Location = new System.Drawing.Point(18, 40);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(307, 154);
-            this.panel1.TabIndex = 9;
+            panel1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            panel1.Controls.Add(checkBoxPauseUART);
+            panel1.Controls.Add(labelTXStats);
+            panel1.Controls.Add(labelRXStats);
+            panel1.Controls.Add(buttonOpenCloseTX);
+            panel1.Controls.Add(comboBoxBaud);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(buttonOpenCloseRX);
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(comboBoxPortTX);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(comboBoxPortRX);
+            panel1.Location = new System.Drawing.Point(21, 47);
+            panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(358, 178);
+            panel1.TabIndex = 9;
             // 
             // checkBoxPauseUART
             // 
-            this.checkBoxPauseUART.AutoSize = true;
-            this.checkBoxPauseUART.Location = new System.Drawing.Point(7, 133);
-            this.checkBoxPauseUART.Name = "checkBoxPauseUART";
-            this.checkBoxPauseUART.Size = new System.Drawing.Size(195, 17);
-            this.checkBoxPauseUART.TabIndex = 10;
-            this.checkBoxPauseUART.Text = "Pause capture (but keep port inuse)";
-            this.checkBoxPauseUART.UseVisualStyleBackColor = true;
+            checkBoxPauseUART.AutoSize = true;
+            checkBoxPauseUART.Location = new System.Drawing.Point(8, 154);
+            checkBoxPauseUART.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxPauseUART.Name = "checkBoxPauseUART";
+            checkBoxPauseUART.Size = new System.Drawing.Size(213, 19);
+            checkBoxPauseUART.TabIndex = 10;
+            checkBoxPauseUART.Text = "Pause capture (but keep port inuse)";
+            checkBoxPauseUART.UseVisualStyleBackColor = true;
             // 
             // labelTXStats
             // 
-            this.labelTXStats.AutoSize = true;
-            this.labelTXStats.Location = new System.Drawing.Point(4, 86);
-            this.labelTXStats.Name = "labelTXStats";
-            this.labelTXStats.Size = new System.Drawing.Size(46, 13);
-            this.labelTXStats.TabIndex = 9;
-            this.labelTXStats.Text = "TX stats";
+            labelTXStats.AutoSize = true;
+            labelTXStats.Location = new System.Drawing.Point(5, 99);
+            labelTXStats.Name = "labelTXStats";
+            labelTXStats.Size = new System.Drawing.Size(47, 15);
+            labelTXStats.TabIndex = 9;
+            labelTXStats.Text = "TX stats";
             // 
             // labelRXStats
             // 
-            this.labelRXStats.AutoSize = true;
-            this.labelRXStats.Location = new System.Drawing.Point(4, 37);
-            this.labelRXStats.Name = "labelRXStats";
-            this.labelRXStats.Size = new System.Drawing.Size(47, 13);
-            this.labelRXStats.TabIndex = 8;
-            this.labelRXStats.Text = "RX stats";
+            labelRXStats.AutoSize = true;
+            labelRXStats.Location = new System.Drawing.Point(5, 43);
+            labelRXStats.Name = "labelRXStats";
+            labelRXStats.Size = new System.Drawing.Size(48, 15);
+            labelRXStats.TabIndex = 8;
+            labelRXStats.Text = "RX stats";
             // 
             // buttonOpenCloseTX
             // 
-            this.buttonOpenCloseTX.Location = new System.Drawing.Point(155, 55);
-            this.buttonOpenCloseTX.Name = "buttonOpenCloseTX";
-            this.buttonOpenCloseTX.Size = new System.Drawing.Size(75, 23);
-            this.buttonOpenCloseTX.TabIndex = 7;
-            this.buttonOpenCloseTX.Text = "Open";
-            this.buttonOpenCloseTX.UseVisualStyleBackColor = true;
+            buttonOpenCloseTX.Location = new System.Drawing.Point(181, 64);
+            buttonOpenCloseTX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            buttonOpenCloseTX.Name = "buttonOpenCloseTX";
+            buttonOpenCloseTX.Size = new System.Drawing.Size(87, 26);
+            buttonOpenCloseTX.TabIndex = 7;
+            buttonOpenCloseTX.Text = "Open";
+            buttonOpenCloseTX.UseVisualStyleBackColor = true;
             // 
             // comboBoxBaud
             // 
-            this.comboBoxBaud.FormattingEnabled = true;
-            this.comboBoxBaud.Items.AddRange(new object[] {
-            "9600",
-            "115200"});
-            this.comboBoxBaud.Location = new System.Drawing.Point(58, 102);
-            this.comboBoxBaud.Name = "comboBoxBaud";
-            this.comboBoxBaud.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxBaud.TabIndex = 6;
-            this.comboBoxBaud.SelectedIndexChanged += new System.EventHandler(this.comboBoxBaud_SelectedIndexChanged);
+            comboBoxBaud.FormattingEnabled = true;
+            comboBoxBaud.Items.AddRange(new object[] { "9600", "115200" });
+            comboBoxBaud.Location = new System.Drawing.Point(68, 118);
+            comboBoxBaud.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            comboBoxBaud.Name = "comboBoxBaud";
+            comboBoxBaud.Size = new System.Drawing.Size(105, 23);
+            comboBoxBaud.TabIndex = 6;
+            comboBoxBaud.SelectedIndexChanged += comboBoxBaud_SelectedIndexChanged;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 105);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Baud:";
+            label8.AutoSize = true;
+            label8.Location = new System.Drawing.Point(5, 121);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(37, 15);
+            label8.TabIndex = 5;
+            label8.Text = "Baud:";
             // 
             // buttonOpenCloseRX
             // 
-            this.buttonOpenCloseRX.Location = new System.Drawing.Point(155, 12);
-            this.buttonOpenCloseRX.Name = "buttonOpenCloseRX";
-            this.buttonOpenCloseRX.Size = new System.Drawing.Size(75, 23);
-            this.buttonOpenCloseRX.TabIndex = 4;
-            this.buttonOpenCloseRX.Text = "Open";
-            this.buttonOpenCloseRX.UseVisualStyleBackColor = true;
+            buttonOpenCloseRX.Location = new System.Drawing.Point(181, 13);
+            buttonOpenCloseRX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            buttonOpenCloseRX.Name = "buttonOpenCloseRX";
+            buttonOpenCloseRX.Size = new System.Drawing.Size(87, 26);
+            buttonOpenCloseRX.TabIndex = 4;
+            buttonOpenCloseRX.Text = "Open";
+            buttonOpenCloseRX.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 60);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "WiFi TX:";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(5, 69);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(49, 15);
+            label7.TabIndex = 3;
+            label7.Text = "WiFi TX:";
             // 
             // comboBoxPortTX
             // 
-            this.comboBoxPortTX.FormattingEnabled = true;
-            this.comboBoxPortTX.Location = new System.Drawing.Point(58, 57);
-            this.comboBoxPortTX.Name = "comboBoxPortTX";
-            this.comboBoxPortTX.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxPortTX.TabIndex = 2;
+            comboBoxPortTX.FormattingEnabled = true;
+            comboBoxPortTX.Location = new System.Drawing.Point(68, 66);
+            comboBoxPortTX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            comboBoxPortTX.Name = "comboBoxPortTX";
+            comboBoxPortTX.Size = new System.Drawing.Size(105, 23);
+            comboBoxPortTX.TabIndex = 2;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 15);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "WiFi RX:";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(3, 17);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(50, 15);
+            label6.TabIndex = 1;
+            label6.Text = "WiFi RX:";
             // 
             // comboBoxPortRX
             // 
-            this.comboBoxPortRX.FormattingEnabled = true;
-            this.comboBoxPortRX.Location = new System.Drawing.Point(58, 12);
-            this.comboBoxPortRX.Name = "comboBoxPortRX";
-            this.comboBoxPortRX.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxPortRX.TabIndex = 0;
+            comboBoxPortRX.FormattingEnabled = true;
+            comboBoxPortRX.Location = new System.Drawing.Point(68, 13);
+            comboBoxPortRX.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            comboBoxPortRX.Name = "comboBoxPortRX";
+            comboBoxPortRX.Size = new System.Drawing.Size(105, 23);
+            comboBoxPortRX.TabIndex = 0;
             // 
             // checkBoxRealtimeDual
             // 
-            this.checkBoxRealtimeDual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxRealtimeDual.AutoSize = true;
-            this.checkBoxRealtimeDual.Location = new System.Drawing.Point(15, 15);
-            this.checkBoxRealtimeDual.Name = "checkBoxRealtimeDual";
-            this.checkBoxRealtimeDual.Size = new System.Drawing.Size(195, 17);
-            this.checkBoxRealtimeDual.TabIndex = 8;
-            this.checkBoxRealtimeDual.Text = "Realtime Dual UART Capture Mode";
-            this.checkBoxRealtimeDual.UseVisualStyleBackColor = true;
-            this.checkBoxRealtimeDual.CheckedChanged += new System.EventHandler(this.checkBoxRealtimeDual_CheckedChanged);
+            checkBoxRealtimeDual.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            checkBoxRealtimeDual.AutoSize = true;
+            checkBoxRealtimeDual.Location = new System.Drawing.Point(36, 17);
+            checkBoxRealtimeDual.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            checkBoxRealtimeDual.Name = "checkBoxRealtimeDual";
+            checkBoxRealtimeDual.Size = new System.Drawing.Size(209, 19);
+            checkBoxRealtimeDual.TabIndex = 8;
+            checkBoxRealtimeDual.Text = "Realtime Dual UART Capture Mode";
+            checkBoxRealtimeDual.UseVisualStyleBackColor = true;
+            checkBoxRealtimeDual.CheckedChanged += checkBoxRealtimeDual_CheckedChanged;
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 197);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(289, 78);
-            this.label4.TabIndex = 7;
-            this.label4.Text = resources.GetString("label4.Text");
+            label4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(17, 227);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(318, 90);
+            label4.TabIndex = 7;
+            label4.Text = resources.GetString("label4.Text");
             // 
             // listViewAvailableIDs
             // 
-            this.listViewAvailableIDs.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.listViewAvailableIDs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.id,
-            this.type,
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewAvailableIDs.HideSelection = false;
-            this.listViewAvailableIDs.Location = new System.Drawing.Point(5, 313);
-            this.listViewAvailableIDs.Name = "listViewAvailableIDs";
-            this.listViewAvailableIDs.Size = new System.Drawing.Size(340, 295);
-            this.listViewAvailableIDs.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.listViewAvailableIDs.TabIndex = 2;
-            this.listViewAvailableIDs.UseCompatibleStateImageBehavior = false;
-            this.listViewAvailableIDs.View = System.Windows.Forms.View.Details;
+            listViewAvailableIDs.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            listViewAvailableIDs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { id, type, columnHeader1, columnHeader2 });
+            listViewAvailableIDs.Location = new System.Drawing.Point(8, 359);
+            listViewAvailableIDs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewAvailableIDs.Name = "listViewAvailableIDs";
+            listViewAvailableIDs.Size = new System.Drawing.Size(396, 340);
+            listViewAvailableIDs.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            listViewAvailableIDs.TabIndex = 2;
+            listViewAvailableIDs.UseCompatibleStateImageBehavior = false;
+            listViewAvailableIDs.View = System.Windows.Forms.View.Details;
             // 
             // id
             // 
-            this.id.Text = "ID";
-            this.id.Width = 37;
+            id.Text = "ID";
+            id.Width = 37;
             // 
             // type
             // 
-            this.type.Text = "Type";
+            type.Text = "Type";
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "VCnt";
-            this.columnHeader1.Width = 48;
+            columnHeader1.Text = "VCnt";
+            columnHeader1.Width = 48;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Values";
-            this.columnHeader2.Width = 181;
+            columnHeader2.Text = "Values";
+            columnHeader2.Width = 181;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.richTextBoxComparer);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1376, 634);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Compare tool";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(richTextBoxComparer);
+            tabPage2.Location = new System.Drawing.Point(4, 24);
+            tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Size = new System.Drawing.Size(1630, 744);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Compare tool";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 27);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(452, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Here is a simple compare tool. Enter a hex string in each line, the differences w" +
-    "ill be hightlihtred";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(7, 31);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(510, 15);
+            label5.TabIndex = 1;
+            label5.Text = "Here is a simple compare tool. Enter a hex string in each line, the differences will be hightlihtred";
             // 
             // richTextBoxComparer
             // 
-            this.richTextBoxComparer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBoxComparer.Location = new System.Drawing.Point(3, -78);
-            this.richTextBoxComparer.Name = "richTextBoxComparer";
-            this.richTextBoxComparer.Size = new System.Drawing.Size(1370, 709);
-            this.richTextBoxComparer.TabIndex = 0;
-            this.richTextBoxComparer.Text = "";
-            this.richTextBoxComparer.TextChanged += new System.EventHandler(this.richTextBoxComparer_TextChanged);
+            richTextBoxComparer.Dock = System.Windows.Forms.DockStyle.Bottom;
+            richTextBoxComparer.Location = new System.Drawing.Point(3, -78);
+            richTextBoxComparer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            richTextBoxComparer.Name = "richTextBoxComparer";
+            richTextBoxComparer.Size = new System.Drawing.Size(1624, 818);
+            richTextBoxComparer.TabIndex = 0;
+            richTextBoxComparer.Text = "";
+            richTextBoxComparer.TextChanged += richTextBoxComparer_TextChanged;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 25;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 25;
+            timer1.Tick += timer1_Tick;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // DGCDirection
             // 
-            this.DGCDirection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCDirection.FillWeight = 279.1878F;
-            this.DGCDirection.HeaderText = "Direction";
-            this.DGCDirection.Name = "DGCDirection";
-            this.DGCDirection.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGCDirection.Width = 60;
+            DGCDirection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDirection.FillWeight = 279.1878F;
+            DGCDirection.HeaderText = "Direction";
+            DGCDirection.MinimumWidth = 8;
+            DGCDirection.Name = "DGCDirection";
+            DGCDirection.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCDirection.Width = 60;
             // 
             // DGCHeader
             // 
-            this.DGCHeader.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCHeader.FillWeight = 82.08122F;
-            this.DGCHeader.HeaderText = "Header";
-            this.DGCHeader.Name = "DGCHeader";
-            this.DGCHeader.Width = 60;
+            DGCHeader.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCHeader.FillWeight = 82.08122F;
+            DGCHeader.HeaderText = "Header";
+            DGCHeader.MinimumWidth = 8;
+            DGCHeader.Name = "DGCHeader";
+            DGCHeader.Width = 60;
             // 
             // DGCVersion
             // 
-            this.DGCVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCVersion.FillWeight = 82.08122F;
-            this.DGCVersion.HeaderText = "Version";
-            this.DGCVersion.Name = "DGCVersion";
-            this.DGCVersion.Width = 60;
+            DGCVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCVersion.FillWeight = 82.08122F;
+            DGCVersion.HeaderText = "Version";
+            DGCVersion.MinimumWidth = 8;
+            DGCVersion.Name = "DGCVersion";
+            DGCVersion.Width = 60;
             // 
             // DGCCommand
             // 
-            this.DGCCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCCommand.FillWeight = 82.08122F;
-            this.DGCCommand.HeaderText = "Command";
-            this.DGCCommand.Name = "DGCCommand";
-            this.DGCCommand.Width = 60;
+            DGCCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCCommand.FillWeight = 82.08122F;
+            DGCCommand.HeaderText = "Command";
+            DGCCommand.MinimumWidth = 8;
+            DGCCommand.Name = "DGCCommand";
+            DGCCommand.Width = 60;
             // 
             // DGCLenght
             // 
-            this.DGCLenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCLenght.FillWeight = 82.08122F;
-            this.DGCLenght.HeaderText = "Length";
-            this.DGCLenght.Name = "DGCLenght";
-            this.DGCLenght.Width = 60;
+            DGCLenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCLenght.FillWeight = 82.08122F;
+            DGCLenght.HeaderText = "Length";
+            DGCLenght.MinimumWidth = 8;
+            DGCLenght.Name = "DGCLenght";
+            DGCLenght.Width = 60;
             // 
             // DGCDPid
             // 
-            this.DGCDPid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCDPid.FillWeight = 82.08122F;
-            this.DGCDPid.HeaderText = "DPid";
-            this.DGCDPid.Name = "DGCDPid";
-            this.DGCDPid.Width = 60;
+            DGCDPid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDPid.FillWeight = 82.08122F;
+            DGCDPid.HeaderText = "DPid";
+            DGCDPid.MinimumWidth = 8;
+            DGCDPid.Name = "DGCDPid";
+            DGCDPid.Width = 60;
             // 
             // DGCType
             // 
-            this.DGCType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCType.FillWeight = 82.08122F;
-            this.DGCType.HeaderText = "Type";
-            this.DGCType.Name = "DGCType";
-            this.DGCType.Width = 60;
+            DGCType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCType.FillWeight = 82.08122F;
+            DGCType.HeaderText = "Type";
+            DGCType.MinimumWidth = 8;
+            DGCType.Name = "DGCType";
+            DGCType.Width = 60;
             // 
             // DGCDataLen
             // 
-            this.DGCDataLen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCDataLen.FillWeight = 82.08122F;
-            this.DGCDataLen.HeaderText = "DataLen";
-            this.DGCDataLen.Name = "DGCDataLen";
-            this.DGCDataLen.Width = 60;
+            DGCDataLen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDataLen.FillWeight = 82.08122F;
+            DGCDataLen.HeaderText = "DataLen";
+            DGCDataLen.MinimumWidth = 8;
+            DGCDataLen.Name = "DGCDataLen";
+            DGCDataLen.Width = 60;
             // 
             // DGCData
             // 
-            this.DGCData.FillWeight = 82.08122F;
-            this.DGCData.HeaderText = "Data";
-            this.DGCData.Name = "DGCData";
+            DGCData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCData.FillWeight = 82.08122F;
+            DGCData.HeaderText = "Data";
+            DGCData.MinimumWidth = 8;
+            DGCData.Name = "DGCData";
             // 
             // DGCDecoded
             // 
-            this.DGCDecoded.FillWeight = 82.08122F;
-            this.DGCDecoded.HeaderText = "Decoded";
-            this.DGCDecoded.Name = "DGCDecoded";
+            DGCDecoded.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCDecoded.FillWeight = 82.08122F;
+            DGCDecoded.HeaderText = "Decoded";
+            DGCDecoded.MinimumWidth = 8;
+            DGCDecoded.Name = "DGCDecoded";
             // 
             // DGCChecksum
             // 
-            this.DGCChecksum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DGCChecksum.FillWeight = 82.08122F;
-            this.DGCChecksum.HeaderText = "Checksum";
-            this.DGCChecksum.Name = "DGCChecksum";
-            this.DGCChecksum.Width = 60;
+            DGCChecksum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCChecksum.FillWeight = 82.08122F;
+            DGCChecksum.HeaderText = "Checksum";
+            DGCChecksum.MinimumWidth = 8;
+            DGCChecksum.Name = "DGCChecksum";
+            DGCChecksum.Width = 80;
             // 
             // FormTuyaMCUAnalyzer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1404, 686);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1420, 725);
-            this.Name = "FormTuyaMCUAnalyzer";
-            this.Text = "TuyaMCU Explorer/Analyzer for OpenBeken - Elektroda.com ";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDecoded)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1638, 791);
+            Controls.Add(tabControl1);
+            Controls.Add(label1);
+            Controls.Add(menuStrip1);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MinimumSize = new System.Drawing.Size(1651, 821);
+            Name = "FormTuyaMCUAnalyzer";
+            Text = "TuyaMCU Explorer/Analyzer for OpenBeken - Elektroda.com ";
+            Load += Form1_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDecoded).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -824,6 +845,8 @@
         private System.Windows.Forms.Button cb_decode;
         private System.Windows.Forms.TextBox textBox_decode;
         private System.Windows.Forms.DataGridView dataGridViewDecoded;
+        private System.Windows.Forms.Button LoadXML;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DGCDirection;
         private System.Windows.Forms.DataGridViewTextBoxColumn DGCHeader;
         private System.Windows.Forms.DataGridViewTextBoxColumn DGCVersion;
