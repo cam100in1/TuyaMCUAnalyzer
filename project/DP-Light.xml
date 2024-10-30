@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Specification>
+	<Headline name="CommandDecoder" type="dp-decoder" version="1.0" owner="theosoft"/>
 	<Enums>
 		<Enum name="OperationMode">
 			<Value name="white" value="0"/>

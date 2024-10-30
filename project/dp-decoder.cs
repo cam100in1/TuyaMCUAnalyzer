@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Decoder_Tryout
+namespace DatapointDecoder
 {
     public class MessageDecoder(List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs)
     {
+        // to find the correct XML 
+        public const string requieredType = "dp-decoder";
+        public const string requieredVersion = "1.0";
+
         private readonly Dictionary<string, DatapointSpec> _specs = datapointSpecs.ToDictionary(dp => dp.Id);
         private readonly Dictionary<string, EnumSpec> _enums = enumSpecs;
 

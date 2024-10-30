@@ -1,4 +1,4 @@
-﻿using Decoder_Tryout;
+﻿using DatapointDecoder;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace TuyaMCUAnalyzer
         private Dictionary<int, IDTracker> vars = [];
         private IDsTracker tracker;
         private DataGridViewRow DGPrintLineHex = new();
-        private MessageDecoder decoder;
+        private DatapointDecoder.MessageDecoder dpDecoder;
 
         public FormTuyaMCUAnalyzer()
         {
@@ -69,7 +69,7 @@ namespace TuyaMCUAnalyzer
         {
             if (p.Count < specialMarkerCount)
                 return "";
-            for(int i = 0; i < specialMarkerCount; i++)
+            for (int i = 0; i < specialMarkerCount; i++)
             {
                 if (p[0] != p[i])
                     return "";
@@ -79,21 +79,21 @@ namespace TuyaMCUAnalyzer
                 r = "IN";
             else if (p[0] == special_marker_sent)
                 r = "OUT";
-            if (r.Length >0)
+            if (r.Length > 0)
             {
                 p.RemoveRange(0, specialMarkerCount);
                 return r;
             }
             return "";
         }
-//
-//
-//
+        //
+        //
+        //
         private List<byte> getNextPacket(ref List<byte> p)
         {
-            for(int i = 0; i < p.Count-6; i++)
+            for (int i = 0; i < p.Count - 6; i++)
             {
-                if(p[i] == 0x55 && p[i+1] == 0xAA)
+                if (p[i] == 0x55 && p[i + 1] == 0xAA)
                 {
                     byte ver = p[i + 2];
                     byte cmd = p[i + 3];
@@ -101,7 +101,7 @@ namespace TuyaMCUAnalyzer
                     byte lenB = p[i + 5];
                     byte dataOrSum = p[i + 6];
                     int end = lenB + 7;
-                    if(i + end > p.Count)
+                    if (i + end > p.Count)
                     {
                         // futher part of packet is missing
                         break;
@@ -110,7 +110,7 @@ namespace TuyaMCUAnalyzer
                     if (end > maxToGet)
                         end = maxToGet;
                     List<byte> ret = p.GetRange(i, end);
-                    p.RemoveRange(0, end+i);
+                    p.RemoveRange(0, end + i);
                     return ret;
                 }
 
@@ -124,9 +124,9 @@ namespace TuyaMCUAnalyzer
         private string JoinDecodedInfo(Dictionary<string, Object> decodedMessage)
         {
             string result = "";
-            foreach (var item in decodedMessage )
+            foreach (var item in decodedMessage)
             {
-                result += item.Key + " " + item.Value +"\n"; 
+                result += item.Key + " " + item.Value + "\n";
             }
             return (result);
         }
@@ -141,12 +141,12 @@ namespace TuyaMCUAnalyzer
             string messageString = string.Join("", p.Skip(ofs).Select(b => b.ToString("X2")));
             string contentString = "";
             Dictionary<string, Object> decodedMessage = [];
-// Without loaded specification XML
-            if (decoder != null)
+            // Without loaded specification XML
+            if (dpDecoder != null)
             {
                 try
                 {
-                    decodedMessage = decoder.Decode(messageString);
+                    decodedMessage = dpDecoder.Decode(messageString);
                 }
                 catch (ArgumentException e)
                 {
@@ -214,9 +214,9 @@ namespace TuyaMCUAnalyzer
             {
                 bHasColor = false;
                 DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = contentString + " Col: ■";
-                DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor  = col;
+                DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = col;
             }
-            else 
+            else
             {
                 DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = contentString;
                 DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Black;
@@ -269,7 +269,7 @@ namespace TuyaMCUAnalyzer
                         int day = p[baseOfs + 3]; //  day
                         int hour = p[baseOfs + 4]; //  hour
                         int minute = p[baseOfs + 5]; //  minute
-                                                        // NOTE: some packets don't have second here?
+                                                     // NOTE: some packets don't have second here?
                         int second = p[baseOfs + 6]; //  second
 
                         DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
@@ -280,7 +280,7 @@ namespace TuyaMCUAnalyzer
                         DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = "INVALID date";
                         DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Gray;
                     }
-                break;
+                    break;
 
                 // Handle Command with Datapoint in payload. Dump data
 
@@ -349,7 +349,7 @@ namespace TuyaMCUAnalyzer
         }
 
 
-// Handle Command with Datapoint in payload. Decode them
+        // Handle Command with Datapoint in payload. Decode them
 
         //
         //
@@ -359,7 +359,8 @@ namespace TuyaMCUAnalyzer
         // 1. Step: Fill Hex Dump Window (Textbox)
         //
         //
-        private void refresh() {
+        private void refresh()
+        {
             int cursorPosition = richTextBoxSrc.SelectionStart;
             int currentLineIndex = richTextBoxSrc.GetLineFromCharIndex(cursorPosition);
             tracker = new IDsTracker();
@@ -371,28 +372,28 @@ namespace TuyaMCUAnalyzer
             byte value;
             string comment;
 
-// Fetch 2 Textlines from Dump window
+            // Fetch 2 Textlines from Dump window
             if (lines.Length > 2)
             {
                 text = lines[currentLineIndex - 2] + '\n' + lines[currentLineIndex - 1];
             }
-// Analyse text
-            for (int i = 0; i < text.Length; )
+            // Analyse text
+            for (int i = 0; i < text.Length;)
             {
-// "//" detection in text -- comment analyse regarding direction
-                if(text[i] == '/' && i < text.Length-1 && text[i+1] == '/')
+                // "//" detection in text -- comment analyse regarding direction
+                if (text[i] == '/' && i < text.Length - 1 && text[i + 1] == '/')
                 {
-// wait for 2 complete lines
-                    if(i < text.Length-2)
+                    // wait for 2 complete lines
+                    if (i < text.Length - 2)
                     {
-                        if(text[i+2] == 'S')
+                        if (text[i + 2] == 'S')
                         {
-                            for(int j = 0; j < specialMarkerCount; j++)
+                            for (int j = 0; j < specialMarkerCount; j++)
                             {
                                 r.Add(special_marker_sent);
                             }
                         }
-                        if(text[i+2] == 'R')
+                        if (text[i + 2] == 'R')
                         {
                             for (int j = 0; j < specialMarkerCount; j++)
                             {
@@ -400,7 +401,7 @@ namespace TuyaMCUAnalyzer
                             }
                         }
                     }
-// ignore all other char in comment line until CR
+                    // ignore all other char in comment line until CR
                     while (i < text.Length)
                     {
                         if (text[i] == '\n')
@@ -411,13 +412,13 @@ namespace TuyaMCUAnalyzer
                     }
                     continue;
                 }
-// ignore space, CR, tabs
-                if(text[i] == ' ' || text[i] == '\n' || text[i] == '\r' || text[i] == '\t')
+                // ignore space, CR, tabs
+                if (text[i] == ' ' || text[i] == '\n' || text[i] == '\r' || text[i] == '\t')
                 {
                     i++;
                     continue;
                 }
-// Convert text line into byte message
+                // Convert text line into byte message
                 try
                 {
                     ch = text.Substring(i, 2);
@@ -425,18 +426,18 @@ namespace TuyaMCUAnalyzer
                     r.Add(value);
                     i += 2;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     i++;
                 }
             }
 
-// Recieve Loop....
-            while(true)
+            // Recieve Loop....
+            while (true)
             {
                 comment = getSpecialMarker(ref r);
                 packet = getNextPacket(ref r);
-                if(packet == null)
+                if (packet == null)
                 {
                     break;
                 }
@@ -464,7 +465,7 @@ namespace TuyaMCUAnalyzer
                 if (comment.Length > 0)
                 {
                     DGPrintLineHex = new DataGridViewRow();
-                    DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "" );
+                    DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
                     DGPrintLineHex.Cells[(int)cellNames.Direction].Value = comment;
                     if (comment == "IN")
                     {
@@ -479,10 +480,10 @@ namespace TuyaMCUAnalyzer
                 }
                 // 2. Step: Show decoded Informaation in dataGridView 
                 dataGridViewDecoded.SuspendLayout(); // Anti flicker
-                
+
                 // Handle packets 
                 displayPacket(packet, vars);
-                
+
                 // Scroll to the newly added item (last item in the list)
                 dataGridViewDecoded.FirstDisplayedScrollingRowIndex = dataGridViewDecoded.Rows.Count - 1;
 
@@ -501,7 +502,7 @@ namespace TuyaMCUAnalyzer
                 "../samples",
                 "../../samples",
             };
-            foreach(string s in paths)
+            foreach (string s in paths)
             {
                 if (Directory.Exists(s))
                     return s;
@@ -536,13 +537,13 @@ namespace TuyaMCUAnalyzer
             string result = String.Format("{0:0.##} {1}", len, sizes[order]);
             return result;
         }
-        
+
         private string formatByteSize(string fname)
         {
             long filelen = new FileInfo(fname).Length;
             return formatByteSize(filelen);
         }
-        
+
         private void scanForExamplesCaptures()
         {
             try
@@ -564,12 +565,12 @@ namespace TuyaMCUAnalyzer
                     examplesToolStripMenuItem.DropDownItems.Add(item2);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("No examples found? Get sample captures from Github!");
             }
         }
-        
+
         private bool parseTuyaColor(string s, out Color c)
         {
             try
@@ -588,14 +589,14 @@ namespace TuyaMCUAnalyzer
                     return true;
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 // TODO: show
             }
             c = Color.Black;
             return false;
         }
-        
+
         private static Color HsvToRgb(double hue, double saturation, double value)
         {
             int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
@@ -620,7 +621,7 @@ namespace TuyaMCUAnalyzer
             else
                 return Color.FromArgb(255, v, p, q);
         }
-        
+
         // Method to export ListView data to CSV format
         private string ExportListViewToCsv(System.Windows.Forms.DataGridView dataGridView)
         {
@@ -693,14 +694,14 @@ namespace TuyaMCUAnalyzer
             richTextBoxSrc.AppendText(data);
             // refresh();
         }
-        
+
         private void LoadFileText(string fname)
         {
             string data;
             data = File.ReadAllText(fname);
             SplitAndProcessString(data, "55AA", "File");
         }
-        
+
         private void LoadFile(string fname)
         {
             string ext = Path.GetExtension(fname);
@@ -715,8 +716,8 @@ namespace TuyaMCUAnalyzer
         }
 
         private bool refreshingComparer;
-        
-        private bool isTheSame(string [] lines, int ofs)
+
+        private bool isTheSame(string[] lines, int ofs)
         {
             if (lines[0].Length - 2 < ofs)
             {
@@ -725,7 +726,7 @@ namespace TuyaMCUAnalyzer
             string baseText = lines[0].Substring(ofs, 2);
             for (int i = 1; i < lines.Length; i++)
             {
-                if(lines[i].Length - 2 < ofs)
+                if (lines[i].Length - 2 < ofs)
                 {
                     return false;
                 }
@@ -734,7 +735,7 @@ namespace TuyaMCUAnalyzer
             }
             return true;
         }
-        
+
         private void setDualCaptureEnabled(bool b)
         {
             comboBoxPortRX.Enabled = b;
@@ -747,14 +748,14 @@ namespace TuyaMCUAnalyzer
             {
                 checkBoxRealtimeDual.Checked = b;
             }
-            if(b)
+            if (b)
             {
-                portRX = new SinglePort(buttonOpenCloseRX, comboBoxPortRX, labelRXStats, addPacketRX, comboBoxBaud);         
+                portRX = new SinglePort(buttonOpenCloseRX, comboBoxPortRX, labelRXStats, addPacketRX, comboBoxBaud);
                 portTX = new SinglePort(buttonOpenCloseTX, comboBoxPortTX, labelTXStats, addPacketTX, comboBoxBaud);
             }
         }
-        
-        private void addPacket(byte [] data, string comment, string marker, Color c)
+
+        private void addPacket(byte[] data, string comment, string marker, Color c)
         {
             if (checkBoxPauseUART.Checked)
             {
@@ -767,20 +768,20 @@ namespace TuyaMCUAnalyzer
             {
                 s += data[i].ToString("X2");
             }
-            string final = "//"+marker+" " + DateTime.Now + " " + comment + Environment.NewLine
+            string final = "//" + marker + " " + DateTime.Now + " " + comment + Environment.NewLine
                 + s + Environment.NewLine;
             RichTextBoxExtensions.AppendText(richTextBoxSrc, final, c);
             // autoscroll to last line
             richTextBoxSrc.SelectionStart = richTextBoxSrc.Text.Length;
             richTextBoxSrc.ScrollToCaret();
         }
-        
+
         // called from SinglePort
-        private void addPacketRX(byte [] data)
+        private void addPacketRX(byte[] data)
         {
             addPacket(data, "WiFi received:", "R", Color.Blue);
         }
-        
+
         // called from SinglePort
         private void addPacketTX(byte[] data)
         {
@@ -812,8 +813,9 @@ namespace TuyaMCUAnalyzer
             updateComboBox(comboBoxPortRX);
             updateComboBox(comboBoxPortTX);
         }
-        
-        private void updateComboBox( System.Windows.Forms.ComboBox comboBoxUART) { 
+
+        private void updateComboBox(System.Windows.Forms.ComboBox comboBoxUART)
+        {
             string prevPort = "";
             if (comboBoxUART.SelectedIndex != -1)
             {
@@ -832,7 +834,7 @@ namespace TuyaMCUAnalyzer
                 comboBoxUART.SelectedIndex = newIndex;
             }
         }
-        
+
         private void scanForCOMPorts()
         {
             string[] newPorts = SerialPort.GetPortNames();
@@ -1006,12 +1008,12 @@ namespace TuyaMCUAnalyzer
 
         private void buttonCopyRawToClipboard_Click(object sender, EventArgs e)
         {
-            try 
-            { 
+            try
+            {
                 Clipboard.SetText(richTextBoxSrc.Text);
                 MessageBox.Show("Data copied to clipboard.");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("No data available");
             }
@@ -1023,11 +1025,25 @@ namespace TuyaMCUAnalyzer
             SplitAndProcessString(entry.Replace(" ", string.Empty), "55AA", "Decode entry");
         }
 
-        private void LoadXML_Click(object sender, EventArgs e)
+        private void Load_DP_XML_Click(object sender, EventArgs e)
         {
-            (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\DP-Light.xml");
-            decoder = new MessageDecoder(datapointSpecs, enumSpecs);
-            
+
+            if(Load_DP_XML.BackColor == Color.Green)
+            {
+                dpDecoder = null;
+                Load_DP_XML.BackColor = Color.OrangeRed;
+            }
+            else
+            {
+                (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = DatapointDecoder.SpecificationReader.ReadSpecification(".\\DP-Light.xml");
+                dpDecoder = new MessageDecoder(datapointSpecs, enumSpecs);
+                if (dpDecoder != null)
+                {
+                    Load_DP_XML.BackColor = Color.Green;
+                }
+            }
+
+
             //    OpenFileDialog openFileDialog = new()
             //    {
             //        InitialDirectory = "c:\\",
@@ -1051,5 +1067,27 @@ namespace TuyaMCUAnalyzer
             portRX?.runFrame();
             portTX?.runFrame();
         }
+
+        private void Load_CMD_XML_Click(object sender, EventArgs e)
+        {
+            (List<DatapointSpec> cmdSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\CMD-Light.xml");
+            //cmdDecoder = new MessageDecoder(datapointSpecs, enumSpecs);
+
+            //    OpenFileDialog openFileDialog = new()
+            //    {
+            //        InitialDirectory = "c:\\",
+            //        Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+            //        FilterIndex = 2,
+            //        RestoreDirectory = true
+            //    };
+            //    if (openFileDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        //Get the path of specified file
+            //        string filePath = openFileDialog.FileName;
+            //        (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(filePath);
+            //        decoder = new MessageDecoder(datapointSpecs, enumSpecs);
+            //    }
+        }
     }
 }
+

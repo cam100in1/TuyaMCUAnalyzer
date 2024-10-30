@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Decoder_Tryout
+namespace CommandDecoder
 {
+    public class Headline
+    {
+        public required string Name { get; set; }
+        public required string Type { get; set; }
+        public required string Version { get; set; }
+        public required string Owner{ get; set; }
+    }
     public class SpecItem
     {
         public required string Id { get; set; }
@@ -11,6 +18,8 @@ namespace Decoder_Tryout
         public required int Length { get; set; }
         public required string Type { get; set; }
         public string? EnumType { get; set; }
+        public bool IsVariableLength => Length == -1;
+        public bool IsVariablePos => Position == -1;
     }
 
     public class BlockSpec
@@ -19,10 +28,11 @@ namespace Decoder_Tryout
     }
 
 
-    public class DatapointSpec
+    public class CommandSpec
     {
-        public required string Id { get; set; }
-        public required string Name { get; set; }
+    public required string Id { get; set; }
+    public required string Version { get; set; }
+    public required string Name { get; set; }
         public required List<SpecItem> Items { get; set; }
         public BlockSpec? Block { get; set; }
     }

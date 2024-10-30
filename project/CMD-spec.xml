@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Specification>
+	<Headline name="CommandDecoder" type="cmd-decoder" version="1.1" owner="theosoft"/>
+	<Enums>
+		<Enum name="Status_03">
+			<Value name="Pairing in EZ mode" value="0"/>
+			<Value name="Pairing in AP mode" value="1"/>
+			<Value name="The Wi-Fi network is setup, but the device is not connected to the router." value="2"/>
+			<Value name="The Wi-Fi network is setup, and the device is connected to the router" value="3"/>
+			<Value name="The device is connected to the cloud." value="4"/>
+			<Value name="Tuya’s network module is in low power mode" value="5"/>
+			<Value name="EZ mode and AP mode coexist" value="6"/>
+		</Enum>
+		<Enum name="Status_14">
+			<Value name="Failure" value="0"/>
+			<Value name="Success" value="1"/>
+		</Enum>
+		<Enum name="Status_55">
+			<Value name="Success" value="0"/>
+			<Value name="Invalid Data" value="1"/>
+			<Value name="Failure" value="2"/>
+		</Enum>
+	</Enums>
+	<Commands>
+		<Command id="0" version="0" name="Send heartbeats">
+			<!-- Spezifikationen für Command 0x00 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="0" version="3" name="Send heartbeats Answer">
+			<!-- Spezifikationen für Command 0x00 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Heardbeats" position="4" length="2" type="value"/>
+			<Item id="Checksum" position="6" length="2" type="value"/>
+		</Command>
+		<Command id="1" version="0" name="Query product information">
+			<!-- Spezifikationen für Command 0x01 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="1" version="3" name="Query product information answer">
+			<!-- Spezifikationen für Command 0x01 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Product Information" position="4" length="-1" type="string"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="2" version="0" name="Query working mode">
+			<!-- Spezifikationen für Command 0x02 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="2" version="3" name="Query working mode answer">
+			<!-- Spezifikationen für Command 0x02 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Working mode" position="4" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="55" version="0" name="Notification of new feature setting">
+			<!-- Spezifikationen für Command 0x37 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Subcommand" position="4" length="2" type="value"/>
+			<Item id="Status" position="6" length="2" type="enum" enumType="Status_55"/>
+			<Item id="Checksum" position="8" length="2" type="value"/>
+		</Command>
+		<Command id="55" version="3" name="Notification of new feature setting answer">
+			<!-- Spezifikationen für Command 0x37 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Subcommand" position="4" length="2" type="value"/>
+			<Item id="Data" position="6" length="-1" type="string"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="3" version="0" name="Report network status">
+			<!-- Spezifikationen für Command 0x03 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="network status" position="4" length="2" type="enum" enumType="Status_03"/>"
+			<Item id="Checksum" position="6" length="2" type="value"/>
+		</Command>
+		<Command id="3" version="3" name="Report network status answer">
+			<!-- Spezifikationen für Command 0x03 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="4" version="0" name="Reset Wi-Fi connection">
+			<!-- Spezifikationen für Command 0x04 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="4" version="3" name="Reset Wi-Fi connection answer">
+			<!-- Spezifikationen für Command 0x04 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="5" version="0" name="Reset Wi-Fi and select pairing mode">
+			<!-- Spezifikationen für Command 0x05 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="5" version="3" name="Reset Wi-Fi and select pairing mode answer">
+			<!-- Spezifikationen für Command 0x05 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Pairing mode" position="4" length="2" type="value"/>
+			<Item id="Checksum" position="6" length="2" type="value"/>
+		</Command>
+		<Command id="6" version="0" name="Send commands">
+			<!-- Spezifikationen für Command 0x06 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="7" version="3" name="Report status async">
+			<!-- Spezifikationen für Command 0x07 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="34" version="3" name="Report status sync">
+			<!-- Spezifikationen für Command 0x22 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="35" version="0" name="Report status sync answer">
+			<!-- Spezifikationen für Command 0x23 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Sync status" position="4" length="2" type="value"/>
+			<Item id="Checksum" position="6" length="2" type="value"/>
+		</Command>
+		<Command id="52" version="3" name="Report status (record-type)">
+			<!-- Spezifikationen für Command 0x34 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Subcommand" position="4" length="2" type="value"/>
+			<Item id="Default" position="6" length="2" type="value"/>
+			<Item id="Valid Flag" position="8" length="2" type="boolean"/>
+			<Item id="Year" position="10" length="2" type="year"/>
+			<Item id="Month" position="12" length="2" type="int8"/>
+			<Item id="Day" position="14" length="2" type="int8"/>
+			<Item id="Hour" position="16" length="2" type="int8"/>
+			<Item id="Minutes" position="18" length="2" type="int8"/>
+			<Item id="Seconds" position="20" length="2" type="int8"/>
+			<Item id="Data" position="22" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="8" version="0" name="Query DP status">
+			<!-- Spezifikationen für Command 0x08 -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="10" version="0" name="Start OTA update">
+			<!-- Spezifikationen für Command 0x0A -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Update Length" position="4" length="8" type="int8"/>
+			<Item id="Checksum" position="12" length="2" type="value"/>
+		</Command>
+		<Command id="10" version="3" name="Start OTA update answer">
+			<!-- Spezifikationen für Command 0x0A -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Update package size" position="4" length="2" type="int8"/>
+			<Item id="Checksum" position="6" length="2" type="value"/>
+		</Command>
+		<Command id="11" version="0" name="Transmit update package">
+			<!-- Spezifikationen für Command 0x0B -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Package offset" position="4" length="4" type="int8"/>
+			<Item id="Package" position="8" length="-1" type="value"/>
+			<Item id="Checksum" position="-1" length="2" type="value"/>
+		</Command>
+		<Command id="11" version="3" name="Transmit update package answer">
+			<!-- Spezifikationen für Command 0x0B -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="12" version="0" name="Get system time in GMT answer">
+			<!-- Spezifikationen für Command 0x0C -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Valid Flag" position="4" length="2" type="boolean"/>
+			<Item id="Year" position="6" length="2" type="year"/>
+			<Item id="Month" position="8" length="2" type="int8"/>
+			<Item id="Day" position="10" length="2" type="int8"/>
+			<Item id="Hour" position="12" length="2" type="int8"/>
+			<Item id="Minutes" position="14" length="2" type="int8"/>
+			<Item id="Seconds" position="16" length="2" type="int8"/>
+		</Command>
+		<Command id="12" version="3" name="Get system time in GMT">
+			<!-- Spezifikationen für Command 0x0C -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="28" version="0" name=" Get local time answer">
+			<!-- Spezifikationen für Command 0x1C -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Valid Flag" position="4" length="2" type="boolean"/>
+			<Item id="Year" position="6" length="2" type="year"/>
+			<Item id="Month" position="8" length="2" type="int8"/>
+			<Item id="Day" position="10" length="2" type="int8"/>
+			<Item id="Hour" position="12" length="2" type="int8"/>
+			<Item id="Minutes" position="14" length="2" type="int8"/>
+			<Item id="Seconds" position="16" length="2" type="int8"/>
+			<Item id="GMTOffset" position="18" length="2" type="int8"/>
+		</Command>
+		<Command id="28" version="3" name=" Get local time">
+			<!-- Spezifikationen für Command 0x0C -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="14" version="0" name="Test Wi-Fi functionality answer">
+			<!-- Spezifikationen für Command 0x0E -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Wifi status" position="4" length="2" type="enum" enumType="Status_14"/>
+			<Item id="Data" position="6" length="2" type="value"/>
+			<Item id="Checksum" position="8" length="2" type="value"/>
+		</Command>
+		<Command id="14" version="3" name="Test Wi-Fi functionality">
+			<!-- Spezifikationen für Command 0x0E -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+		<Command id="15" version="0" name="Get module’s memory answer">
+			<!-- Spezifikationen für Command 0x0F -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Remaining memory" position="4" length="8" type="bigEndian"/>
+			<Item id="Checksum" position="12" length="2" type="value"/>
+		</Command>
+		<Command id="15" version="3" name="Get module’s memory">
+			<!-- Spezifikationen für Command 0x0F -->
+			<Item id="DataLength" position="0" length="4" type="value"/>
+			<Item id="Data" position="4" length="0" type="value"/>
+			<Item id="Checksum" position="4" length="2" type="value"/>
+		</Command>
+	</Commands>
+</Specification>
