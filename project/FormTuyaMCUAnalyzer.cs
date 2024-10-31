@@ -1,4 +1,5 @@
 ﻿using DatapointDecoder;
+using CommandDecoder;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -31,12 +32,14 @@ namespace TuyaMCUAnalyzer
             Version,        // 2
             Command,        // 3
             Length,         // 4
-            DPid,           // 5
-            Type,           // 6
-            DataLength,     // 7
-            Data,           // 8
-            Decoded,        // 9
-            Checksum,       // 10
+            CMDData,        // 5
+            CMDInfo,        // 6
+            DPid,           // 7
+            DPType,         // 8
+            DPDataLength,   // 9
+            DPData,         // 10
+            DPInfo,         // 11
+            Checksum,       // 12
         }
         Dictionary<int, string> cmdNamesMap = new Dictionary<int, string>
         {
@@ -59,6 +62,7 @@ namespace TuyaMCUAnalyzer
         private IDsTracker tracker;
         private DataGridViewRow DGPrintLineHex = new();
         private DatapointDecoder.MessageDecoder dpDecoder;
+        private CommandDecoder.MessageDecoder cmdDecoder;
 
         public FormTuyaMCUAnalyzer()
         {
@@ -141,7 +145,8 @@ namespace TuyaMCUAnalyzer
             string messageString = string.Join("", p.Skip(ofs).Select(b => b.ToString("X2")));
             string contentString = "";
             Dictionary<string, Object> decodedMessage = [];
-            // Without loaded specification XML
+
+            // With loaded datapoint engine
             if (dpDecoder != null)
             {
                 try
@@ -150,7 +155,7 @@ namespace TuyaMCUAnalyzer
                 }
                 catch (ArgumentException e)
                 {
-                    MessageBox.Show(e.Message);
+                    contentString = e.Message;
                 }
                 contentString = JoinDecodedInfo(decodedMessage);
             }
@@ -213,13 +218,13 @@ namespace TuyaMCUAnalyzer
             if (bHasColor)
             {
                 bHasColor = false;
-                DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = contentString + " Col: ■";
-                DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = col;
+                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = contentString + " Col: ■";
+                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = col;
             }
             else
             {
-                DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = contentString;
-                DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Black;
+                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = contentString;
+                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Black;
             }
         }
         //
@@ -228,6 +233,10 @@ namespace TuyaMCUAnalyzer
 
         private void displayPacket(List<byte> p, Dictionary<int, IDTracker> vars)
         {
+            string messageString = string.Join("", p.Skip(2).Select(b => b.ToString("X2")));
+            string contentString = "";
+            Dictionary<string, Object> decodedMessage = [];
+            // cmd decoder engine loaded
             byte ver = p[2];
             byte cmd = p[3];
             byte lenA = p[4];
@@ -236,111 +245,157 @@ namespace TuyaMCUAnalyzer
             int baseOfs = 6;
             int bDateValid = p[baseOfs + 0]; // bDateValid
 
-            DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
-            DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
-            DGPrintLineHex.Cells[(int)cellNames.Version].Value = p[2].ToString("X2");
-            DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
-            DGPrintLineHex.Cells[(int)cellNames.Command].Value = p[3].ToString("X2");
-            DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
-            DGPrintLineHex.Cells[(int)cellNames.Length].Value = p[4].ToString("X2") + " " + p[5].ToString("X2");
-            DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
-            // https://images.tuyacn.com/smart/aircondition/Guide-to-Interworking-with-the-Tuya-MCU.pdf
-            switch (cmd)
+            if (cmdDecoder != null)
             {
-                case 1:
-                    string str = ASCIIEncoding.ASCII.GetString(p.ToArray(), 6, p.Count - 7);
-                    DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = str;
-                    DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Gray;
-                    break;
+                DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
+                DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
+                DGPrintLineHex.Cells[(int)cellNames.Version].Value = cmdDecoder.Dump_Version(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
+                DGPrintLineHex.Cells[(int)cellNames.Command].Value = cmdDecoder.Dump_Command(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
+                DGPrintLineHex.Cells[(int)cellNames.Length].Value = cmdDecoder.Dump_Datalen(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
+                DGPrintLineHex.Cells[(int)cellNames.CMDData].Value = cmdDecoder.Dump_Data(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.CMDData].Style.ForeColor = Color.DarkGray;
+                try
+                {
+                    decodedMessage = cmdDecoder.Decode(messageString);
+                    DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = JoinDecodedInfo(decodedMessage);
+                }
+                catch (Exception e)
+                {
+                    DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = "Unknown Cmd. " + e.Message + " Check XML";
+                }
 
-                case 0x05:
-                case 0x06:
-                case 0x08:
-                case 0x10:
-                case 0x1c:
-                    if (cmd == 0x10 && ver == 0)
+                // If Datapoints present
+                if (decodedMessage.TryGetValue("Datapoints", out var value))
+                {
+                    string dp_value = value.ToString();
+                    DGPrintLineHex.Cells[(int)cellNames.DPid].Value = dp_value[0..2] + " (" + Convert.ToInt16(dp_value[0..2], 16).ToString() + ")";
+                    DGPrintLineHex.Cells[(int)cellNames.DPType].Value = dp_value[2..4];
+                    DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = dp_value[4..8];
+                    DGPrintLineHex.Cells[(int)cellNames.DPData].Value = dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16));
+
+                    try
                     {
-                        baseOfs += 2;
+                        var dp_decodedMessage = dpDecoder.Decode(dp_value);
+
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = JoinDecodedInfo(dp_decodedMessage);
                     }
-                    if (bDateValid == 1)
+                    catch (ArgumentException fex)
                     {
-                        int year = p[baseOfs + 1]; //  year
-                        int month = p[baseOfs + 2]; //  month
-                        int day = p[baseOfs + 3]; //  day
-                        int hour = p[baseOfs + 4]; //  hour
-                        int minute = p[baseOfs + 5]; //  minute
-                                                     // NOTE: some packets don't have second here?
-                        int second = p[baseOfs + 6]; //  second
-
-                        DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
-                        DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = fex.Message + " Check XML";
                     }
-                    else
-                    {
-                        DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = "INVALID date";
-                        DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Gray;
-                    }
-                    break;
+                }
+            }
+            else // old Version
+            {
+                DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
+                DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
+                DGPrintLineHex.Cells[(int)cellNames.Version].Value = p[2].ToString("X2");
+                DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
+                DGPrintLineHex.Cells[(int)cellNames.Command].Value = p[3].ToString("X2");
+                DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
+                DGPrintLineHex.Cells[(int)cellNames.Length].Value = p[4].ToString("X2") + " " + p[5].ToString("X2");
+                DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
+                // https://images.tuyacn.com/smart/aircondition/Guide-to-Interworking-with-the-Tuya-MCU.pdf
+                switch (cmd)
+                {
+                    case 1:
+                        string str = ASCIIEncoding.ASCII.GetString(p.ToArray(), 6, p.Count - 7);
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = str;
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
+                        break;
 
-                // Handle Command with Datapoint in payload. Dump data
-
-                case 7:
-                case 0x22:
-                    int ofs = 6;
-                    while (ofs + 4 < p.Count)
-                    {
-                        int sectorLen = p[ofs + 2] << 8 | p[ofs + 3];
-                        int dpId = p[ofs];
-
-                        DGPrintLineHex.Cells[(int)cellNames.DPid].Value = p[ofs].ToString("X2");
-                        DGPrintLineHex.Cells[(int)cellNames.DPid].Style.ForeColor = Color.Black;
-                        DGPrintLineHex.Cells[(int)cellNames.Type].Value = p[ofs + 1].ToString("X2");
-                        DGPrintLineHex.Cells[(int)cellNames.Type].Style.ForeColor = Color.Green;
-                        DGPrintLineHex.Cells[(int)cellNames.DataLength].Value = p[ofs + 2].ToString("X2") + " " + p[ofs + 3].ToString("X2");
-                        DGPrintLineHex.Cells[(int)cellNames.DataLength].Style.ForeColor = Color.Black;
-                        int dataType = p[ofs + 1];
-
-                        if (sectorLen == 1)
+                    case 0x05:
+                    case 0x06:
+                    case 0x08:
+                    case 0x10:
+                    case 0x1c:
+                        if (cmd == 0x10 && ver == 0)
                         {
-                            int iVal = (int)p[ofs + 4];
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Value = iVal.ToString("X2");
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Style.ForeColor = Color.Orange;
+                            baseOfs += 2;
                         }
-                        else if (sectorLen == 4)
+                        if (bDateValid == 1)
                         {
-                            int iVal = p[ofs + 4] << 24 | p[ofs + 5] << 16 | p[ofs + 6] << 8 | p[ofs + 7];
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Value = iVal.ToString("X8");
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Style.ForeColor = Color.Orange;
+                            int year = p[baseOfs + 1]; //  year
+                            int month = p[baseOfs + 2]; //  month
+                            int day = p[baseOfs + 3]; //  day
+                            int hour = p[baseOfs + 4]; //  hour
+                            int minute = p[baseOfs + 5]; //  minute
+                                                         // NOTE: some packets don't have second here?
+                            int second = p[baseOfs + 6]; //  second
+
+                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
                         }
                         else
                         {
-                            string varStr = "";
-                            for (int si = 0; si < sectorLen; si++)
-                            {
-                                if (si != 0)
-                                    varStr += "";
-                                varStr += p[ofs + si + 4].ToString("X2");
-                            }
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Value = varStr;
-                            DGPrintLineHex.Cells[(int)cellNames.Data].Style.ForeColor = Color.Orange;
+                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = "INVALID date";
+                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
                         }
-                        ofs += (4 + sectorLen);
-                    }
-                    parseDPData(p, vars);
-                    break;
-                default:
-                    for (int i = 6; i < p.Count - 1; i++)
-                    {
-                        s += p[i].ToString("X2");
-                        s += "";
-                    }
-                    DGPrintLineHex.Cells[(int)cellNames.Data].Value = s;
-                    DGPrintLineHex.Cells[(int)cellNames.Data].Style.ForeColor = Color.Gray;
-                    DGPrintLineHex.Cells[(int)cellNames.Decoded].Value = GetStringForNumber(cmd, cmdNamesMap);
-                    DGPrintLineHex.Cells[(int)cellNames.Decoded].Style.ForeColor = Color.Red;
-                    break;
+                        break;
+
+                    // Handle Command with Datapoint in payload. Dump data
+
+                    case 7:
+                    case 0x22:
+                        int ofs = 6;
+                        while (ofs + 4 < p.Count)
+                        {
+                            int sectorLen = p[ofs + 2] << 8 | p[ofs + 3];
+                            int dpId = p[ofs];
+
+                            DGPrintLineHex.Cells[(int)cellNames.DPid].Value = p[ofs].ToString("X2");
+                            DGPrintLineHex.Cells[(int)cellNames.DPid].Style.ForeColor = Color.Black;
+                            DGPrintLineHex.Cells[(int)cellNames.DPType].Value = p[ofs + 1].ToString("X2");
+                            DGPrintLineHex.Cells[(int)cellNames.DPType].Style.ForeColor = Color.Green;
+                            DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = p[ofs + 2].ToString("X2") + " " + p[ofs + 3].ToString("X2");
+                            DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Style.ForeColor = Color.Black;
+                            int dataType = p[ofs + 1];
+
+                            if (sectorLen == 1)
+                            {
+                                int iVal = (int)p[ofs + 4];
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = iVal.ToString("X2");
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
+                            }
+                            else if (sectorLen == 4)
+                            {
+                                int iVal = p[ofs + 4] << 24 | p[ofs + 5] << 16 | p[ofs + 6] << 8 | p[ofs + 7];
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = iVal.ToString("X8");
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
+                            }
+                            else
+                            {
+                                string varStr = "";
+                                for (int si = 0; si < sectorLen; si++)
+                                {
+                                    if (si != 0)
+                                        varStr += "";
+                                    varStr += p[ofs + si + 4].ToString("X2");
+                                }
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = varStr;
+                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
+                            }
+                            ofs += (4 + sectorLen);
+                        }
+                        parseDPData(p, vars);
+                        break;
+                    default:
+                        for (int i = 6; i < p.Count - 1; i++)
+                        {
+                            s += p[i].ToString("X2");
+                            s += "";
+                        }
+                        DGPrintLineHex.Cells[(int)cellNames.DPData].Value = s;
+                        DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Gray;
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = GetStringForNumber(cmd, cmdNamesMap);
+                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Red;
+                        break;
+                }
+                // 
             }
-            // 
 
             DGPrintLineHex.Cells[(int)cellNames.Checksum].Value = p[p.Count - 1].ToString("X2");
             DGPrintLineHex.Cells[(int)cellNames.Checksum].Style.ForeColor = Color.Black;
@@ -1028,18 +1083,19 @@ namespace TuyaMCUAnalyzer
         private void Load_DP_XML_Click(object sender, EventArgs e)
         {
 
-            if(Load_DP_XML.BackColor == Color.Green)
+            if (Load_DP_XML.BackColor == Color.Green)
             {
                 dpDecoder = null;
                 Load_DP_XML.BackColor = Color.OrangeRed;
             }
             else
             {
-                (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = DatapointDecoder.SpecificationReader.ReadSpecification(".\\DP-Light.xml");
-                dpDecoder = new MessageDecoder(datapointSpecs, enumSpecs);
+                (List<DatapointSpec> datapointSpecs, Dictionary<string, DatapointDecoder.EnumSpec> enumSpecs, string name) = DatapointDecoder.SpecificationReader.ReadSpecification(".\\DP-Light.xml");
+                dpDecoder = new DatapointDecoder.MessageDecoder(datapointSpecs, enumSpecs);
                 if (dpDecoder != null)
                 {
                     Load_DP_XML.BackColor = Color.Green;
+                    label_dp_decoder.Text = name;
                 }
             }
 
@@ -1070,8 +1126,22 @@ namespace TuyaMCUAnalyzer
 
         private void Load_CMD_XML_Click(object sender, EventArgs e)
         {
-            (List<DatapointSpec> cmdSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\CMD-Light.xml");
-            //cmdDecoder = new MessageDecoder(datapointSpecs, enumSpecs);
+            // (List<DatapointSpec> cmdSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\CMD-Light.xml");
+            if (Load_CMD_XML.BackColor == Color.Green)
+            {
+                cmdDecoder = null;
+                Load_CMD_XML.BackColor = Color.OrangeRed;
+            }
+            else
+            {
+                (List<CommandSpec> cmdSpecs, Dictionary<string, CommandDecoder.EnumSpec> enumSpecs, string name) = CommandDecoder.SpecificationReader.ReadSpecification(".\\CMD-spec.xml");
+                cmdDecoder = new CommandDecoder.MessageDecoder(cmdSpecs, enumSpecs);
+                if (cmdDecoder != null)
+                {
+                    Load_CMD_XML.BackColor = Color.Green;
+                    label_cmd_decoder.Text = name;
+                }
+            }
 
             //    OpenFileDialog openFileDialog = new()
             //    {

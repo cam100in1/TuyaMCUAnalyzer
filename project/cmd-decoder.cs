@@ -18,6 +18,26 @@ namespace CommandDecoder
         private readonly Dictionary<(string, string), CommandSpec> _specs = CommandSpecs.ToDictionary( cmd => (cmd.Id, cmd.Version), cmd => cmd);
         private readonly Dictionary<string, EnumSpec> _enums = enumSpecs;
 
+        public string Dump_Version(string input)
+        {
+            return input[..2];
+        }
+        public string Dump_Command(string input)
+        {
+            return input[2..4]; 
+        }
+        public string Dump_Datalen(string input)
+        {
+            return input[4..8];
+        }
+        public string Dump_Data(string input)
+        {
+            return input[8..(8+2*Convert.ToInt32(input[4..8], 16))];
+        }
+        public string Dump_Checksum(string input)
+        {
+            return input[(2*Convert.ToInt32(input[4..8], 16))..];
+        }
         public Dictionary<string, object> Decode(string input)
         {
             const int VersCmdSize = 4;
@@ -30,7 +50,7 @@ namespace CommandDecoder
             int DynDataLen = 0;
             int NextPosition = 0;
             var valueStr = "";
-            var key = ( cmd, version);
+            var key = ( cmd, version );
 
             if (!_specs.TryGetValue(key, out CommandSpec? gotSpec))
             {
@@ -207,6 +227,7 @@ namespace CommandDecoder
                 default:
                     throw new ArgumentException($"Unknown type: {specItem.Type}");
             }
+            
             return value;
         }
     }

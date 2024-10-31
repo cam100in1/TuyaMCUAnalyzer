@@ -28,7 +28,7 @@ namespace DatapointDecoder
 
             foreach (var specItem in spec.Items)
             {
-                var valueStr = input.Substring(2 + specItem.Position, specItem.Length);
+                var valueStr = input.Substring(specItem.Position, specItem.Length);
                 object value = DecodeValue(valueStr, specItem);
                 result[specItem.Id] = value;
             }
@@ -36,7 +36,7 @@ namespace DatapointDecoder
             if (spec.Block != null)
             {
                 int blockSize = spec.Block.Items.Sum(item => item.Length);
-                int blockStartPos = 2 + spec.Items.Max(item => item.Position + item.Length);
+                int blockStartPos = spec.Items.Max(item => item.Position + item.Length);
                 int blockCount = (input.Length - blockStartPos) / blockSize;
 
                 for (int i = 0; i < blockCount; i++)

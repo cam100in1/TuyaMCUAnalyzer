@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Specification>
-	<Headline name="CommandDecoder" type="cmd-decoder" version="1.1" owner="theosoft"/>
+	<Headline name="Tuya Commands" type="cmd-decoder" version="1.0" owner="theosoft"/>
 	<Enums>
 		<Enum name="Status_03">
 			<Value name="Pairing in EZ mode" value="0"/>
@@ -28,7 +28,7 @@
 			<Item id="Data" position="4" length="0" type="value"/>
 			<Item id="Checksum" position="4" length="2" type="value"/>
 		</Command>
-		<Command id="0" version="3" name="Send heartbeats Answer">
+		<Command id="0" version="3" name="Send heartbeats answer">
 			<!-- Spezifikationen für Command 0x00 -->
 			<Item id="DataLength" position="0" length="4" type="value"/>
 			<Item id="Heardbeats" position="4" length="2" type="value"/>
@@ -111,19 +111,19 @@
 		<Command id="6" version="0" name="Send commands">
 			<!-- Spezifikationen für Command 0x06 -->
 			<Item id="DataLength" position="0" length="4" type="value"/>
-			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Datapoints" position="4" length="-1" type="value"/>
 			<Item id="Checksum" position="-1" length="2" type="value"/>
 		</Command>
 		<Command id="7" version="3" name="Report status async">
 			<!-- Spezifikationen für Command 0x07 -->
 			<Item id="DataLength" position="0" length="4" type="value"/>
-			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Datapoints" position="4" length="-1" type="value"/>
 			<Item id="Checksum" position="-1" length="2" type="value"/>
 		</Command>
 		<Command id="34" version="3" name="Report status sync">
 			<!-- Spezifikationen für Command 0x22 -->
 			<Item id="DataLength" position="0" length="4" type="value"/>
-			<Item id="Data units" position="4" length="-1" type="value"/>
+			<Item id="Datapoints" position="4" length="-1" type="value"/>
 			<Item id="Checksum" position="-1" length="2" type="value"/>
 		</Command>
 		<Command id="35" version="0" name="Report status sync answer">

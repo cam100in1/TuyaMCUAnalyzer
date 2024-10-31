@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Specification>
-	<Headline name="CommandDecoder" type="dp-decoder" version="1.0" owner="theosoft"/>
+	<Headline name="RGB-Controller" type="dp-decoder" version="1.0" owner="theosoft"/>
 	<Enums>
 		<Enum name="OperationMode">
 			<Value name="white" value="0"/>
@@ -30,29 +30,47 @@
 	<Datapoints>
 		<Datapoint id="20" name="on/off">
 			<!-- Spezifikationen für DP20 -->
-			<Item id="switch" position="0" length="2" type="boolean"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="switch" position="8" length="2" type="boolean"/>
 		</Datapoint>
 		<Datapoint id="21" name ="mode">
 			<!-- Spezifikationen für DP21 -->
-			<Item id="mode" position="0" length="2" type="enum" enumType="OperationMode"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="mode" position="8" length="2" type="enum" enumType="OperationMode"/>
 		</Datapoint>
 		<Datapoint id="22" name ="brightness">
 			<!-- Spezifikationen für DP22 -->
-			<Item id="brightness" position="0" length="8" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="brightness" position="8" length="8" type="value"/>
 		</Datapoint>
 		<Datapoint id="23" name ="color temperature">
 			<!-- Spezifikationen für DP23 -->
-			<Item id="color temperature" position="0" length="8" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="color temperature" position="8" length="8" type="value"/>
 		</Datapoint>
 		<Datapoint id="24" name ="HSV color">
 			<!-- Spezifikationen für DP24 -->
-			<Item id="Hue" position="0" length="4" type="string"/>
-			<Item id="Saturation" position="4" length="4" type="string"/>
-			<Item id="Value" position="8" length="4" type="string"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="Hue" position="8" length="8" type="string"/>
+			<Item id="Saturation" position="16" length="8" type="string"/>
+			<Item id="Value" position="32" length="8" type="string"/>
 		</Datapoint>
 		<Datapoint id="25" name ="scene">
 			<!-- Spezifikationen für DP25 -->
-			<Item id="SceneID" position="0" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="SceneID" position="8" length="2" type="value"/>
 			<Block>
 				<Item id="TransitionInterval" position="0" length="2" type="value"/>
 				<Item id="LightingModeDuration" position="2" length="2" type="value"/>
@@ -66,43 +84,61 @@
 		</Datapoint>
 		<Datapoint id="26" name ="timer">
 			<!-- Spezifikationen für DP26 -->
-			<Item id="timer-sec" position="0" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="timer-sec" position="8" length="2" type="value"/>
 		</Datapoint>
 		<Datapoint id="27" name ="music sync">
 			<!-- Spezifikationen für DP27 -->
-			<Item id="lighting mode" position="0" length="1" type="enum" enumType="LightingMode2"/>
-			<Item id="Hue" position="1" length="4" type="value"/>
-			<Item id="Saturation" position="5" length="4" type="value"/>
-			<Item id="Value" position="9" length="4" type="value"/>
-			<Item id="Brightness" position="13" length="4" type="value"/>
-			<Item id="ColorTemperature" position="17" length="4" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="lighting mode" position="8" length="1" type="enum" enumType="LightingMode2"/>
+			<Item id="Hue" position="9" length="4" type="value"/>
+			<Item id="Saturation" position="13" length="4" type="value"/>
+			<Item id="Value" position="17" length="4" type="value"/>
+			<Item id="Brightness" position="21" length="4" type="value"/>
+			<Item id="ColorTemperature" position="25" length="4" type="value"/>
 		</Datapoint>
 		<Datapoint id="28" name ="real-time adjustment">
 			<!-- Spezifikationen für DP28 -->
-			<Item id="lighting mode" position="0" length="1" type="enum" enumType="LightingMode2"/>
-			<Item id="Hue" position="1" length="4" type="value"/>
-			<Item id="Saturation" position="5" length="4" type="value"/>
-			<Item id="Value" position="9" length="4" type="value"/>
-			<Item id="Brightness" position="13" length="4" type="value"/>
-			<Item id="ColorTemperature" position="17" length="4" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="lighting mode" position="8" length="1" type="enum" enumType="LightingMode2"/>
+			<Item id="Hue" position="9" length="4" type="value"/>
+			<Item id="Saturation" position="13" length="4" type="value"/>
+			<Item id="Value" position="17" length="4" type="value"/>
+			<Item id="Brightness" position="21" length="4" type="value"/>
+			<Item id="ColorTemperature" position="25" length="4" type="value"/>
 		</Datapoint>
 		<Datapoint id="29" name ="gamma debug">
 			<!-- Spezifikationen für DP29 -->
-			<Item id="lighting mode" position="0" length="1" type="enum" enumType="LightingMode2"/>
-			<Item id="Hue" position="1" length="4" type="value"/>
-			<Item id="Saturation" position="5" length="4" type="value"/>
-			<Item id="Value" position="9" length="4" type="value"/>
-			<Item id="Brightness" position="13" length="4" type="value"/>
-			<Item id="ColorTemperature" position="17" length="4" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="lighting mode" position="8" length="1" type="enum" enumType="LightingMode2"/>
+			<Item id="Hue" position="9" length="4" type="value"/>
+			<Item id="Saturation" position="13" length="4" type="value"/>
+			<Item id="Value" position="17" length="4" type="value"/>
+			<Item id="Brightness" position="21" length="4" type="value"/>
+			<Item id="ColorTemperature" position="25" length="4" type="value"/>
 		</Datapoint>
 		<Datapoint id="30" name ="biorhythm">
 			<!-- Spezifikationen für DP30 BLOCK -->
-			<Item id="DP30_Byte_1" position="0" length="2" type="raw"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="DP30_Byte_1" position="8" length="2" type="raw"/>
 		</Datapoint>
 		<Datapoint id="31" name ="light to sleep">
 			<!-- Spezifikationen für DP31 -->
-			<Item id="Version number" position="0" length="2" type="value"/>
-			<Item id="Number of nodes" position="2" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="Version number" position="8" length="2" type="value"/>
+			<Item id="Number of nodes" position="10" length="2" type="value"/>
 			<Block>			
 				<Item id="Task on/off" position="0" length="2" type="boolean"/>
 				<Item id="Specified date" position="2" length="2" type="dow_bitfield"/>
@@ -118,8 +154,11 @@
 		</Datapoint>
 		<Datapoint id="32" name ="light to wake">
 			<!-- Spezifikationen für DP32 -->
-			<Item id="Version number" position="0" length="2" type="value"/>
-			<Item id="Number of nodes" position="2" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="Version number" position="8" length="2" type="value"/>
+			<Item id="Number of nodes" position="10" length="2" type="value"/>
 			<Block>
 				<Item id="Task on/off" position="0" length="2" type="boolean"/>
 				<Item id="Specified date" position="2" length="2" type="dow_bitfield"/>
@@ -136,25 +175,37 @@
 		</Datapoint>
 		<Datapoint id="33" name ="power-off memory">
 			<!-- Spezifikationen für DP33 -->
-			<Item id="Version number" position="0" length="2" type="value"/>
-			<Item id="Mode" position="2" length="2" type="enum" enumType="PowerOffMemoryMode"/>
-			<Item id="Hue" position="4" length="4" type="value"/>
-			<Item id="Saturation" position="8" length="4" type="value"/>
-			<Item id="Value" position="12" length="4" type="value"/>
-			<Item id="Brightness" position="16" length="4" type="value"/>
-			<Item id="ColorTemperature" position="20" length="4" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="Version number" position="8" length="2" type="value"/>
+			<Item id="Mode" position="10" length="2" type="enum" enumType="PowerOffMemoryMode"/>
+			<Item id="Hue" position="12" length="4" type="value"/>
+			<Item id="Saturation" position="16" length="4" type="value"/>
+			<Item id="Value" position="20" length="4" type="value"/>
+			<Item id="Brightness" position="24" length="4" type="value"/>
+			<Item id="ColorTemperature" position="28" length="4" type="value"/>
 		</Datapoint>
 		<Datapoint id="34" name ="do not disturb">
 			<!-- Spezifikationen für DP34 -->
-			<Item id="do not disturb" position="0" length="2" type="enum" enumType="DNDMode"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="do not disturb" position="8" length="2" type="enum" enumType="DNDMode"/>
 		</Datapoint>
 		<Datapoint id="209" name ="cycle timing">
 			<!-- Spezifikationen für DP209 BLOCK-->
-			<Item id="cycle timing" position="0" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="cycle timing" position="8" length="2" type="value"/>
 		</Datapoint>
 		<Datapoint id="210" name ="vacation timing">
 			<!-- Spezifikationen für DP210 BLOCK-->
-			<Item id="vacation timing" position="0" length="2" type="value"/>
+			<Item id="DPid" position="0" length="2" type="value"/>
+			<Item id="DPtype" position="2" length="2" type="value"/>
+			<Item id="DPLen" position="4" length="4" type="value"/>
+			<Item id="vacation timing" position="8" length="2" type="value"/>
 		</Datapoint>
 	</Datapoints>
 </Specification>

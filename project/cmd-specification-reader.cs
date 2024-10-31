@@ -9,7 +9,7 @@ namespace CommandDecoder
 
     public class SpecificationReader
     {
-        public static (List<CommandSpec>, Dictionary<string, EnumSpec>) ReadSpecification(string xmlFilePath)
+        public static (List<CommandSpec>, Dictionary<string, EnumSpec>, string name) ReadSpecification(string xmlFilePath)
         {
             var CommandSpecs = new List<CommandSpec>();
             var enumSpecs = new Dictionary<string, EnumSpec>();
@@ -102,7 +102,7 @@ namespace CommandDecoder
                     CommandSpecs.Add(CommandSpec);
                 }
 
-                return (CommandSpecs, enumSpecs);
+                return (CommandSpecs, enumSpecs, name);
             }
             else 
             {

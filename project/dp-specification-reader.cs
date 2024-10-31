@@ -9,7 +9,7 @@ namespace DatapointDecoder
 
     public class SpecificationReader
     {
-        public static (List<DatapointSpec>, Dictionary<string, EnumSpec>) ReadSpecification(string xmlFilePath)
+        public static (List<DatapointSpec>, Dictionary<string, EnumSpec>, string name) ReadSpecification(string xmlFilePath)
         {
             var datapointSpecs = new List<DatapointSpec>();
             var enumSpecs = new Dictionary<string, EnumSpec>();
@@ -99,7 +99,7 @@ namespace DatapointDecoder
                     datapointSpecs.Add(datapointSpec);
                 }
 
-                return (datapointSpecs, enumSpecs);
+                return (datapointSpecs, enumSpecs, name);
             }
             else
             {
