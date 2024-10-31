@@ -694,14 +694,18 @@ namespace TuyaMCUAnalyzer
             csvBuilder.AppendLine();  // New line after header
 
             // Export rows
-            foreach (DataGridViewRow row in dataGridView.Rows)
+            // foreach (DataGridViewRow row in dataGridView.Rows)
+            for (int rowcounter = 0; rowcounter < dataGridView.Rows.Count - 1; rowcounter++) // Letzte Zeile ignorieren wg. NULL
             {
-                // Add the first column value
-                csvBuilder.Append(EscapeCsvValue(row.Cells[0].Value.ToString()));
-                for (int cell = 1; cell < row.Cells.Count; cell++)
+                // Add the first cell value
+                csvBuilder.Append(EscapeCsvValue(dataGridView.Rows[rowcounter].Cells[0].Value.ToString()));
+                for (int cell = 1; cell < dataGridView.Rows[rowcounter].Cells.Count; cell++)
                 {
                     csvBuilder.Append(",");
-                    csvBuilder.Append(EscapeCsvValue(row.Cells[cell].Value.ToString()));
+                    if (dataGridView.Rows[rowcounter].Cells[cell].Value != null)
+                    {
+                        csvBuilder.Append(EscapeCsvValue(dataGridView.Rows[rowcounter].Cells[cell].Value.ToString()));
+                    }
                 }
                 csvBuilder.AppendLine();  // New line after each row
             }
@@ -712,9 +716,16 @@ namespace TuyaMCUAnalyzer
         // Method to escape CSV values (in case they contain commas, quotes, etc.)
         private string EscapeCsvValue(string value)
         {
-            if (value.Contains(",") || value.Contains("\"") || value.Contains("\n"))
+            if (value.Contains(",") || value.Contains("\"") || value.Contains("\n") || value.Contains("\r"))
             {
-                return $"\"{value.Replace("\"", "\"\"")}\"";  // Escape quotes by doubling them
+                // Ersetze alle doppelten Anführungszeichen
+                value = value.Replace("\"", "\"\"");
+
+                // Alle Arten von Zeilenumbrüchen entfernen/ersetzen
+                value = value.Replace("\r\n", " ").Replace("\n", " ").Replace("\r", " ");
+
+                // Den Text in doppelte Anführungszeichen einschließen
+                return $"\"{value}\"";
             }
             return value;
         }
@@ -1082,73 +1093,68 @@ namespace TuyaMCUAnalyzer
 
         private void Load_DP_XML_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new()
+            {
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
-            if (Load_DP_XML.BackColor == Color.Green)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                dpDecoder = null;
-                Load_DP_XML.BackColor = Color.OrangeRed;
-            }
-            else
-            {
-                (List<DatapointSpec> datapointSpecs, Dictionary<string, DatapointDecoder.EnumSpec> enumSpecs, string name) = DatapointDecoder.SpecificationReader.ReadSpecification(".\\DP-Light.xml");
-                dpDecoder = new DatapointDecoder.MessageDecoder(datapointSpecs, enumSpecs);
-                if (dpDecoder != null)
+                //Get the path of specified file
+                string filePath = openFileDialog.FileName;
+
+                if (Load_DP_XML.BackColor == Color.Green)
                 {
-                    Load_DP_XML.BackColor = Color.Green;
-                    label_dp_decoder.Text = name;
+                    cmdDecoder = null;
+                    Load_DP_XML.BackColor = Color.OrangeRed;
+                }
+                else
+                {
+                    (List<DatapointSpec> datapointSpecs, Dictionary<string, DatapointDecoder.EnumSpec> enumSpecs, string name) = DatapointDecoder.SpecificationReader.ReadSpecification(filePath);
+                    dpDecoder = new DatapointDecoder.MessageDecoder(datapointSpecs, enumSpecs);
+                    if (dpDecoder != null)
+                    {
+                        Load_DP_XML.BackColor = Color.Green;
+                        label_dp_decoder.Text = name;
+                    }
                 }
             }
-
-
-            //    OpenFileDialog openFileDialog = new()
-            //    {
-            //        InitialDirectory = "c:\\",
-            //        Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
-            //        FilterIndex = 2,
-            //        RestoreDirectory = true
-            //    };
-            //    if (openFileDialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        //Get the path of specified file
-            //        string filePath = openFileDialog.FileName;
-            //        (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(filePath);
-            //        decoder = new MessageDecoder(datapointSpecs, enumSpecs);
-            //    }
         }
 
         private void Load_CMD_XML_Click(object sender, EventArgs e)
         {
-            // (List<DatapointSpec> cmdSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\CMD-Light.xml");
-            if (Load_CMD_XML.BackColor == Color.Green)
+            OpenFileDialog openFileDialog = new()
             {
-                cmdDecoder = null;
-                Load_CMD_XML.BackColor = Color.OrangeRed;
-            }
-            else
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                (List<CommandSpec> cmdSpecs, Dictionary<string, CommandDecoder.EnumSpec> enumSpecs, string name) = CommandDecoder.SpecificationReader.ReadSpecification(".\\CMD-spec.xml");
-                cmdDecoder = new CommandDecoder.MessageDecoder(cmdSpecs, enumSpecs);
-                if (cmdDecoder != null)
+                //Get the path of specified file
+                string filePath = openFileDialog.FileName;
+
+                if (Load_CMD_XML.BackColor == Color.Green)
                 {
-                    Load_CMD_XML.BackColor = Color.Green;
-                    label_cmd_decoder.Text = name;
+                    cmdDecoder = null;
+                    Load_CMD_XML.BackColor = Color.OrangeRed;
+                }
+                else
+                {
+                    (List<CommandSpec> cmdSpecs, Dictionary<string, CommandDecoder.EnumSpec> enumSpecs, string name) = CommandDecoder.SpecificationReader.ReadSpecification(filePath);
+                    cmdDecoder = new CommandDecoder.MessageDecoder(cmdSpecs, enumSpecs);
+                    if (cmdDecoder != null)
+                    {
+                        Load_CMD_XML.BackColor = Color.Green;
+                        label_cmd_decoder.Text = name;
+                    }
                 }
             }
-
-            //    OpenFileDialog openFileDialog = new()
-            //    {
-            //        InitialDirectory = "c:\\",
-            //        Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
-            //        FilterIndex = 2,
-            //        RestoreDirectory = true
-            //    };
-            //    if (openFileDialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        //Get the path of specified file
-            //        string filePath = openFileDialog.FileName;
-            //        (List<DatapointSpec> datapointSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(filePath);
-            //        decoder = new MessageDecoder(datapointSpecs, enumSpecs);
-            //    }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
