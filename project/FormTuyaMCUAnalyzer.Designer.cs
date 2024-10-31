@@ -308,7 +308,7 @@
             cb_decode.TabIndex = 21;
             cb_decode.Text = "Decode";
             cb_decode.UseVisualStyleBackColor = true;
-            cb_decode.Click += cb_decode_Click;
+            cb_decode.Click += ButtonDecode_Click;
             // 
             // splitContainer1
             // 

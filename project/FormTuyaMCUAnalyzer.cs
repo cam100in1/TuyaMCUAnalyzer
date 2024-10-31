@@ -1074,7 +1074,7 @@ namespace TuyaMCUAnalyzer
             }
         }
 
-        private void cb_decode_Click(object sender, EventArgs e)
+        private void ButtonDecode_Click(object sender, EventArgs e)
         {
             string entry = textBox_decode.Text.ToUpper();
             SplitAndProcessString(entry.Replace(" ", string.Empty), "55AA", "Decode entry");
@@ -1116,14 +1116,6 @@ namespace TuyaMCUAnalyzer
             //    }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            scanForCOMPorts();
-
-            portRX?.runFrame();
-            portTX?.runFrame();
-        }
-
         private void Load_CMD_XML_Click(object sender, EventArgs e)
         {
             // (List<DatapointSpec> cmdSpecs, Dictionary<string, EnumSpec> enumSpecs) = SpecificationReader.ReadSpecification(".\\CMD-Light.xml");
@@ -1158,6 +1150,14 @@ namespace TuyaMCUAnalyzer
             //        decoder = new MessageDecoder(datapointSpecs, enumSpecs);
             //    }
         }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            scanForCOMPorts();
+
+            portRX?.runFrame();
+            portTX?.runFrame();
+        }
+
     }
 }
 

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DatapointDecoder
 {
@@ -12,6 +14,7 @@ namespace DatapointDecoder
 
         private readonly Dictionary<string, DatapointSpec> _specs = datapointSpecs.ToDictionary(dp => dp.Id);
         private readonly Dictionary<string, EnumSpec> _enums = enumSpecs;
+
 
         public Dictionary<string, object> Decode(string input)
         {
@@ -55,6 +58,29 @@ namespace DatapointDecoder
 
             return result;
         }
+
+
+        private static string ConvertAsciiHexToDecimalString(string asciiHex)
+        {
+            {
+                // Schritt 1: ASCII-Codes in einen lesbaren Hex-String umwandeln
+                string hexString = "";
+
+                for (int i = 0; i < asciiHex.Length; i += 2)
+                {
+                    // Nimm zwei Zeichen als ASCII-Code und konvertiere in int
+                    string asciiCode = asciiHex.Substring(i, 2);
+                    hexString += Strings.Chr(Convert.ToInt32(asciiCode, 16));
+                }
+
+                // Schritt 2: Den Hex-String in eine Dezimalzahl konvertieren
+                int decimalValue = Convert.ToInt32(hexString, 16);
+
+                // Konvertiere die Dezimalzahl in einen String und zurückgeben
+                return decimalValue.ToString();
+            }
+        }
+
         private object DecodeValue(string valueStr, SpecItem specItem)
         {
 
@@ -62,6 +88,18 @@ namespace DatapointDecoder
 
             switch (specItem.Type)
             {
+                case "5minutes":
+                    value = Convert.ToInt16(valueStr, 16) * 5 + " minutes";
+                    break;
+                case "int8":
+                    value = Convert.ToInt16(valueStr, 16) % 256;
+                    break;
+                case "int16":
+                    value = Convert.ToInt16(valueStr, 16);
+                    break;
+                case "int32":
+                    value = Convert.ToInt32(valueStr, 16);
+                    break;
                 case "raw":
                     value = valueStr;
                     break;
@@ -98,7 +136,40 @@ namespace DatapointDecoder
                     value = valueStr;
                     break;
                 case "string":
-                    value = valueStr;
+                    StringBuilder ascii = new StringBuilder();
+                    for (int i = 0; i < valueStr.Length; i += 2)
+                    {
+                        // Nimmt zwei Hex-Zeichen (1 Byte), konvertiert sie in eine Zahl, und dann in ein ASCII-Zeichen
+                        string hexChar = valueStr.Substring(i, 2);
+                        int tempValue = Convert.ToInt32(hexChar, 16);
+                        ascii.Append((char)tempValue);
+                    }
+                    value = ascii;
+                    break;
+                case "hue-ascii":
+                    value = ConvertAsciiHexToDecimalString(valueStr) + "°";
+                    break;
+                case "sat-ascii":
+                case "val-ascii":
+                case "bright-ascii":
+                case "temperature-ascii":
+                    value = ConvertAsciiHexToDecimalString(valueStr) + "%";
+                    break;
+                case "hue-hex":
+                    value = (Convert.ToInt32(valueStr, 16) / 10.0).ToString() + "°";
+                    break;
+                case "sat-hex":
+                case "val-hex":
+                case "bright-hex":
+                    value = (Convert.ToInt32(valueStr, 16) / 10.0).ToString() + "%";
+                    break;
+                case "temperature-hex":
+                    double temperature = Convert.ToInt32(valueStr, 16);
+                    temperature /= 10.0;
+                    temperature /= 100.0;
+                    temperature *= 3800.0;
+                    temperature += 2700.0;
+                    value = temperature.ToString() + "°";
                     break;
                 case "enum":
                     var intValue = Convert.ToInt32(valueStr, 16);
