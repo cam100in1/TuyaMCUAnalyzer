@@ -1,4 +1,30 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+supported Types:
+"5minutes":
+"string":
+"int8":
+"int16":
+"int32":
+"raw":
+"boolean":
+"dow_bitfield":
+"value":
+"value-ascii":
+"hue-ascii":
+"sat-ascii":
+"val-ascii":
+"bright-ascii":
+"temperature-ascii":
+"hue-hex":
+"sat-hex":
+"val-hex":
+"bright-hex":
+"temperature-hex":
+"enum": enumType=""
+"enum-ascii":
+"bitmap":
+-->
 <Specification>
 	<Headline name="RGB-Controller" type="dp-decoder" version="1.0" owner="theosoft"/>
 	<Enums>
@@ -49,7 +75,7 @@
 			<Item id="DPid" position="0" length="2" type="int8"/>
 			<Item id="DPtype" position="2" length="2" type="enum" enumType="DPType"/>
 			<Item id="DPLen" position="4" length="4" type="int16"/>
-			<Item id="switch" position="8" length="2" type="enum" enumType="PowerMode"/>
+			<Item id="switch" position="8" length="2" type="enum" PowerMode"/>
 		</Datapoint>
 		<Datapoint id="21" name ="mode">
 			<!-- Spezifikationen für DP21 -->
