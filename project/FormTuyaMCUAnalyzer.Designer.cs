@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
             label1 = new System.Windows.Forms.Label();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -254,18 +254,18 @@
             label_dp_decoder.AutoSize = true;
             label_dp_decoder.Location = new System.Drawing.Point(1351, 68);
             label_dp_decoder.Name = "label_dp_decoder";
-            label_dp_decoder.Size = new System.Drawing.Size(105, 25);
+            label_dp_decoder.Size = new System.Drawing.Size(87, 25);
             label_dp_decoder.TabIndex = 26;
-            label_dp_decoder.Text = "DP decoder";
+            label_dp_decoder.Text = "unloaded";
             // 
             // label_cmd_decoder
             // 
             label_cmd_decoder.AutoSize = true;
             label_cmd_decoder.Location = new System.Drawing.Point(1351, 22);
             label_cmd_decoder.Name = "label_cmd_decoder";
-            label_cmd_decoder.Size = new System.Drawing.Size(122, 25);
+            label_cmd_decoder.Size = new System.Drawing.Size(87, 25);
             label_cmd_decoder.TabIndex = 25;
-            label_cmd_decoder.Text = "CMD decoder";
+            label_cmd_decoder.Text = "unloaded";
             // 
             // Load_CMD_XML
             // 
@@ -322,7 +322,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(dataGridViewDecoded);
             splitContainer1.Size = new System.Drawing.Size(1710, 1079);
-            splitContainer1.SplitterDistance = 526;
+            splitContainer1.SplitterDistance = 525;
             splitContainer1.SplitterWidth = 7;
             splitContainer1.TabIndex = 19;
             // 
@@ -334,7 +334,7 @@
             richTextBoxSrc.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             richTextBoxSrc.Name = "richTextBoxSrc";
             richTextBoxSrc.ReadOnly = true;
-            richTextBoxSrc.Size = new System.Drawing.Size(1701, 520);
+            richTextBoxSrc.Size = new System.Drawing.Size(1701, 519);
             richTextBoxSrc.TabIndex = 10;
             richTextBoxSrc.Text = "";
             richTextBoxSrc.TextChanged += richTextBoxSrcChanged;
@@ -347,21 +347,21 @@
             dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { DGCDirection, DGCHeader, DGCVersion, DGCCommand, DGCLenght, DGCCmdData, DGCCMDInfo, DGCDPid, DGCType, DGCDataLen, DGCDPData, DGCDPInfo, DGCChecksum });
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewDecoded.Location = new System.Drawing.Point(-3, 8);
             dataGridViewDecoded.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             dataGridViewDecoded.Name = "dataGridViewDecoded";
             dataGridViewDecoded.RowHeadersVisible = false;
             dataGridViewDecoded.RowHeadersWidth = 62;
             dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewDecoded.Size = new System.Drawing.Size(1701, 499);
+            dataGridViewDecoded.Size = new System.Drawing.Size(1701, 494);
             dataGridViewDecoded.TabIndex = 23;
             // 
             // DGCDirection
@@ -834,9 +834,10 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
-            MinimumSize = new System.Drawing.Size(2343, 1308);
+            MinimumSize = new System.Drawing.Size(2341, 1296);
             Name = "FormTuyaMCUAnalyzer";
             Text = "TuyaMCU Explorer/Analyzer for OpenBeken - Elektroda.com ";
+            FormClosing += FormTuyaMCUAnalyzer_FormClosing;
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

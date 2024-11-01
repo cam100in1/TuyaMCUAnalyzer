@@ -5,6 +5,7 @@ using System.IO.Ports;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
@@ -17,6 +18,8 @@ namespace TuyaMCUAnalyzer
         Label labelState;
         ComboBox comboBoxBaud;
         SerialPort serial;
+        //Task task;
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         byte[] tmpBytes = new byte[2048];
         ByteRingBuffer incoming = new ByteRingBuffer();
@@ -32,39 +35,26 @@ namespace TuyaMCUAnalyzer
             this.receiveCallback = cb;
             this.comboBoxBaud = comboBoxBaud;
             
-            RemoveClickEvent(this.buttonOpen);
             this.buttonOpen.Click += buttonOpen_Click;
 
 
-          //  Thread thread = new Thread(new ThreadStart(threadReceive));
-          //  thread.Start();
-        }
-        private void RemoveClickEvent(Button b)
-        {
-            FieldInfo f1 = typeof(Control).GetField("EventClick",
-                BindingFlags.Static | BindingFlags.NonPublic);
+            //task = Task.Run(() =>
+            //{
+            //    while (!cts.Token.IsCancellationRequested)
+            //    {
+            //        //runFrame();
+            //        //Task.Delay(10000);
+            //    }
+            //}, cts.Token);
 
-            object obj = f1.GetValue(b);
-            PropertyInfo pi = b.GetType().GetProperty("Events",
-                BindingFlags.NonPublic | BindingFlags.Instance);
-
-            EventHandlerList list = (EventHandlerList)pi.GetValue(b, null);
-            list.RemoveHandler(obj, list[obj]);
         }
+
+
+
         public void refreshStats()
         {
             int s = incoming.getSize();
-            labelState.Invoke((MethodInvoker)delegate {
-                labelState.Text = "Currently in ringbuffer: " + s + ", total recv: "+ totalBytesReceived;
-            });
-        }
-        public void threadReceive()
-        {
-            while (true)
-            {
-                runFrame();
-                Thread.Sleep(1);
-            }
+            labelState.Invoke((MethodInvoker)delegate { labelState.Text = "Currently in ringbuffer: " + s + ", total recv: "+ totalBytesReceived; });
         }
         public void runFrame()
         {
@@ -161,6 +151,7 @@ namespace TuyaMCUAnalyzer
         {
             if (serial != null)
             {
+                // cts.Cancel();
                 serial.Close();
                 serial.Dispose();
                 serial = null;

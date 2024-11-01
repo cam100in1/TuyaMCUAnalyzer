@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Specification>
-	<Headline name="Tuya Commands" type="cmd-decoder" version="1.0" owner="theosoft"/>
+	<Headline name="Tuya Command" type="cmd-decoder" version="1.0" owner="theosoft"/>
 	<Enums>
 		<Enum name="Message Version">
-			<Value name="Request" value="0"/>
-			<Value name="Answer" value="3"/>
+			<Value name="WIFI->MCU" value="0"/>
+			<Value name="MCU->WIFI" value="3"/>
 		</Enum>
 		<Enum name="Status_03">
 			<Value name="Pairing in EZ mode" value="0"/>

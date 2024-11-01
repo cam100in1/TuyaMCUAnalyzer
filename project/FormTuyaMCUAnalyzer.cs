@@ -130,7 +130,7 @@ namespace TuyaMCUAnalyzer
         private string JoinDecodedInfo(Dictionary<string, Object> decodedMessage)
         {
             var values = new List<string>();
-            
+
             foreach (var item in decodedMessage)
             {
                 if (item.Value is Dictionary<string, object> nestedDict)
@@ -150,7 +150,7 @@ namespace TuyaMCUAnalyzer
         //
         //
         //
-               
+
         private void displayPacket(List<byte> p, Dictionary<int, IDTracker> vars)
         {
             string messageString = string.Join("", p.Skip(2).Select(b => b.ToString("X2")));
@@ -653,9 +653,10 @@ namespace TuyaMCUAnalyzer
         private void Form1_Load(object sender, EventArgs e)
         {
             //DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
-            ButtonDecode.Enabled=false;
-            examplesToolStripMenuItem.Enabled=false;
-            fileToolStripMenuItem.Enabled=false;    
+            ButtonDecode.Enabled = false;
+            examplesToolStripMenuItem.Enabled = false;
+            fileToolStripMenuItem.Enabled = false;
+            checkBoxRealtimeDual.Enabled = false;
             dataGridViewDecoded.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewDecoded.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
             dataGridViewDecoded.Update();
@@ -864,6 +865,7 @@ namespace TuyaMCUAnalyzer
                             ButtonDecode.Enabled = true;
                             examplesToolStripMenuItem.Enabled = true;
                             fileToolStripMenuItem.Enabled = true;
+                            checkBoxRealtimeDual.Enabled = true;
                         }
                     }
                     else
@@ -874,6 +876,9 @@ namespace TuyaMCUAnalyzer
                         ButtonDecode.Enabled = false;
                         examplesToolStripMenuItem.Enabled = false;
                         fileToolStripMenuItem.Enabled = false;
+                        checkBoxRealtimeDual.Checked = false;
+                        checkBoxRealtimeDual.Enabled = false;
+                        label_dp_decoder.Text = "failed";
                     }
                 }
                 catch (FormatException ex)
@@ -888,6 +893,9 @@ namespace TuyaMCUAnalyzer
                 ButtonDecode.Enabled = false;
                 examplesToolStripMenuItem.Enabled = false;
                 fileToolStripMenuItem.Enabled = false;
+                checkBoxRealtimeDual.Checked = false;
+                checkBoxRealtimeDual.Enabled = false;
+                label_dp_decoder.Text = "unloaded";
             }
         }
 
@@ -919,6 +927,7 @@ namespace TuyaMCUAnalyzer
                             ButtonDecode.Enabled = true;
                             examplesToolStripMenuItem.Enabled = true;
                             fileToolStripMenuItem.Enabled = true;
+                            checkBoxRealtimeDual.Enabled = true;
                         }
                     }
                     else
@@ -929,6 +938,9 @@ namespace TuyaMCUAnalyzer
                         ButtonDecode.Enabled = false;
                         examplesToolStripMenuItem.Enabled = false;
                         fileToolStripMenuItem.Enabled = false;
+                        checkBoxRealtimeDual.Checked = false;
+                        checkBoxRealtimeDual.Enabled = false;
+                        label_dp_decoder.Text = "failed";
                     }
                 }
                 catch (FormatException ex)
@@ -943,7 +955,10 @@ namespace TuyaMCUAnalyzer
                 ButtonDecode.Enabled = false;
                 examplesToolStripMenuItem.Enabled = false;
                 fileToolStripMenuItem.Enabled = false;
-            } 
+                checkBoxRealtimeDual.Checked = false;
+                checkBoxRealtimeDual.Enabled = false;
+                label_dp_decoder.Text = "unloaded";
+            }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -951,6 +966,11 @@ namespace TuyaMCUAnalyzer
 
             portRX?.runFrame();
             portTX?.runFrame();
+        }
+
+        private void FormTuyaMCUAnalyzer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            checkBoxRealtimeDual.Checked = false;
         }
     }
 }
