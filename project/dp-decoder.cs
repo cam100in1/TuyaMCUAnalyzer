@@ -91,6 +91,17 @@ namespace DatapointDecoder
                 case "5minutes":
                     value = Convert.ToInt16(valueStr, 16) * 5 + " minutes";
                     break;
+                case "string":
+                    StringBuilder ascii = new StringBuilder();
+                    for (int i = 0; i < valueStr.Length; i += 2)
+                    {
+                        // Nimmt zwei Hex-Zeichen (1 Byte), konvertiert sie in eine Zahl, und dann in ein ASCII-Zeichen
+                        string hexChar = valueStr.Substring(i, 2);
+                        int tempValue = Convert.ToInt32(hexChar, 16);
+                        ascii.Append((char)tempValue);
+                    }
+                    value = ascii;
+                    break;
                 case "int8":
                     value = Convert.ToInt16(valueStr, 16) % 256;
                     break;
@@ -135,16 +146,8 @@ namespace DatapointDecoder
                 case "value":
                     value = valueStr;
                     break;
-                case "string":
-                    StringBuilder ascii = new StringBuilder();
-                    for (int i = 0; i < valueStr.Length; i += 2)
-                    {
-                        // Nimmt zwei Hex-Zeichen (1 Byte), konvertiert sie in eine Zahl, und dann in ein ASCII-Zeichen
-                        string hexChar = valueStr.Substring(i, 2);
-                        int tempValue = Convert.ToInt32(hexChar, 16);
-                        ascii.Append((char)tempValue);
-                    }
-                    value = ascii;
+                case "value-ascii":
+                    value = ConvertAsciiHexToDecimalString(valueStr);
                     break;
                 case "hue-ascii":
                     value = ConvertAsciiHexToDecimalString(valueStr) + "°";
@@ -153,7 +156,7 @@ namespace DatapointDecoder
                 case "val-ascii":
                 case "bright-ascii":
                 case "temperature-ascii":
-                    value = ConvertAsciiHexToDecimalString(valueStr) + "%";
+                    value = ConvertAsciiHexToDecimalString(valueStr) + " * 0.1 %";
                     break;
                 case "hue-hex":
                     value = (Convert.ToInt32(valueStr, 16) / 10.0).ToString() + "°";
@@ -183,6 +186,25 @@ namespace DatapointDecoder
                         else
                         {
                             value = $"Unknown Enum Value: {intValue}";
+                        }
+                    }
+                    else
+                    {
+                        value = $"Unknown Enum Type: {specItem.EnumType}";
+                    }
+                    break;
+                case "enum-ascii":
+                    var ascValue = Convert.ToUInt32(ConvertAsciiHexToDecimalString(valueStr));
+                    if (_enums.TryGetValue(key: specItem.EnumType, out EnumSpec enumAsciiSpec))
+                    {
+                        var enumValue = enumAsciiSpec.Values.FirstOrDefault(e => e.Value == ascValue);
+                        if (enumValue != null)
+                        {
+                            value = enumValue.Name;
+                        }
+                        else
+                        {
+                            value = $"Unknown Enum Value: {ascValue}";
                         }
                     }
                     else

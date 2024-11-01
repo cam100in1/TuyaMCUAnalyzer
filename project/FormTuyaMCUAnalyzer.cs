@@ -130,12 +130,23 @@ namespace TuyaMCUAnalyzer
         //
         private string JoinDecodedInfo(Dictionary<string, Object> decodedMessage)
         {
-            string result = "";
+            var values = new List<string>();
+            
             foreach (var item in decodedMessage)
             {
-                result += item.Key + " " + item.Value + "\n";
+                if (item.Value is Dictionary<string, object> nestedDict)
+                {
+                    // Rekursiver Aufruf für verschachtelte Dictionaries
+                    values.Add(JoinDecodedInfo(nestedDict));
+                }
+                else
+                {
+                    // Wert zur Liste hinzufügen, wenn es kein Dictionary ist
+                    values.Add(item.Key + " " + item.Value.ToString());
+                }
+                values.Add("\n");
             }
-            return (result);
+            return string.Join(" ", values);
         }
         //
         //
@@ -252,7 +263,7 @@ namespace TuyaMCUAnalyzer
             {
                 DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
                 DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
-                DGPrintLineHex.Cells[(int)cellNames.Version].Value = cmdDecoder.Dump_Version(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.Version].Value = cmdDecoder.Dump_Version(messageString) + " " + cmdDecoder.Version_Enum_Get(ver);
                 DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
                 DGPrintLineHex.Cells[(int)cellNames.Command].Value = cmdDecoder.Dump_Command(messageString);
                 DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;

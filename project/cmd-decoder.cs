@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Buffers.Binary;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Diagnostics;
+using DatapointDecoder;
 
 namespace CommandDecoder 
 {
@@ -18,6 +19,24 @@ namespace CommandDecoder
         private readonly Dictionary<(string, string), CommandSpec> _specs = CommandSpecs.ToDictionary( cmd => (cmd.Id, cmd.Version), cmd => cmd);
         private readonly Dictionary<string, EnumSpec> _enums = enumSpecs;
 
+        public string Version_Enum_Get(byte intValue)
+        {
+            string value = "";
+
+            if (_enums.TryGetValue("Message Version", out EnumSpec enumSpec))
+            {
+                var enumValue = enumSpec.Values.FirstOrDefault(e => e.Value == intValue);
+                if (enumValue != null)
+                {
+                    value = enumValue.Name;
+                }
+                else
+                {
+                    value = $"Unknown Enum Value: {intValue}";
+                }
+            }
+            return value;
+        }
         public string Dump_Version(string input)
         {
             return input[..2];

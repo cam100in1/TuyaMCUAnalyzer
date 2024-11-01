@@ -38,6 +38,10 @@
 			<Value name="light is off" value="0"/>
 			<Value name="light is on" value="1"/>
 		</Enum>
+		<Enum name="TimeNode">
+			<Value name="Time node is off" value="0"/>
+			<Value name="Time node is on" value="1"/>
+		</Enum>
 	</Enums>
 	<Datapoints>
 		<Datapoint id="20" name="on/off">
@@ -82,16 +86,16 @@
 			<Item id="DPid" position="0" length="2" type="int8"/>
 			<Item id="DPtype" position="2" length="2" type="enum" enumType="DPType"/>
 			<Item id="DPLen" position="4" length="4" type="int16"/>
-			<Item id="SceneID" position="8" length="2" type="value"/>
+			<Item id="SceneID" position="8" length="4" type="value-ascii"/>
 			<Block>
-				<Item id="TransitionInterval" position="0" length="2" type="value"/>
-				<Item id="LightingModeDuration" position="2" length="2" type="enum" enumType="DPType"/>
-				<Item id="LightingMode" position="4" length="2" type="enum" enumType="LightingMode3"/>
-				<Item id="Hue" position="6" length="4" type="hue-hex"/>
-				<Item id="Saturation" position="10" length="4" type="sat-hex"/>
-				<Item id="Value" position="14" length="4" type="val-hex"/>
-				<Item id="Brightness" position="16" length="4" type="bright-hex"/>
-				<Item id="ColorTemperature" position="20" length="4" type="temperature-hex"/>
+				<Item id="TransitionInterval" position="0" length="4" type="value-ascii"/>
+				<Item id="LightingModeDuration" position="4" length="4" type="value-ascii"/>
+				<Item id="LightingMode" position="8" length="4" type="enum-ascii" enumType="LightingMode3"/>
+				<Item id="Hue" position="12" length="8" type="hue-ascii"/>
+				<Item id="Saturation" position="20" length="8" type="sat-ascii"/>
+				<Item id="Value" position="28" length="8" type="val-ascii"/>
+				<Item id="Brightness" position="36" length="8" type="bright-ascii"/>
+				<Item id="ColorTemperature" position="44" length="8" type="temperature-ascii"/>
 			</Block>
 		</Datapoint>
 		<Datapoint id="26" name ="timer">
@@ -142,7 +146,21 @@
 			<Item id="DPid" position="0" length="2" type="int8"/>
 			<Item id="DPtype" position="2" length="2" type="enum" enumType="DPType"/>
 			<Item id="DPLen" position="4" length="4" type="int16"/>
-			<Item id="DP30_Byte_1" position="8" length="2" type="raw"/>
+			<Item id="Version number" position="8" length="2" type="value"/>
+			<Item id="Task on/off" position="10" length="2" type="value"/>
+			<Item id="Mode" position="10" length="2" type="value"/>
+			<Item id="Specified date" position="10" length="2" type="value"/>
+			<Item id="Number of nodes" position="10" length="2" type="value"/>
+			<Block>
+				<Item id="Time node switch" position="0" length="2" type="enum" enumType="TimeNode"/>
+				<Item id="Hour(s)" position="2" length="2" type="value"/>
+				<Item id="Minute(s)" position="4" length="2" type="value"/>
+				<Item id="Hue" position="6" length="2" type="hue-hex"/>
+				<Item id="Saturation" position="8" length="2" type="sat-hex"/>
+				<Item id="Value" position="10" length="2" type="val-hex"/>
+				<Item id="Brightness" position="12" length="2" type="bright-hex"/>
+				<Item id="ColorTemperature" position="14" length="2" type="temperature-hex"/>
+			</Block>
 		</Datapoint>
 		<Datapoint id="31" name ="light to sleep">
 			<!-- Spezifikationen für DP31 -->
