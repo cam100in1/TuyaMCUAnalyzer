@@ -43,21 +43,6 @@ namespace TuyaMCUAnalyzer
             DPInfo,         // 11
             Checksum,       // 12
         }
-        Dictionary<int, string> cmdNamesMap = new Dictionary<int, string>
-        {
-            { 0, "Heartbeat" },
-            { 1, "Product" },
-            { 2, "McuConf" },
-            { 3, "Network status" },
-            { 4, "Reset Wi-Fi connection" },
-            { 5, "Reset Wi-Fi init pairing mode" },
-            { 6, "Send commands" },
-            { 8, "Query DP Status" },
-            { 10, "Update MCU firmware" },
-            { 12, "Get GMT time" },
-            { 28, "Get local time" },
-            { 34, "Report status" }
-        };
         private SinglePort portRX, portTX;
 
         private Dictionary<int, IDTracker> vars = [];
