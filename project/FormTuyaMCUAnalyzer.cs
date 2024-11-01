@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Microsoft.VisualBasic;
+using System.Security.Policy;
 
 namespace TuyaMCUAnalyzer
 {
@@ -22,8 +23,6 @@ namespace TuyaMCUAnalyzer
     {
         private bool refreshingComparer;
         private bool bUseVarsForVer0Cmd6InsteadOfDate = true;
-        //private byte special_marker_recv = 0x72;
-        //private byte special_marker_sent = 0x73;
         private byte special_marker_recv = (byte)'r';
         private byte special_marker_sent = (byte)'s';
         private int specialMarkerCount = 10;
@@ -151,100 +150,7 @@ namespace TuyaMCUAnalyzer
         //
         //
         //
-
-        private void parseDPData(List<byte> p, Dictionary<int, IDTracker> vars, int ofs = 6)
-        {
-            bool bHasColor = false;
-            Color col = Color.Black;
-            string messageString = string.Join("", p.Skip(ofs).Select(b => b.ToString("X2")));
-            string contentString = "";
-            Dictionary<string, Object> decodedMessage = [];
-
-            // With loaded datapoint engine
-            if (dpDecoder != null)
-            {
-                try
-                {
-                    decodedMessage = dpDecoder.Decode(messageString);
-                }
-                catch (ArgumentException e)
-                {
-                    contentString = e.Message;
-                }
-                contentString = JoinDecodedInfo(decodedMessage);
-            }
-            else
-            {
-                while (ofs + 4 < p.Count)
-                {
-                    int sectorLen = p[ofs + 2] << 8 | p[ofs + 3];
-                    int dpId = p[ofs];
-                    TuyaType dataType = (TuyaType)p[ofs + 1];
-
-                    if (contentString.Length > 0)
-                        contentString += ",";
-                    contentString += "dpId=" + dpId;
-                    contentString += " ";
-                    contentString += dataType.ToString();
-                    contentString += " ";
-                    if (sectorLen == 1)
-                    {
-                        int iVal = (int)p[ofs + 4];
-                        contentString += "V=" + iVal;
-                        tracker.addValueInt(dpId, dataType, iVal, vars);
-                    }
-                    else if (sectorLen == 4)
-                    {
-                        int iVal = p[ofs + 4] << 24 | p[ofs + 5] << 16 | p[ofs + 6] << 8 | p[ofs + 7];
-                        contentString += "V=" + iVal;
-                        tracker.addValueInt(dpId, dataType, iVal, vars);
-                    }
-                    else
-                    {
-                        string varStr = "";
-                        string strDataForColor = "";
-                        for (int si = 0; si < sectorLen; si++)
-                        {
-                            byte b = p[ofs + si + 4];
-                            strDataForColor += Convert.ToChar(b);
-                            if (dataType == TuyaType.Str && checkBoxStrTypeAsBytes.Checked == false)
-                            {
-                                // ascii string
-                                varStr += Convert.ToChar(p[ofs + si + 4]);
-                            }
-                            else
-                            {
-                                if (si != 0)
-                                    varStr += " ";
-                                varStr += p[ofs + si + 4].ToString("X2");
-                            }
-                        }
-                        tracker.addValueStr(dpId, dataType, varStr.Replace(" ", ""), vars);
-                        contentString += "V=" + varStr;
-                        if (checkBoxDecodeColors.Checked && parseTuyaColor(strDataForColor, out col))
-                        {
-                            bHasColor = true;
-                        }
-                    }
-                    ofs += (4 + sectorLen);
-                }
-            }
-            if (bHasColor)
-            {
-                bHasColor = false;
-                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = contentString + " Col: ■";
-                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = col;
-            }
-            else
-            {
-                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = contentString;
-                DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Black;
-            }
-        }
-        //
-        //
-        //
-
+               
         private void displayPacket(List<byte> p, Dictionary<int, IDTracker> vars)
         {
             string messageString = string.Join("", p.Skip(2).Select(b => b.ToString("X2")));
@@ -259,164 +165,51 @@ namespace TuyaMCUAnalyzer
             int baseOfs = 6;
             int bDateValid = p[baseOfs + 0]; // bDateValid
 
-            if (cmdDecoder != null)
+            DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
+            DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
+            DGPrintLineHex.Cells[(int)cellNames.Version].Value = cmdDecoder.Dump_Version(messageString) + " " + cmdDecoder.Version_Enum_Get(ver);
+            DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
+            DGPrintLineHex.Cells[(int)cellNames.Command].Value = cmdDecoder.Dump_Command(messageString);
+            DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
+            DGPrintLineHex.Cells[(int)cellNames.Length].Value = cmdDecoder.Dump_Datalen(messageString);
+            DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
+            DGPrintLineHex.Cells[(int)cellNames.CMDData].Value = cmdDecoder.Dump_Data(messageString);
+            DGPrintLineHex.Cells[(int)cellNames.CMDData].Style.ForeColor = Color.DarkGray;
+            try
             {
-                DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
-                DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
-                DGPrintLineHex.Cells[(int)cellNames.Version].Value = cmdDecoder.Dump_Version(messageString) + " " + cmdDecoder.Version_Enum_Get(ver);
-                DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
-                DGPrintLineHex.Cells[(int)cellNames.Command].Value = cmdDecoder.Dump_Command(messageString);
-                DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
-                DGPrintLineHex.Cells[(int)cellNames.Length].Value = cmdDecoder.Dump_Datalen(messageString);
-                DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
-                DGPrintLineHex.Cells[(int)cellNames.CMDData].Value = cmdDecoder.Dump_Data(messageString);
-                DGPrintLineHex.Cells[(int)cellNames.CMDData].Style.ForeColor = Color.DarkGray;
+                decodedMessage = cmdDecoder.Decode(messageString);
+                DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = JoinDecodedInfo(decodedMessage);
+            }
+            catch (Exception e)
+            {
+                DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = "Unknown Cmd. " + e.Message + " Check XML";
+            }
+
+            // If Datapoints present
+            if (decodedMessage.TryGetValue("Datapoints", out var value))
+            {
+                string dp_value = value.ToString();
+                DGPrintLineHex.Cells[(int)cellNames.DPid].Value = dp_value[0..2] + " (" + Convert.ToInt16(dp_value[0..2], 16).ToString() + ")";
+                DGPrintLineHex.Cells[(int)cellNames.DPType].Value = dp_value[2..4];
+                DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = dp_value[4..8];
+                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16));
+
                 try
                 {
-                    decodedMessage = cmdDecoder.Decode(messageString);
-                    DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = JoinDecodedInfo(decodedMessage);
+                    var dp_decodedMessage = dpDecoder.Decode(dp_value);
+
+                    DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = JoinDecodedInfo(dp_decodedMessage);
                 }
-                catch (Exception e)
+                catch (ArgumentException fex)
                 {
-                    DGPrintLineHex.Cells[(int)cellNames.CMDInfo].Value = "Unknown Cmd. " + e.Message + " Check XML";
-                }
-
-                // If Datapoints present
-                if (decodedMessage.TryGetValue("Datapoints", out var value))
-                {
-                    string dp_value = value.ToString();
-                    DGPrintLineHex.Cells[(int)cellNames.DPid].Value = dp_value[0..2] + " (" + Convert.ToInt16(dp_value[0..2], 16).ToString() + ")";
-                    DGPrintLineHex.Cells[(int)cellNames.DPType].Value = dp_value[2..4];
-                    DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = dp_value[4..8];
-                    DGPrintLineHex.Cells[(int)cellNames.DPData].Value = dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16));
-
-                    try
-                    {
-                        var dp_decodedMessage = dpDecoder.Decode(dp_value);
-
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = JoinDecodedInfo(dp_decodedMessage);
-                    }
-                    catch (ArgumentException fex)
-                    {
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = fex.Message + " Check XML";
-                    }
+                    DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = fex.Message + " Check XML";
                 }
             }
-            else // old Version
-            {
-                DGPrintLineHex.Cells[(int)cellNames.Header].Value = p[0].ToString("X2") + " " + p[1].ToString("X2");
-                DGPrintLineHex.Cells[(int)cellNames.Header].Style.ForeColor = Color.Black;
-                DGPrintLineHex.Cells[(int)cellNames.Version].Value = p[2].ToString("X2");
-                DGPrintLineHex.Cells[(int)cellNames.Version].Style.ForeColor = Color.Magenta;
-                DGPrintLineHex.Cells[(int)cellNames.Command].Value = p[3].ToString("X2");
-                DGPrintLineHex.Cells[(int)cellNames.Command].Style.ForeColor = Color.Red;
-                DGPrintLineHex.Cells[(int)cellNames.Length].Value = p[4].ToString("X2") + " " + p[5].ToString("X2");
-                DGPrintLineHex.Cells[(int)cellNames.Length].Style.ForeColor = Color.Green;
-                // https://images.tuyacn.com/smart/aircondition/Guide-to-Interworking-with-the-Tuya-MCU.pdf
-                switch (cmd)
-                {
-                    case 1:
-                        string str = ASCIIEncoding.ASCII.GetString(p.ToArray(), 6, p.Count - 7);
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = str;
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
-                        break;
-
-                    case 0x05:
-                    case 0x06:
-                    case 0x08:
-                    case 0x10:
-                    case 0x1c:
-                        if (cmd == 0x10 && ver == 0)
-                        {
-                            baseOfs += 2;
-                        }
-                        if (bDateValid == 1)
-                        {
-                            int year = p[baseOfs + 1]; //  year
-                            int month = p[baseOfs + 2]; //  month
-                            int day = p[baseOfs + 3]; //  day
-                            int hour = p[baseOfs + 4]; //  hour
-                            int minute = p[baseOfs + 5]; //  minute
-                                                         // NOTE: some packets don't have second here?
-                            int second = p[baseOfs + 6]; //  second
-
-                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = "bOk=" + bDateValid + " " + year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
-                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
-                        }
-                        else
-                        {
-                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = "INVALID date";
-                            DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Gray;
-                        }
-                        break;
-
-                    // Handle Command with Datapoint in payload. Dump data
-
-                    case 7:
-                    case 0x22:
-                        int ofs = 6;
-                        while (ofs + 4 < p.Count)
-                        {
-                            int sectorLen = p[ofs + 2] << 8 | p[ofs + 3];
-                            int dpId = p[ofs];
-
-                            DGPrintLineHex.Cells[(int)cellNames.DPid].Value = p[ofs].ToString("X2");
-                            DGPrintLineHex.Cells[(int)cellNames.DPid].Style.ForeColor = Color.Black;
-                            DGPrintLineHex.Cells[(int)cellNames.DPType].Value = p[ofs + 1].ToString("X2");
-                            DGPrintLineHex.Cells[(int)cellNames.DPType].Style.ForeColor = Color.Green;
-                            DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = p[ofs + 2].ToString("X2") + " " + p[ofs + 3].ToString("X2");
-                            DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Style.ForeColor = Color.Black;
-                            int dataType = p[ofs + 1];
-
-                            if (sectorLen == 1)
-                            {
-                                int iVal = (int)p[ofs + 4];
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = iVal.ToString("X2");
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
-                            }
-                            else if (sectorLen == 4)
-                            {
-                                int iVal = p[ofs + 4] << 24 | p[ofs + 5] << 16 | p[ofs + 6] << 8 | p[ofs + 7];
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = iVal.ToString("X8");
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
-                            }
-                            else
-                            {
-                                string varStr = "";
-                                for (int si = 0; si < sectorLen; si++)
-                                {
-                                    if (si != 0)
-                                        varStr += "";
-                                    varStr += p[ofs + si + 4].ToString("X2");
-                                }
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Value = varStr;
-                                DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Orange;
-                            }
-                            ofs += (4 + sectorLen);
-                        }
-                        parseDPData(p, vars);
-                        break;
-                    default:
-                        for (int i = 6; i < p.Count - 1; i++)
-                        {
-                            s += p[i].ToString("X2");
-                            s += "";
-                        }
-                        DGPrintLineHex.Cells[(int)cellNames.DPData].Value = s;
-                        DGPrintLineHex.Cells[(int)cellNames.DPData].Style.ForeColor = Color.Gray;
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Value = GetStringForNumber(cmd, cmdNamesMap);
-                        DGPrintLineHex.Cells[(int)cellNames.DPInfo].Style.ForeColor = Color.Red;
-                        break;
-                }
-                // 
-            }
-
             DGPrintLineHex.Cells[(int)cellNames.Checksum].Value = p[p.Count - 1].ToString("X2");
             DGPrintLineHex.Cells[(int)cellNames.Checksum].Style.ForeColor = Color.Black;
 
             dataGridViewDecoded.Rows.AddRange(new DataGridViewRow[] { DGPrintLineHex });
         }
-
 
         // Handle Command with Datapoint in payload. Decode them
 
@@ -579,19 +372,6 @@ namespace TuyaMCUAnalyzer
             return "";
         }
 
-        static string GetStringForNumber(int number, Dictionary<int, string> map)
-        {
-            // Prüfen, ob der int-Wert im Dictionary existiert
-            if (map.TryGetValue(number, out string value))
-            {
-                return value; // Gibt den zugeordneten String zurück
-            }
-            else
-            {
-                return "Kein zugeordneter String"; // Standardmeldung oder Standardwert
-            }
-        }
-
         private string formatByteSize(double len)
         {
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -638,57 +418,6 @@ namespace TuyaMCUAnalyzer
             {
                 MessageBox.Show("No examples found? Get sample captures from Github!");
             }
-        }
-
-        private bool parseTuyaColor(string s, out Color c)
-        {
-            try
-            {
-                if (s.Length == 12)
-                {
-                    string[] substrings = new string[3];
-                    for (int i = 0; i < 3; i++)
-                    {
-                        substrings[i] = s.Substring(i * 4, 4);
-                    }
-                    int hue = int.Parse(substrings[0], System.Globalization.NumberStyles.HexNumber);
-                    int sat1000 = int.Parse(substrings[1], System.Globalization.NumberStyles.HexNumber);
-                    int val1000 = int.Parse(substrings[2], System.Globalization.NumberStyles.HexNumber);
-                    c = HsvToRgb(hue, sat1000 * 0.001, val1000 * 0.001);
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                // TODO: show
-            }
-            c = Color.Black;
-            return false;
-        }
-
-        private static Color HsvToRgb(double hue, double saturation, double value)
-        {
-            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
-            double f = hue / 60 - Math.Floor(hue / 60);
-
-            value = value * 255;
-            int v = Convert.ToInt32(value);
-            int p = Convert.ToInt32(value * (1 - saturation));
-            int q = Convert.ToInt32(value * (1 - f * saturation));
-            int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
-
-            if (hi == 0)
-                return Color.FromArgb(255, v, t, p);
-            else if (hi == 1)
-                return Color.FromArgb(255, q, v, p);
-            else if (hi == 2)
-                return Color.FromArgb(255, p, v, t);
-            else if (hi == 3)
-                return Color.FromArgb(255, p, q, v);
-            else if (hi == 4)
-                return Color.FromArgb(255, t, p, v);
-            else
-                return Color.FromArgb(255, v, p, q);
         }
 
         // Method to export ListView data to CSV format
@@ -923,7 +652,10 @@ namespace TuyaMCUAnalyzer
         //
         private void Form1_Load(object sender, EventArgs e)
         {
-            DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
+            //DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
+            ButtonDecode.Enabled=false;
+            examplesToolStripMenuItem.Enabled=false;
+            fileToolStripMenuItem.Enabled=false;    
             dataGridViewDecoded.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewDecoded.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
             dataGridViewDecoded.Update();
@@ -1117,22 +849,45 @@ namespace TuyaMCUAnalyzer
             {
                 //Get the path of specified file
                 string filePath = openFileDialog.FileName;
-
-                if (Load_DP_XML.BackColor == Color.Green)
-                {
-                    cmdDecoder = null;
-                    Load_DP_XML.BackColor = Color.OrangeRed;
-                }
-                else
+                try
                 {
                     (List<DatapointSpec> datapointSpecs, Dictionary<string, DatapointDecoder.EnumSpec> enumSpecs, string name) = DatapointDecoder.SpecificationReader.ReadSpecification(filePath);
                     dpDecoder = new DatapointDecoder.MessageDecoder(datapointSpecs, enumSpecs);
+
                     if (dpDecoder != null)
                     {
                         Load_DP_XML.BackColor = Color.Green;
                         label_dp_decoder.Text = name;
+                        // Both engines has to be loaded
+                        if (cmdDecoder != null)
+                        {
+                            ButtonDecode.Enabled = true;
+                            examplesToolStripMenuItem.Enabled = true;
+                            fileToolStripMenuItem.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        dpDecoder = null;
+                        Load_DP_XML.BackColor = Color.OrangeRed;
+                        // Both engines has to be loaded
+                        ButtonDecode.Enabled = false;
+                        examplesToolStripMenuItem.Enabled = false;
+                        fileToolStripMenuItem.Enabled = false;
                     }
                 }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            else
+            {
+                Load_DP_XML.BackColor = Color.OrangeRed;
+                // Both engines has to be loaded
+                ButtonDecode.Enabled = false;
+                examplesToolStripMenuItem.Enabled = false;
+                fileToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -1145,28 +900,50 @@ namespace TuyaMCUAnalyzer
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
-
+            //Get the path of specified file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Get the path of specified file
                 string filePath = openFileDialog.FileName;
+                try
+                {
+                    (List<CommandSpec> commandSpecs, Dictionary<string, CommandDecoder.EnumSpec> enumSpecs, string name) = CommandDecoder.SpecificationReader.ReadSpecification(filePath);
+                    cmdDecoder = new CommandDecoder.MessageDecoder(commandSpecs, enumSpecs);
 
-                if (Load_CMD_XML.BackColor == Color.Green)
-                {
-                    cmdDecoder = null;
-                    Load_CMD_XML.BackColor = Color.OrangeRed;
-                }
-                else
-                {
-                    (List<CommandSpec> cmdSpecs, Dictionary<string, CommandDecoder.EnumSpec> enumSpecs, string name) = CommandDecoder.SpecificationReader.ReadSpecification(filePath);
-                    cmdDecoder = new CommandDecoder.MessageDecoder(cmdSpecs, enumSpecs);
                     if (cmdDecoder != null)
                     {
                         Load_CMD_XML.BackColor = Color.Green;
                         label_cmd_decoder.Text = name;
+                        // Both engines has to be loaded
+                        if (dpDecoder != null)
+                        {
+                            ButtonDecode.Enabled = true;
+                            examplesToolStripMenuItem.Enabled = true;
+                            fileToolStripMenuItem.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        cmdDecoder = null;
+                        Load_CMD_XML.BackColor = Color.OrangeRed;
+                        // Both engines has to be loaded
+                        ButtonDecode.Enabled = false;
+                        examplesToolStripMenuItem.Enabled = false;
+                        fileToolStripMenuItem.Enabled = false;
                     }
                 }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+            else
+            {
+                Load_CMD_XML.BackColor = Color.OrangeRed;
+                // Both engines has to be loaded
+                ButtonDecode.Enabled = false;
+                examplesToolStripMenuItem.Enabled = false;
+                fileToolStripMenuItem.Enabled = false;
+            } 
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -1175,7 +952,6 @@ namespace TuyaMCUAnalyzer
             portRX?.runFrame();
             portTX?.runFrame();
         }
-
     }
 }
 

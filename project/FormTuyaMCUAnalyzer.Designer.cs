@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
             label1 = new System.Windows.Forms.Label();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -50,10 +50,23 @@
             Load_CMD_XML = new System.Windows.Forms.Button();
             Load_DP_XML = new System.Windows.Forms.Button();
             textBox_decode = new System.Windows.Forms.TextBox();
-            cb_decode = new System.Windows.Forms.Button();
+            ButtonDecode = new System.Windows.Forms.Button();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             richTextBoxSrc = new System.Windows.Forms.RichTextBox();
             dataGridViewDecoded = new System.Windows.Forms.DataGridView();
+            DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCCmdData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCCMDInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDPData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCDPInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             checkBoxHideDate = new System.Windows.Forms.CheckBox();
             buttonCopyRawToClipboard = new System.Windows.Forms.Button();
             buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
@@ -87,19 +100,6 @@
             richTextBoxComparer = new System.Windows.Forms.RichTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            DGCDirection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCCommand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCLenght = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCCmdData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCCMDInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCDPid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCDataLen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCDPData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCDPInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            DGCChecksum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             menuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -227,7 +227,7 @@
             tabPage1.Controls.Add(Load_CMD_XML);
             tabPage1.Controls.Add(Load_DP_XML);
             tabPage1.Controls.Add(textBox_decode);
-            tabPage1.Controls.Add(cb_decode);
+            tabPage1.Controls.Add(ButtonDecode);
             tabPage1.Controls.Add(splitContainer1);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(checkBoxHideDate);
@@ -297,15 +297,15 @@
             textBox_decode.Size = new System.Drawing.Size(1041, 26);
             textBox_decode.TabIndex = 22;
             // 
-            // cb_decode
+            // ButtonDecode
             // 
-            cb_decode.Location = new System.Drawing.Point(927, 13);
-            cb_decode.Name = "cb_decode";
-            cb_decode.Size = new System.Drawing.Size(124, 40);
-            cb_decode.TabIndex = 21;
-            cb_decode.Text = "Decode";
-            cb_decode.UseVisualStyleBackColor = true;
-            cb_decode.Click += ButtonDecode_Click;
+            ButtonDecode.Location = new System.Drawing.Point(927, 13);
+            ButtonDecode.Name = "ButtonDecode";
+            ButtonDecode.Size = new System.Drawing.Size(124, 40);
+            ButtonDecode.TabIndex = 21;
+            ButtonDecode.Text = "Decode";
+            ButtonDecode.UseVisualStyleBackColor = true;
+            ButtonDecode.Click += ButtonDecode_Click;
             // 
             // splitContainer1
             // 
@@ -347,22 +347,142 @@
             dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { DGCDirection, DGCHeader, DGCVersion, DGCCommand, DGCLenght, DGCCmdData, DGCCMDInfo, DGCDPid, DGCType, DGCDataLen, DGCDPData, DGCDPInfo, DGCChecksum });
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewDecoded.Location = new System.Drawing.Point(-3, 8);
             dataGridViewDecoded.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             dataGridViewDecoded.Name = "dataGridViewDecoded";
             dataGridViewDecoded.RowHeadersVisible = false;
             dataGridViewDecoded.RowHeadersWidth = 62;
             dataGridViewDecoded.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewDecoded.Size = new System.Drawing.Size(1701, 502);
+            dataGridViewDecoded.Size = new System.Drawing.Size(1701, 499);
             dataGridViewDecoded.TabIndex = 23;
+            // 
+            // DGCDirection
+            // 
+            DGCDirection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDirection.FillWeight = 279.1878F;
+            DGCDirection.HeaderText = "Direction";
+            DGCDirection.MinimumWidth = 8;
+            DGCDirection.Name = "DGCDirection";
+            DGCDirection.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCDirection.Width = 60;
+            // 
+            // DGCHeader
+            // 
+            DGCHeader.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCHeader.FillWeight = 82.08122F;
+            DGCHeader.HeaderText = "Header";
+            DGCHeader.MinimumWidth = 8;
+            DGCHeader.Name = "DGCHeader";
+            DGCHeader.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCHeader.Width = 60;
+            // 
+            // DGCVersion
+            // 
+            DGCVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCVersion.FillWeight = 82.08122F;
+            DGCVersion.HeaderText = "Version";
+            DGCVersion.MinimumWidth = 8;
+            DGCVersion.Name = "DGCVersion";
+            DGCVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCVersion.Width = 80;
+            // 
+            // DGCCommand
+            // 
+            DGCCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCCommand.FillWeight = 82.08122F;
+            DGCCommand.HeaderText = "Command";
+            DGCCommand.MinimumWidth = 8;
+            DGCCommand.Name = "DGCCommand";
+            DGCCommand.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCCommand.Width = 60;
+            // 
+            // DGCLenght
+            // 
+            DGCLenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCLenght.FillWeight = 82.08122F;
+            DGCLenght.HeaderText = "Length";
+            DGCLenght.MinimumWidth = 8;
+            DGCLenght.Name = "DGCLenght";
+            DGCLenght.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCLenght.Width = 60;
+            // 
+            // DGCCmdData
+            // 
+            DGCCmdData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCCmdData.HeaderText = "CmdData";
+            DGCCmdData.MinimumWidth = 8;
+            DGCCmdData.Name = "DGCCmdData";
+            // 
+            // DGCCMDInfo
+            // 
+            DGCCMDInfo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCCMDInfo.FillWeight = 82.08122F;
+            DGCCMDInfo.HeaderText = "CMD Info";
+            DGCCMDInfo.MinimumWidth = 8;
+            DGCCMDInfo.Name = "DGCCMDInfo";
+            // 
+            // DGCDPid
+            // 
+            DGCDPid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDPid.FillWeight = 82.08122F;
+            DGCDPid.HeaderText = "DPid";
+            DGCDPid.MinimumWidth = 8;
+            DGCDPid.Name = "DGCDPid";
+            DGCDPid.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCDPid.Width = 60;
+            // 
+            // DGCType
+            // 
+            DGCType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCType.FillWeight = 82.08122F;
+            DGCType.HeaderText = "DPType";
+            DGCType.MinimumWidth = 8;
+            DGCType.Name = "DGCType";
+            DGCType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCType.Width = 60;
+            // 
+            // DGCDataLen
+            // 
+            DGCDataLen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCDataLen.FillWeight = 82.08122F;
+            DGCDataLen.HeaderText = "DPDataLen";
+            DGCDataLen.MinimumWidth = 8;
+            DGCDataLen.Name = "DGCDataLen";
+            DGCDataLen.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCDataLen.Width = 60;
+            // 
+            // DGCDPData
+            // 
+            DGCDPData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCDPData.HeaderText = "DPData";
+            DGCDPData.MinimumWidth = 8;
+            DGCDPData.Name = "DGCDPData";
+            // 
+            // DGCDPInfo
+            // 
+            DGCDPInfo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            DGCDPInfo.FillWeight = 82.08122F;
+            DGCDPInfo.HeaderText = "DP Info";
+            DGCDPInfo.MinimumWidth = 8;
+            DGCDPInfo.Name = "DGCDPInfo";
+            // 
+            // DGCChecksum
+            // 
+            DGCChecksum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            DGCChecksum.FillWeight = 82.08122F;
+            DGCChecksum.HeaderText = "Checksum";
+            DGCChecksum.MinimumWidth = 8;
+            DGCChecksum.Name = "DGCChecksum";
+            DGCChecksum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            DGCChecksum.Width = 80;
             // 
             // checkBoxHideDate
             // 
@@ -667,7 +787,7 @@
             tabPage2.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(4, 7, 4, 7);
-            tabPage2.Size = new System.Drawing.Size(2332, 1240);
+            tabPage2.Size = new System.Drawing.Size(2332, 1247);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Compare tool";
             tabPage2.UseVisualStyleBackColor = true;
@@ -685,7 +805,7 @@
             // richTextBoxComparer
             // 
             richTextBoxComparer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            richTextBoxComparer.Location = new System.Drawing.Point(4, -128);
+            richTextBoxComparer.Location = new System.Drawing.Point(4, -121);
             richTextBoxComparer.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             richTextBoxComparer.Name = "richTextBoxComparer";
             richTextBoxComparer.Size = new System.Drawing.Size(2324, 1361);
@@ -702,126 +822,6 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // DGCDirection
-            // 
-            DGCDirection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCDirection.FillWeight = 279.1878F;
-            DGCDirection.HeaderText = "Direction";
-            DGCDirection.MinimumWidth = 8;
-            DGCDirection.Name = "DGCDirection";
-            DGCDirection.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCDirection.Width = 60;
-            // 
-            // DGCHeader
-            // 
-            DGCHeader.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCHeader.FillWeight = 82.08122F;
-            DGCHeader.HeaderText = "Header";
-            DGCHeader.MinimumWidth = 8;
-            DGCHeader.Name = "DGCHeader";
-            DGCHeader.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCHeader.Width = 60;
-            // 
-            // DGCVersion
-            // 
-            DGCVersion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCVersion.FillWeight = 82.08122F;
-            DGCVersion.HeaderText = "Version";
-            DGCVersion.MinimumWidth = 8;
-            DGCVersion.Name = "DGCVersion";
-            DGCVersion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCVersion.Width = 80;
-            // 
-            // DGCCommand
-            // 
-            DGCCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCCommand.FillWeight = 82.08122F;
-            DGCCommand.HeaderText = "Command";
-            DGCCommand.MinimumWidth = 8;
-            DGCCommand.Name = "DGCCommand";
-            DGCCommand.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCCommand.Width = 60;
-            // 
-            // DGCLenght
-            // 
-            DGCLenght.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCLenght.FillWeight = 82.08122F;
-            DGCLenght.HeaderText = "Length";
-            DGCLenght.MinimumWidth = 8;
-            DGCLenght.Name = "DGCLenght";
-            DGCLenght.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCLenght.Width = 60;
-            // 
-            // DGCCmdData
-            // 
-            DGCCmdData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            DGCCmdData.HeaderText = "CmdData";
-            DGCCmdData.MinimumWidth = 8;
-            DGCCmdData.Name = "DGCCmdData";
-            // 
-            // DGCCMDInfo
-            // 
-            DGCCMDInfo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            DGCCMDInfo.FillWeight = 82.08122F;
-            DGCCMDInfo.HeaderText = "CMD Info";
-            DGCCMDInfo.MinimumWidth = 8;
-            DGCCMDInfo.Name = "DGCCMDInfo";
-            // 
-            // DGCDPid
-            // 
-            DGCDPid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCDPid.FillWeight = 82.08122F;
-            DGCDPid.HeaderText = "DPid";
-            DGCDPid.MinimumWidth = 8;
-            DGCDPid.Name = "DGCDPid";
-            DGCDPid.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCDPid.Width = 60;
-            // 
-            // DGCType
-            // 
-            DGCType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCType.FillWeight = 82.08122F;
-            DGCType.HeaderText = "DPType";
-            DGCType.MinimumWidth = 8;
-            DGCType.Name = "DGCType";
-            DGCType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCType.Width = 60;
-            // 
-            // DGCDataLen
-            // 
-            DGCDataLen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCDataLen.FillWeight = 82.08122F;
-            DGCDataLen.HeaderText = "DPDataLen";
-            DGCDataLen.MinimumWidth = 8;
-            DGCDataLen.Name = "DGCDataLen";
-            DGCDataLen.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCDataLen.Width = 60;
-            // 
-            // DGCDPData
-            // 
-            DGCDPData.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            DGCDPData.HeaderText = "DPData";
-            DGCDPData.MinimumWidth = 8;
-            DGCDPData.Name = "DGCDPData";
-            // 
-            // DGCDPInfo
-            // 
-            DGCDPInfo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            DGCDPInfo.FillWeight = 82.08122F;
-            DGCDPInfo.HeaderText = "DP Info";
-            DGCDPInfo.MinimumWidth = 8;
-            DGCDPInfo.Name = "DGCDPInfo";
-            // 
-            // DGCChecksum
-            // 
-            DGCChecksum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            DGCChecksum.FillWeight = 82.08122F;
-            DGCChecksum.HeaderText = "Checksum";
-            DGCChecksum.MinimumWidth = 8;
-            DGCChecksum.Name = "DGCChecksum";
-            DGCChecksum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            DGCChecksum.Width = 80;
             // 
             // FormTuyaMCUAnalyzer
             // 
@@ -907,7 +907,7 @@
         private System.Windows.Forms.ColumnHeader type;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Button cb_decode;
+        private System.Windows.Forms.Button ButtonDecode;
         private System.Windows.Forms.TextBox textBox_decode;
         private System.Windows.Forms.DataGridView dataGridViewDecoded;
         private System.Windows.Forms.Button Load_DP_XML;
