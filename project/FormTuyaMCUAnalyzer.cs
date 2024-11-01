@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Microsoft.VisualBasic;
 using System.Security.Policy;
+using System.Collections;
 
 namespace TuyaMCUAnalyzer
 {
@@ -141,12 +142,11 @@ namespace TuyaMCUAnalyzer
             string messageString = string.Join("", p.Skip(2).Select(b => b.ToString("X2")));
             string contentString = "";
             Dictionary<string, Object> decodedMessage = [];
-            // cmd decoder engine loaded
+
             byte ver = p[2];
             byte cmd = p[3];
             byte lenA = p[4];
             byte lenB = p[5];
-            string s = "";
             int baseOfs = 6;
             int bDateValid = p[baseOfs + 0]; // bDateValid
 
@@ -179,6 +179,7 @@ namespace TuyaMCUAnalyzer
                 DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = dp_value[4..8];
                 DGPrintLineHex.Cells[(int)cellNames.DPData].Value = dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16));
 
+                tracker.addValueStr(Convert.ToInt16(dp_value[0..2], 16), TuyaType.Val, dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16)), vars);
                 try
                 {
                     var dp_decodedMessage = dpDecoder.Decode(dp_value);
@@ -790,6 +791,7 @@ namespace TuyaMCUAnalyzer
                 portTX.totalBytesReceived = 0;
             }
             vars.Clear();
+            listViewAvailableIDs.Items.Clear();
         }
 
         private void buttonCopyDecodedToClipboard_Click(object sender, EventArgs e)
@@ -956,6 +958,52 @@ namespace TuyaMCUAnalyzer
         private void FormTuyaMCUAnalyzer_FormClosing(object sender, FormClosingEventArgs e)
         {
             checkBoxRealtimeDual.Checked = false;
+        }
+
+        private class ListViewItemComparer : IComparer
+        {
+            public int Column { get; set; }
+            public SortOrder Order { get; set; }
+
+            public ListViewItemComparer(int column, SortOrder order)
+            {
+                Column = column;
+                Order = order;
+            }
+
+            public int Compare(object x, object y)
+            {
+                ListViewItem itemX = x as ListViewItem;
+                ListViewItem itemY = y as ListViewItem;
+
+                int result;
+
+                // Prüfen, ob die Spaltenwerte numerisch sind
+                if (int.TryParse(itemX.SubItems[Column].Text, out int valX) &&
+                    int.TryParse(itemY.SubItems[Column].Text, out int valY))
+                {
+                    result = valX.CompareTo(valY); // Numerische Sortierung
+                }
+                else
+                {
+                    result = string.Compare(itemX.SubItems[Column].Text, itemY.SubItems[Column].Text); // Textuelle Sortierung
+                }
+
+                return Order == SortOrder.Ascending ? result : -result;
+            }
+        }
+        private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (listViewAvailableIDs.ListViewItemSorter is ListViewItemComparer sorter && sorter.Column == e.Column)
+            {
+                sorter.Order = sorter.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+            }
+            else
+            {
+                listViewAvailableIDs.ListViewItemSorter = new ListViewItemComparer(e.Column, SortOrder.Ascending);
+            }
+
+            listViewAvailableIDs.Sort();
         }
     }
 }

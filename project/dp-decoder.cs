@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualBasic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DatapointDecoder
 {
@@ -27,6 +29,7 @@ namespace DatapointDecoder
             }
 
             var spec = gotvalue;
+
             result["DatapointName"] = spec.Name;
 
             foreach (var specItem in spec.Items)

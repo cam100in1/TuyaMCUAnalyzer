@@ -754,10 +754,11 @@
             listViewAvailableIDs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             listViewAvailableIDs.Name = "listViewAvailableIDs";
             listViewAvailableIDs.Size = new System.Drawing.Size(396, 340);
-            listViewAvailableIDs.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            listViewAvailableIDs.Sorting = System.Windows.Forms.SortOrder.Descending;
             listViewAvailableIDs.TabIndex = 2;
             listViewAvailableIDs.UseCompatibleStateImageBehavior = false;
             listViewAvailableIDs.View = System.Windows.Forms.View.Details;
+            listViewAvailableIDs.ColumnClick += ListView_ColumnClick;
             // 
             // id
             // 
