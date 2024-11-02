@@ -71,7 +71,6 @@
             buttonCopyRawToClipboard = new System.Windows.Forms.Button();
             buttonCopyDecodedToClipboard = new System.Windows.Forms.Button();
             checkBoxHideWiFiState = new System.Windows.Forms.CheckBox();
-            checkBoxDecodeColors = new System.Windows.Forms.CheckBox();
             checkBoxHIdeHeartbeat = new System.Windows.Forms.CheckBox();
             checkBoxStrTypeAsBytes = new System.Windows.Forms.CheckBox();
             buttonClear = new System.Windows.Forms.Button();
@@ -231,7 +230,6 @@
             tabPage1.Controls.Add(buttonCopyRawToClipboard);
             tabPage1.Controls.Add(buttonCopyDecodedToClipboard);
             tabPage1.Controls.Add(checkBoxHideWiFiState);
-            tabPage1.Controls.Add(checkBoxDecodeColors);
             tabPage1.Controls.Add(checkBoxHIdeHeartbeat);
             tabPage1.Controls.Add(checkBoxStrTypeAsBytes);
             tabPage1.Controls.Add(buttonClear);
@@ -532,20 +530,6 @@
             checkBoxHideWiFiState.Text = "Hide Net state";
             checkBoxHideWiFiState.UseVisualStyleBackColor = true;
             checkBoxHideWiFiState.CheckedChanged += checkBoxHideWiFiState_CheckedChanged;
-            // 
-            // checkBoxDecodeColors
-            // 
-            checkBoxDecodeColors.AutoSize = true;
-            checkBoxDecodeColors.Checked = true;
-            checkBoxDecodeColors.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkBoxDecodeColors.Location = new System.Drawing.Point(495, 11);
-            checkBoxDecodeColors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            checkBoxDecodeColors.Name = "checkBoxDecodeColors";
-            checkBoxDecodeColors.Size = new System.Drawing.Size(131, 19);
-            checkBoxDecodeColors.TabIndex = 14;
-            checkBoxDecodeColors.Text = "Decode Tuya Colors";
-            checkBoxDecodeColors.UseVisualStyleBackColor = true;
-            checkBoxDecodeColors.CheckedChanged += checkBoxDecodeColors_CheckedChanged;
             // 
             // checkBoxHIdeHeartbeat
             // 
@@ -881,7 +865,6 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.CheckBox checkBoxStrTypeAsBytes;
         private System.Windows.Forms.CheckBox checkBoxHIdeHeartbeat;
-        private System.Windows.Forms.CheckBox checkBoxDecodeColors;
         private System.Windows.Forms.CheckBox checkBoxHideWiFiState;
         private System.Windows.Forms.Button buttonCopyRawToClipboard;
         private System.Windows.Forms.Button buttonCopyDecodedToClipboard;

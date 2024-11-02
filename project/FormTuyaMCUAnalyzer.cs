@@ -473,9 +473,11 @@ namespace TuyaMCUAnalyzer
 
         private void SplitAndProcessString(string inputString, string marker, string origin)
         {
+            string prepare4analyse = inputString.Replace(" ", string.Empty);
+            prepare4analyse = prepare4analyse.ToUpper();
             // Use a regex to find all matches of the pattern including the marker
-            string pattern = $"({Regex.Escape(marker)}.*?)(?={marker}|$)"; // Match marker and following content
-            MatchCollection matches = Regex.Matches(inputString, pattern);
+            string pattern = $"({Regex.Escape(marker)}.*?)(?=\r?\n|$)";
+            MatchCollection matches = Regex.Matches(prepare4analyse, pattern);
 
             // Process each match
             foreach (Match match in matches)
@@ -504,9 +506,13 @@ namespace TuyaMCUAnalyzer
             {
                 LoadFileBinary(fname);
             }
-            else
+            else if (ext == ".txt")
             {
                 LoadFileText(fname);
+            }
+            else
+            {
+                MessageBox.Show("Wrong  file type ----");
             }
         }
 
@@ -732,7 +738,7 @@ namespace TuyaMCUAnalyzer
         private void openTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text files (*.txt)|*.bin|All files (*.*)|*.*";
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = openFileDialog.FileName;
@@ -761,11 +767,6 @@ namespace TuyaMCUAnalyzer
         }
 
         private void checkBoxHIdeHeartbeat_CheckedChanged(object sender, EventArgs e)
-        {
-            refresh();
-        }
-
-        private void checkBoxDecodeColors_CheckedChanged(object sender, EventArgs e)
         {
             refresh();
         }
@@ -819,8 +820,7 @@ namespace TuyaMCUAnalyzer
 
         private void ButtonDecode_Click(object sender, EventArgs e)
         {
-            string entry = textBox_decode.Text.ToUpper();
-            SplitAndProcessString(entry.Replace(" ", string.Empty), "55AA", "Decode entry");
+            SplitAndProcessString(textBox_decode.Text, "55AA", "Decode entry");
         }
 
         private void Load_DP_XML_Click(object sender, EventArgs e)
