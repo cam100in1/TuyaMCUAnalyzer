@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Ports;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace TuyaMCUAnalyzer
@@ -21,7 +23,7 @@ namespace TuyaMCUAnalyzer
         //Task task;
         CancellationTokenSource cts = new CancellationTokenSource();
 
-        byte[] tmpBytes = new byte[2048];
+        byte[] tmpBytes = new byte[8192];
         ByteRingBuffer incoming = new ByteRingBuffer();
         public delegate void PacketHandlerDelegate(byte[] data);
         PacketHandlerDelegate receiveCallback;
@@ -49,8 +51,6 @@ namespace TuyaMCUAnalyzer
 
         }
 
-
-
         public void refreshStats()
         {
             int s = incoming.getSize();
@@ -77,21 +77,38 @@ namespace TuyaMCUAnalyzer
         }
         void processIncoming()
         {
+            // wait for header at least
             if (incoming.getSize() < 6)
             {
                 return;
             }
+            // read header
+            byte[] dat = [];
             byte a = incoming.getByte(0);
             byte b = incoming.getByte(1);
             byte v = incoming.getByte(2);
             byte cmd = incoming.getByte(3);
-            short len = incoming.getShort(4);
+            ushort len = incoming.getShort(4);
+            // Message identifier check ( 0x55 0xAA )
             if (a == 0x55 && b == 0xaa)
             {
-                int totalLen = 6 + len + 1;
+                // Message complete ?? 6 = identifier len = message len from header + checksum
+                // int totalLen = 6 + len + 1;
+                uint totalLen = 6u + len + 1u ;
+                // if len miss match detected
                 if (totalLen > incoming.getSize())
                     return;
-                byte[] dat = incoming.getDataFromTo(0, totalLen);
+                // read complete message
+                try
+                {
+                    dat = incoming.getDataFromTo(0, totalLen);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("EX in processIncomming" + ex.Message);
+                    return;
+                }
+
                 addReceived(dat);
                 incoming.consumeBytes(totalLen);
                 refreshStats();

@@ -310,10 +310,10 @@ namespace TuyaMCUAnalyzer
                         continue;
                     }
                 }
+                DGPrintLineHex = new DataGridViewRow();
+                DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
                 if (comment.Length > 0)
                 {
-                    DGPrintLineHex = new DataGridViewRow();
-                    DGPrintLineHex.CreateCells(dataGridViewDecoded, "", "", "", "", "", "", "", "", "", "", "");
                     DGPrintLineHex.Cells[(int)cellNames.Direction].Value = comment;
                     if (comment == "IN")
                     {

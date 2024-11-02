@@ -8,15 +8,15 @@ namespace TuyaMCUAnalyzer
 
     public class ByteRingBuffer
     {
-        public byte[] data = new byte[1024];
+        public byte[] data = new byte[8192];
         public byte[] tmp = new byte[2];
-        public int ofsIn, ofsOut;
+        public uint ofsIn, ofsOut;
 
         public void addData(byte b)
         {
             data[ofsIn] = b;
             ofsIn++;
-            ofsIn %= data.Length;
+            ofsIn %= (uint)data.Length;
         }
         public void addData(byte[] inData, int len)
         {
@@ -25,15 +25,15 @@ namespace TuyaMCUAnalyzer
                 addData(inData[i]);
             }
         }
-        public void consumeBytes(int i)
+        public void consumeBytes(uint i)
         {
             ofsOut += i;
-            ofsOut %= data.Length;
+            ofsOut %= (uint)data.Length;
         }
 
-        public static void doTestFor(ByteRingBuffer b, int cnt)
+        public static void doTestFor(ByteRingBuffer b, uint cnt)
         {
-            for (byte i = 0; i < cnt; i++)
+            for (uint i = 0; i < cnt; i++)
             {
                 b.addData((byte)(i % 255));
             }
@@ -76,33 +76,33 @@ namespace TuyaMCUAnalyzer
 
             if (ofsIn >= ofsOut)
             {
-                remain_buf_size = ofsIn - ofsOut;
+                remain_buf_size = (int)ofsIn - (int)ofsOut;
             }
             else
             {
-                remain_buf_size = ofsIn + data.Length - ofsOut;
+                remain_buf_size = (int)ofsIn + (int)data.Length - (int)ofsOut;
             }
 
             return remain_buf_size;
         }
-        public byte getByte(int ofs)
+        public byte getByte(uint ofs)
         {
-            int idx = (ofsOut + ofs) % data.Length;
+            int idx = ((int)ofsOut + (int)ofs) % data.Length;
             return data[idx];
         }
 
-        public short getShort(int ofs)
+        public ushort getShort(uint ofs)
         {
             tmp[0] = getByte(ofs + 1);
             tmp[1] = getByte(ofs);
-            short value = BitConverter.ToInt16(tmp, 0);
+            ushort value = BitConverter.ToUInt16(tmp, 0);
             return value;
         }
 
-        public byte[] getDataFromTo(int start, int len)
+        public byte[] getDataFromTo(uint start, uint len)
         {
             byte[] ret = new byte[len];
-            for (int i = 0; i < len; i++)
+            for (uint i = 0; i < len; i++)
             {
                 ret[i] = getByte(start + i);
             }
@@ -110,9 +110,9 @@ namespace TuyaMCUAnalyzer
         }
         public static string getHexString(byte[] data)
         {
-            return getHexString(data, 0, data.Length);
+            return getHexString(data, 0, (uint)data.Length);
         }
-        public static string getHexString(byte[] data, int start, int len)
+        public static string getHexString(byte[] data, uint start, uint len)
         {
             string s = "";
             for (int i = 0; i < len; i++)

@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DatapointDecoder
 {
@@ -16,7 +18,6 @@ namespace DatapointDecoder
 
         private readonly Dictionary<string, DatapointSpec> _specs = datapointSpecs.ToDictionary(dp => dp.Id);
         private readonly Dictionary<string, EnumSpec> _enums = enumSpecs;
-
 
         public Dictionary<string, object> Decode(string input)
         {
@@ -86,13 +87,43 @@ namespace DatapointDecoder
 
         private object DecodeValue(string valueStr, SpecItem specItem)
         {
-
             object value = "";
 
             switch (specItem.Type)
             {
+                case "br-mode":
+                    uint ModeValue = Convert.ToUInt16(valueStr, 16);
+                    if (ModeValue == 0x00)
+                    {
+                        value = "Full range gradient";
+                    }
+                    else
+                    {
+                        value = "Gradient is: " + ModeValue.ToString() + " minutes";
+                    }
+                    break;
+                case "vt-channel-status":
+                    uint StatusWord = Convert.ToUInt16(valueStr, 16);
+                    string channelID = (StatusWord >> 1).ToString();
+                    if((StatusWord & 0x01u) == 0x01u)
+                    
+                    {
+                        value = " Node " + channelID + " is enabled";
+                    }
+                    else
+                    {
+                        value = " Node " + channelID + " is disabled";
+                    }
+
+                    break;
                 case "5minutes":
                     value = Convert.ToInt16(valueStr, 16) * 5 + " minutes";
+                    break;
+                case "TimeInMin":
+                    uint TimeInMin = Convert.ToUInt16(valueStr, 16);
+                    uint Hour = TimeInMin / 60u;
+                    uint Minutes = TimeInMin - (Hour * 60u);
+                    value = Hour.ToString("D2") + ":" + Minutes.ToString("D2");
                     break;
                 case "string":
                     StringBuilder ascii = new StringBuilder();
