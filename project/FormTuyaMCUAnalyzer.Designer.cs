@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTuyaMCUAnalyzer));
             label1 = new System.Windows.Forms.Label();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -198,7 +198,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(15, 725);
+            label3.Location = new System.Drawing.Point(15, 719);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(273, 15);
             label3.TabIndex = 6;
@@ -247,7 +247,7 @@
             // label_dp_decoder
             // 
             label_dp_decoder.AutoSize = true;
-            label_dp_decoder.Location = new System.Drawing.Point(946, 41);
+            label_dp_decoder.Location = new System.Drawing.Point(1103, 42);
             label_dp_decoder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label_dp_decoder.Name = "label_dp_decoder";
             label_dp_decoder.Size = new System.Drawing.Size(57, 15);
@@ -257,7 +257,7 @@
             // label_cmd_decoder
             // 
             label_cmd_decoder.AutoSize = true;
-            label_cmd_decoder.Location = new System.Drawing.Point(946, 13);
+            label_cmd_decoder.Location = new System.Drawing.Point(1103, 14);
             label_cmd_decoder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label_cmd_decoder.Name = "label_cmd_decoder";
             label_cmd_decoder.Size = new System.Drawing.Size(57, 15);
@@ -267,7 +267,7 @@
             // Load_CMD_XML
             // 
             Load_CMD_XML.BackColor = System.Drawing.Color.OrangeRed;
-            Load_CMD_XML.Location = new System.Drawing.Point(832, 7);
+            Load_CMD_XML.Location = new System.Drawing.Point(989, 8);
             Load_CMD_XML.Margin = new System.Windows.Forms.Padding(2);
             Load_CMD_XML.Name = "Load_CMD_XML";
             Load_CMD_XML.Size = new System.Drawing.Size(109, 26);
@@ -279,7 +279,7 @@
             // Load_DP_XML
             // 
             Load_DP_XML.BackColor = System.Drawing.Color.OrangeRed;
-            Load_DP_XML.Location = new System.Drawing.Point(832, 35);
+            Load_DP_XML.Location = new System.Drawing.Point(989, 36);
             Load_DP_XML.Margin = new System.Windows.Forms.Padding(2);
             Load_DP_XML.Name = "Load_DP_XML";
             Load_DP_XML.Size = new System.Drawing.Size(109, 26);
@@ -294,12 +294,12 @@
             textBox_decode.Location = new System.Drawing.Point(99, 41);
             textBox_decode.Margin = new System.Windows.Forms.Padding(2);
             textBox_decode.Name = "textBox_decode";
-            textBox_decode.Size = new System.Drawing.Size(730, 20);
+            textBox_decode.Size = new System.Drawing.Size(794, 20);
             textBox_decode.TabIndex = 22;
             // 
             // ButtonDecode
             // 
-            ButtonDecode.Location = new System.Drawing.Point(649, 8);
+            ButtonDecode.Location = new System.Drawing.Point(897, 37);
             ButtonDecode.Margin = new System.Windows.Forms.Padding(2);
             ButtonDecode.Name = "ButtonDecode";
             ButtonDecode.Size = new System.Drawing.Size(87, 24);
@@ -348,14 +348,14 @@
             dataGridViewDecoded.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             dataGridViewDecoded.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDecoded.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { DGCDirection, DGCHeader, DGCVersion, DGCCommand, DGCLenght, DGCCmdData, DGCCMDInfo, DGCDPid, DGCType, DGCDataLen, DGCDPData, DGCDPInfo, DGCChecksum });
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 8F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewDecoded.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewDecoded.Location = new System.Drawing.Point(-2, 5);
             dataGridViewDecoded.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             dataGridViewDecoded.Name = "dataGridViewDecoded";
@@ -499,7 +499,7 @@
             // 
             // buttonCopyRawToClipboard
             // 
-            buttonCopyRawToClipboard.Location = new System.Drawing.Point(1039, 7);
+            buttonCopyRawToClipboard.Location = new System.Drawing.Point(489, 6);
             buttonCopyRawToClipboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             buttonCopyRawToClipboard.Name = "buttonCopyRawToClipboard";
             buttonCopyRawToClipboard.Size = new System.Drawing.Size(142, 26);
@@ -510,12 +510,12 @@
             // 
             // buttonCopyDecodedToClipboard
             // 
-            buttonCopyDecodedToClipboard.Location = new System.Drawing.Point(1039, 38);
+            buttonCopyDecodedToClipboard.Location = new System.Drawing.Point(637, 6);
             buttonCopyDecodedToClipboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             buttonCopyDecodedToClipboard.Name = "buttonCopyDecodedToClipboard";
-            buttonCopyDecodedToClipboard.Size = new System.Drawing.Size(142, 26);
+            buttonCopyDecodedToClipboard.Size = new System.Drawing.Size(210, 26);
             buttonCopyDecodedToClipboard.TabIndex = 16;
-            buttonCopyDecodedToClipboard.Text = "Copy decoded to clipboard CSV";
+            buttonCopyDecodedToClipboard.Text = "Copy decoded to clipboard as CSV";
             buttonCopyDecodedToClipboard.UseVisualStyleBackColor = true;
             buttonCopyDecodedToClipboard.Click += buttonCopyDecodedToClipboard_Click;
             // 
@@ -557,7 +557,7 @@
             // 
             // buttonClear
             // 
-            buttonClear.Location = new System.Drawing.Point(741, 7);
+            buttonClear.Location = new System.Drawing.Point(897, 9);
             buttonClear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new System.Drawing.Size(87, 26);
