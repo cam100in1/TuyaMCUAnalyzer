@@ -24,8 +24,8 @@ namespace TuyaMCUAnalyzer
     {
         private bool refreshingComparer;
         private bool bUseVarsForVer0Cmd6InsteadOfDate = true;
-        private byte special_marker_recv = (byte)'r';
-        private byte special_marker_sent = (byte)'s';
+        private byte special_marker_recv = (byte)'R';
+        private byte special_marker_sent = (byte)'S';
         private int specialMarkerCount = 10;
         private string[] allPorts;
         private enum cellNames
@@ -209,9 +209,9 @@ namespace TuyaMCUAnalyzer
         //
         private void refresh()
         {
-            int cursorPosition = richTextBoxSrc.SelectionStart;
-            int currentLineIndex = richTextBoxSrc.GetLineFromCharIndex(cursorPosition);
             tracker = new IDsTracker();
+            // int cursorPosition = richTextBoxSrc.SelectionStart;
+            // int currentLineIndex = richTextBoxSrc.GetLineFromCharIndex(cursorPosition);
             string[] lines = richTextBoxSrc.Lines;
             string text = "";
             List<byte> r = new List<byte>();
@@ -221,9 +221,9 @@ namespace TuyaMCUAnalyzer
             string comment;
 
             // Fetch 2 Textlines from Dump window
-            if (lines.Length > 2)
+            if (lines.Length > 3)
             {
-                text = lines[currentLineIndex - 2] + '\n' + lines[currentLineIndex - 1];
+                text = lines[lines.Length - 3] + '\n' + lines[lines.Length - 2];
             }
             // Analyse text
             for (int i = 0; i < text.Length;)

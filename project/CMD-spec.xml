@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-supported Types:
-"raw":
-"boolean":
-"dow_bitfield":
-"value":
-"year":
-"int8":
-"int16":
-"int32":
-"bigEndian":
-"string":
-"enum": enumType=""
-"timeGMT":
-"bitmap":
+raw
+boolean
+dow_bitfield
+value
+year
+int8
+int16
+int32
+bigEndian
+string
+enum
+timeGMT
+bitmap
 -->
 
 <Specification>
