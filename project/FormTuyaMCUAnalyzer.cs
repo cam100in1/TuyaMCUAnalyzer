@@ -179,7 +179,11 @@ namespace TuyaMCUAnalyzer
                 DGPrintLineHex.Cells[(int)cellNames.DPDataLength].Value = dp_value[4..8];
                 DGPrintLineHex.Cells[(int)cellNames.DPData].Value = dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16));
 
-                tracker.addValueStr(Convert.ToInt16(dp_value[0..2], 16), TuyaType.Val, dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16)), vars);
+                tracker.addValueStr(Convert.ToInt16(dp_value[0..2], 16), 
+                                   (TuyaType)Convert.ToInt16(dp_value[2..4], 16), 
+                                   dp_value.Substring(8, 2 * Convert.ToInt16(dp_value[4..8], 16))
+                                   , vars);
+                tracker.display(listViewAvailableIDs, vars);
                 try
                 {
                     var dp_decodedMessage = dpDecoder.Decode(dp_value);
@@ -337,7 +341,6 @@ namespace TuyaMCUAnalyzer
 
                 dataGridViewDecoded.ResumeLayout(); // Anti flicker
             }
-            tracker.display(listViewAvailableIDs, vars);
         }
         //
         //

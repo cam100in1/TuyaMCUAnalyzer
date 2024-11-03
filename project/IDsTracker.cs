@@ -22,7 +22,7 @@ namespace TuyaMCUAnalyzer
 
         public void addValue(int i)
         {
-            if(intValues.IndexOf(i)==-1)
+            if(intValues.IndexOf(i) ==-1)
             {
                 intValues.Add(i);
             }
