@@ -24,8 +24,8 @@ namespace TuyaMCUAnalyzer
     {
         private bool refreshingComparer;
         private bool bUseVarsForVer0Cmd6InsteadOfDate = true;
-        private byte special_marker_recv = (byte)'R';
-        private byte special_marker_sent = (byte)'S';
+        private byte special_marker_recv = (byte)'r';
+        private byte special_marker_sent = (byte)'s';
         private int specialMarkerCount = 10;
         private string[] allPorts;
         private enum cellNames
